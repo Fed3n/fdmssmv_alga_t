@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class HeapLessonController implements Initializable{
+public class HeapLessonController implements Initializable{ 
 
     @FXML
     private TextArea lessonText;
@@ -37,7 +37,8 @@ public class HeapLessonController implements Initializable{
     @FXML
     private Button questionButton;
     
-    private	Integer textNumber;
+    private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
+    private final int MAX_LESSON_NUMBER = 3;
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	@Override
@@ -45,6 +46,7 @@ public class HeapLessonController implements Initializable{
 		this.textNumber = 1;
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
 		this.lessonText.setWrapText(true);
+		this.prevTextButton.setDisable(true);
 		try {
 			String text = new String(Files.readAllBytes(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt")));
 			this.lessonText.setText(text);
@@ -62,5 +64,44 @@ public class HeapLessonController implements Initializable{
     	window.setScene(mainMenuScene);
     	window.show();		
 	}
+	
+	//Ricarica la pagina usando i parametri di textNumber
+	public void reloadPage() {
+		if (this.textNumber == 1)
+			this.prevTextButton.setDisable(true);
+		else
+			this.prevTextButton.setDisable(false);
+		
+		if(this.textNumber == MAX_LESSON_NUMBER)
+			this.nextTextButton.setDisable(true);
+		else
+			this.nextTextButton.setDisable(false);
+		
+		//TODO Disabilitare simul in alcune istanze
+		
+		try {
+			String text = new String(Files.readAllBytes(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt")));
+			this.lessonText.setText(text);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void nextText() {
+		this.textNumber++;
+		this.reloadPage();
+	}
+	
+	public void prevText() {
+		this.textNumber--;
+		this.reloadPage();
+	}
+	
+	
+	
+	
+	
 
 }
