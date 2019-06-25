@@ -65,6 +65,16 @@ public class HeapLessonController implements Initializable{
     	window.show();		
 	}
 	
+	public void goToSimulation(ActionEvent simulPressed) throws IOException {
+		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("HeapSimul.fxml"));
+    	Scene heapSimulScene = new Scene(heapSimulParent);
+    	
+    	Stage window = (Stage)((Node)simulPressed.getSource()).getScene().getWindow();
+    	
+    	window.setScene(heapSimulScene);
+    	window.show();		
+	}
+	
 	//Ricarica la pagina usando i parametri di textNumber
 	public void reloadPage() {
 		if (this.textNumber == 1)
