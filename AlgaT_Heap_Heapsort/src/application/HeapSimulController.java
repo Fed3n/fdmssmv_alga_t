@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -51,6 +52,9 @@ public class HeapSimulController {
     @FXML
     private Button generateButton;
     
+    @FXML
+    private ChoiceBox<String> maxMinChoiceBox;
+    
     private final Integer MAX_VECTOR_SIZE = 15;
     
     private ArrayList<Integer> dataVector;
@@ -59,6 +63,8 @@ public class HeapSimulController {
 
 	public void initialize() {
 		this.dataVector = new ArrayList<Integer>();
+		this.maxMinChoiceBox.getItems().add("MaxHeap");
+		this.maxMinChoiceBox.getItems().add("MinHeap");
 	}
 	
 	public void drawVector() {
@@ -87,25 +93,42 @@ public class HeapSimulController {
 		
 	}
 	
+	//Aggiunge un elemento al vettore
 	public void addToVector() {
+		//Controlla che non vada oltre la dimensione massima
 		if (this.dataVector.size() < this.MAX_VECTOR_SIZE) {
 			
 			try {
-				Integer num = Integer.parseInt(this.inputArea.getText());
-				this.dataVector.add(num);
-				this.drawVector();
+				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
+				this.dataVector.add(num);									//Aggiunge al campo del vettore
+				this.drawVector();											//Aggiorna la grafica del vettore
 			} catch (NumberFormatException e) {
 				System.out.println("Please input a number");				
 			}
-			
+			this.inputArea.clear();			
 		}		
 	}
 	
+	public void removeFromVector() {
+		if (this.dataVector.size() > 0)
+			this.dataVector.remove(this.dataVector.size()-1);			//Rimuove ultimo elemento dal vettore
+			this.drawVector();
+	}
+	
 	public void generateHeap() {
-		MaxHeap buildHeap = new MaxHeap();
-		this.dataVector = buildHeap.maxHeapBuild(this.dataVector);
-		this.drawVector();
-		this.drawTree();		
+		if(this.maxMinChoiceBox.getValue() != null) {
+			if(this.maxMinChoiceBox.getValue() == "MaxHeap") {
+				MaxHeap buildHeap = new MaxHeap();
+				this.dataVector = buildHeap.maxHeapBuild(this.dataVector);
+			}
+			else {
+				MinHeap buildHeap = new MinHeap();
+				this.dataVector = buildHeap.minHeapBuild(this.dataVector);
+			}
+			
+			this.drawVector();
+			this.drawTree();	
+		}
 	}
 	
 	public void drawTree() {
