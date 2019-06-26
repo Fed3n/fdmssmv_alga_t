@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="application.HeapsortLessonController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="14.0" layoutY="143.0" prefHeight="260.0" prefWidth="570.0">
          <children>
             <TextArea fx:id="lessonText" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="440.0" />
-            <Button fx:id="prevTextButton" layoutX="14.0" layoutY="218.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="&lt;" />
-            <Button fx:id="nextTextButton" layoutX="424.0" layoutY="218.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="&gt;" />
+            <Button fx:id="prevTextButton" layoutX="14.0" layoutY="218.0" mnemonicParsing="false" onAction="#prevText" prefHeight="25.0" prefWidth="30.0" text="&lt;" />
+            <Button fx:id="nextTextButton" layoutX="424.0" layoutY="218.0" mnemonicParsing="false" onAction="#nextText" prefHeight="25.0" prefWidth="30.0" text="&gt;" />
          </children>
       </AnchorPane>
       <Button fx:id="backToMenuButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToMenu" prefHeight="25.0" prefWidth="130.0" text="Torna al menù">
@@ -21,14 +21,14 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="14.0" layoutY="59.0" prefHeight="70.0" prefWidth="320.0" text="Lezione 2: Heapsort">
+      <Label fx:id="titleLabel" layoutX="14.0" layoutY="59.0" prefHeight="70.0" prefWidth="460.0">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
       <VBox layoutX="14.0" layoutY="396.0" prefHeight="190.0" prefWidth="460.0" spacing="20.0">
          <children>
-            <Button fx:id="simulButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="250.0" text="Simulazione" />
+            <Button fx:id="simulButton" mnemonicParsing="false" onAction="#goToSimulation" prefHeight="60.0" prefWidth="250.0" text="Simulazione" />
             <Button fx:id="questionButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="250.0" text="Domande" />
          </children>
       </VBox>

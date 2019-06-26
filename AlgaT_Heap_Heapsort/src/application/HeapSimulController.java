@@ -59,42 +59,6 @@ public class HeapSimulController {
 
 	public void initialize() {
 		this.dataVector = new ArrayList<Integer>();
-		/*
-		this.dataVector.add(4);
-		this.dataVector.add(7);
-		this.dataVector.add(3);
-		this.dataVector.add(9);
-		this.dataVector.add(11);
-		this.dataVector.add(1);
-		this.dataVector.add(8);
-		this.dataVector.add(14);
-		this.dataVector.add(2);
-		this.dataVector.add(0);
-		this.dataVector.add(17);
-		this.dataVector.add(15);
-		
-		MaxHeap buildHeap = new MaxHeap();
-		this.dataVector = buildHeap.maxHeapBuild(this.dataVector);
-		
-		//Itero sulla lista e per ogni membro creo uno slot del vettore
-		Iterator<Integer> vectorIterator = this.dataVector.iterator();
-		while(vectorIterator.hasNext()) {
-			Integer num = vectorIterator.next();
-			
-			StackPane numPane = new StackPane();
-			Label numLabel = new Label();
-			numLabel.setText(num.toString());
-			Rectangle numBox = new Rectangle(30,30);
-			numBox.setFill(Color.WHITE);
-			numBox.setStroke(Color.BLACK);
-			
-			numPane.getChildren().add(numBox);
-			numPane.getChildren().add(numLabel);
-			this.vectorHbox.getChildren().add(numPane);
-		}
-		
-		this.drawTree();
-		*/
 	}
 	
 	public void drawVector() {

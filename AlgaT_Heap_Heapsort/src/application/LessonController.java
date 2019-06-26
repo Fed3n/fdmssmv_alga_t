@@ -1,23 +1,26 @@
 package application;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
-
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class HeapLessonController implements Initializable{ 
+public class LessonController { 
+	
+	@FXML
+	private Label titleLabel;
 
     @FXML
     private TextArea lessonText;
@@ -37,22 +40,39 @@ public class HeapLessonController implements Initializable{
     @FXML
     private Button questionButton;
     
+    private String lessonTitle;
+    
+    private ArrayList<String> lessonTextList = new ArrayList<String>();
+    private String fileGetter;
+    
     private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
-    private final int MAX_LESSON_NUMBER = 3;
+    private final int MAX_LESSON_NUMBER;
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize() {
+		this.titleLabel.setText(lessonTitle);
 		this.textNumber = 1;
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
 		this.lessonText.setWrapText(true);
 		this.prevTextButton.setDisable(true);
 		try {
-			String text = new String(Files.readAllBytes(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt")));
+			BufferedReader reader = Files.newBufferedReader(Paths.get("./"+ this.fileGetter + "_" + this.textNumber.toString() + ".txt"), StandardCharsets.UTF_8);
+			String text = "";
+			String line;
+			//Aggiungo una riga alla volta alla stringa finale, dato che readLine legge solo una riga
+			while((line = reader.readLine()) != null) {
+				text = text + line + "\n";
+			}			
 			this.lessonText.setText(text);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName) {
+		this.lessonTitle = lessonName;
+		this.MAX_LESSON_NUMBER = numberOfLessons;
+		this.fileGetter = lessonFileName;
 	}
 	
 	public void goBackToMenu(ActionEvent backPressed) throws IOException {
@@ -90,7 +110,12 @@ public class HeapLessonController implements Initializable{
 		//TODO Disabilitare simul in alcune istanze
 		
 		try {
-			String text = new String(Files.readAllBytes(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt")));
+			BufferedReader br = Files.newBufferedReader(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt"), StandardCharsets.UTF_8);
+			String text = "";
+			String line;
+			while((line = br.readLine()) != null) {
+				text = text + line + "\n";
+			}			
 			this.lessonText.setText(text);
 		} catch (IOException e) {
 			e.printStackTrace();
