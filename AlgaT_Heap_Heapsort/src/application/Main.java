@@ -13,7 +13,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 		Scene mainScene = new Scene(root);
 		
-		primaryStage.setTitle("AlgaT");
+		primaryStage.setTitle("AlgaT");    
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 		} 
