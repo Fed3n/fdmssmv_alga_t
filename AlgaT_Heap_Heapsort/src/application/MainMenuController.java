@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class MainMenuController {
 	
-	@FXML
+	@FXML  
 	private Button heapButton;
 	
 	@FXML
