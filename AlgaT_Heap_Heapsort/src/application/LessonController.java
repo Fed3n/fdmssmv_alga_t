@@ -1,10 +1,13 @@
 package application;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +45,7 @@ public class LessonController {
     
     private String lessonTitle;
     
-    private ArrayList<String> lessonTextList = new ArrayList<String>();
+    private ArrayList<String> simulLocationList;
     private String fileGetter;
     
     private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
@@ -50,25 +53,28 @@ public class LessonController {
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	public void initialize() {
+		this.simulLocationList = new ArrayList<String>();
+		//Inizializzo una lista di file fxml in cui trovare le simulazioni per ogni parte della lezione, se la parte non ha simulazione inserire "null" nella riga di file
+		try {
+			Scanner scanner = new Scanner(new File("./" + this.fileGetter + "/simulLocation.txt"));
+			while(scanner.hasNext()) {
+				this.simulLocationList.add(scanner.next());
+			}
+			scanner.close();
+		} catch (FileNotFoundException e1) {
+			System.out.println("Couldn't find simulLocation.txt inside the directory" + this.fileGetter);
+		}
 		this.titleLabel.setText(lessonTitle);
 		this.textNumber = 1;
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
 		this.lessonText.setWrapText(true);
-		this.prevTextButton.setDisable(true);
-		try {
-			BufferedReader reader = Files.newBufferedReader(Paths.get("./"+ this.fileGetter + "_" + this.textNumber.toString() + ".txt"), StandardCharsets.UTF_8);
-			String text = "";
-			String line;
-			//Aggiungo una riga alla volta alla stringa finale, dato che readLine legge solo una riga
-			while((line = reader.readLine()) != null) {
-				text = text + line + "\n";
-			}			
-			this.lessonText.setText(text);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		this.reloadPage();
 	}
 	
+	//Importante accertarsi che il numero delle lezioni corrisponda al numero di file text e al numero di righe dentro simulLocation.txt nella cartella corrispondente
+	//Prende in input titolo della lezione, numero delle parti della lezione e nome della cartella in ./ dove si trovano i file
+	//Il numero delle parti della lezione deve essere >=1
 	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName) {
 		this.lessonTitle = lessonName;
 		this.MAX_LESSON_NUMBER = numberOfLessons;
@@ -86,7 +92,7 @@ public class LessonController {
 	}
 	
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
-		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("HeapSimul.fxml"));
+		Parent heapSimulParent = FXMLLoader.load(getClass().getResource(this.simulLocationList.get(this.textNumber-1)));
     	Scene heapSimulScene = new Scene(heapSimulParent);
     	
     	Stage window = (Stage)((Node)simulPressed.getSource()).getScene().getWindow();
@@ -97,20 +103,24 @@ public class LessonController {
 	
 	//Ricarica la pagina usando i parametri di textNumber
 	public void reloadPage() {
+		//Controllo se sono all'inizio o alla fine della lezione e accendo/spengo i bottoni per avanzare o retrocedere
 		if (this.textNumber == 1)
 			this.prevTextButton.setDisable(true);
-		else
-			this.prevTextButton.setDisable(false);
+		else this.prevTextButton.setDisable(false);
 		
 		if(this.textNumber == MAX_LESSON_NUMBER)
 			this.nextTextButton.setDisable(true);
-		else
-			this.nextTextButton.setDisable(false);
+		else this.nextTextButton.setDisable(false);
 		
-		//TODO Disabilitare simul in alcune istanze
+		//Controllo se la parte della lezione ha una simulazione associata o meno, attivo/disattivo pulsante di conseguenza
+		if(this.simulLocationList.get(this.textNumber-1).contentEquals("null")) {
+			this.simulButton.setDisable(true);
+		}
+		else this.simulButton.setDisable(false);
 		
+		//Prelevo il testo dalla directory della lezione dal file previsto
 		try {
-			BufferedReader br = Files.newBufferedReader(Paths.get("./lesson1_" + this.textNumber.toString() + ".txt"), StandardCharsets.UTF_8);
+			BufferedReader br = Files.newBufferedReader(Paths.get("./"+ this.fileGetter + "/text_" + this.textNumber.toString() + ".txt"), StandardCharsets.UTF_8);
 			String text = "";
 			String line;
 			while((line = br.readLine()) != null) {
@@ -118,7 +128,7 @@ public class LessonController {
 			}			
 			this.lessonText.setText(text);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Couldn't find text_" + this.textNumber.toString() + " in the given directory");
 		}
 		
 		

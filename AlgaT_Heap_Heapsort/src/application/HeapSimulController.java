@@ -21,7 +21,7 @@ public class HeapSimulController {
     private Pane vectorPane;
     
     
-    //Tutti i pane in cui può essere generato un nodo dell'albero
+    //Tutti i livelli in cui possono trovarsi nodi dell'albero (max 4 = 15 elementi)
     @FXML
     private Pane treePane;
     
@@ -160,6 +160,7 @@ public class HeapSimulController {
 			
 			//TODO Eventuali eventi relativi all'interazione col nodo
 			
+			//Aggiunto all'HBox relativo al livello dell'albero a seconda della loro posizione nel vettore
 			if(index == 0) {
 				this.treeLevel0.getChildren().add(nodePane);
 			}
