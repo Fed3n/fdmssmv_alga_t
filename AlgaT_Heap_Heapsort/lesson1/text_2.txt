@@ -1,0 +1,5 @@
+﻿Un albero heap è un albero binario che deve soddisfare le seguenti proprietà per essere definito tale:
+1) Se h è il livello massimo delle foglie dell’albero, allora tutte le foglie hanno profondità h o h-1;
+2) Tutte le foglie che si trovano al livello h sono “ammucchiate” a sinistra;
+3) Ogni nodo diverso dalla radice contiene una chiave che è ≤ della chiave contenuta nel padre, se si tratta di un albero “max heap”, altrimenti ≥ della chiave contenuta nel padre, se si tratta di un albero “min heap”.
+Per le proprietà 1 e 2, ciascun livello i dell’albero heap ad esclusione dell’ultimo (quindi i livelli 0 ≤ i < h) contiene tutti i 2^i nodi, mentre i nodi a livello h sono “ammucchiati” sul lato sinistro dell’albero. In più, tutti i nodi interni, a parte al più uno con grado 1, hanno grado 2.
