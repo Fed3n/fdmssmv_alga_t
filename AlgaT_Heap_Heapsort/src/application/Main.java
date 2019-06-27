@@ -15,7 +15,7 @@ public class Main extends Application {
 		
 		primaryStage.setTitle("AlgaT");
 		primaryStage.setScene(mainScene);
-		primaryStage.show();
+		primaryStage.show();      
 		} 
 	
 	public static void main(String[] args) {
