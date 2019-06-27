@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class LessonController { 
 	
 	@FXML
-	private Label titleLabel;
+	private Label titleLabel;  
 
     @FXML
     private TextArea lessonText;
