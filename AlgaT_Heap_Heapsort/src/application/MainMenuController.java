@@ -17,7 +17,7 @@ public class MainMenuController {
 	private Button heapButton;
 	
 	@FXML
-	private Button heapsortButton;
+	private Button heapsortButton;   
 	
 	public void goToHeapLesson(ActionEvent heapPressed) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
