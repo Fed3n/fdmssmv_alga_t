@@ -61,7 +61,7 @@ public class QuestionController {
     //la variabile segnala se la corrente selezione della risposta è esatta
     private Boolean rightSelection = false;
 	
-	public void inizialize() throws Exception {
+	public void initialize() throws Exception {
 		this.prevButton.setDisable(true);
 		this.nextButton.setDisable(true);
 		this.textArea.setEditable(false);

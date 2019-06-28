@@ -143,7 +143,6 @@ public class LessonController {
 		this.textNumber--;
 		this.reloadPage();
 	}	
-	}
 	
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
@@ -165,5 +164,4 @@ public class LessonController {
 	}
 	
 	
-
 }
