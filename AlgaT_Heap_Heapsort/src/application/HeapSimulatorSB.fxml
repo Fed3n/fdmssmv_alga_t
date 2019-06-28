@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HeapSimulatorSBController">
+   <children>
+      <Pane fx:id="vectorPane" layoutX="19.0" layoutY="60.0" prefHeight="134.0" prefWidth="350.0">
+         <children>
+            <HBox fx:id="vectorHbox" layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="310.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="treePane" layoutX="386.0" layoutY="74.0" prefHeight="440.0" prefWidth="400.0">
+         <children>
+            <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="82.0" prefWidth="406.0">
+               <children>
+                  <Line fx:id="f2" endX="273.0" endY="105.40000915527344" startX="183.4000244140625" startY="61.40000915527344" />
+                  <Circle fx:id="c1" fill="DODGERBLUE" layoutX="183.0" layoutY="41.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Line fx:id="f1" endX="183.0" endY="60.99998474121094" startX="104.0" startY="102.99998474121094" />
+                  <Label fx:id="l1" layoutX="169.0" layoutY="33.0" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutX="-3.0" layoutY="72.0" prefHeight="100.0" prefWidth="406.0">
+               <children>
+                  <Line fx:id="f6" endX="270.70709228515625" endY="69.29286193847656" startX="309.0" startY="107.99998474121094" />
+                  <Circle fx:id="c2" fill="DODGERBLUE" layoutX="104.0" layoutY="50.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c3" fill="DODGERBLUE" layoutX="270.0" layoutY="50.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Line fx:id="f3" endX="104.0" endY="69.99998474121094" startX="66.0" startY="107.99998474121094" />
+                  <Line fx:id="f4" endX="104.70709228515625" endY="69.29286193847656" startX="141.0" startY="107.99998474121094" />
+                  <Line fx:id="f5" endX="270.0" endY="69.99998474121094" startX="235.0" startY="107.99998474121094" />
+                  <Label fx:id="l2" layoutX="90.0" layoutY="42.0" text="Label" />
+                  <Label fx:id="l3" layoutX="256.0" layoutY="41.0" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutY="170.0" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <Line fx:id="f10" endX="144.4000244140625" endY="44.0" startX="166.0" startY="84.0" />
+                  <Circle fx:id="c5" fill="DODGERBLUE" layoutX="138.0" layoutY="30.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c4" fill="DODGERBLUE" layoutX="63.0" layoutY="30.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c6" fill="DODGERBLUE" layoutX="232.0" layoutY="30.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c7" fill="DODGERBLUE" layoutX="306.0" layoutY="30.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Line fx:id="f7" endX="63.0" endY="50.0" startX="46.0" startY="84.0" />
+                  <Line fx:id="f8" endX="63.70709228515625" endY="49.29290771484375" startX="86.0" startY="84.0" />
+                  <Line fx:id="f9" endX="138.0" endY="50.0" startX="125.20001220703125" startY="85.60000610351562" />
+                  <Line fx:id="f11" endX="232.0" endY="50.0" startX="214.0" startY="84.0" />
+                  <Line fx:id="f12" endX="232.0" endY="50.0" startX="254.0" startY="84.0" />
+                  <Line fx:id="f13" endX="306.0" endY="50.0" startX="294.0" startY="84.0" />
+                  <Line fx:id="f14" endX="330.800048828125" endY="86.4000244140625" startX="313.199951171875" startY="50.0" />
+                  <Label fx:id="l4" layoutX="49.0" layoutY="22.0" text="Label" />
+                  <Label fx:id="l5" layoutX="124.0" layoutY="22.0" text="Label" />
+                  <Label fx:id="l6" layoutX="219.0" layoutY="22.0" text="Label" />
+                  <Label fx:id="l7" layoutX="293.0" layoutY="22.0" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutX="3.0" layoutY="240.0" prefHeight="167.0" prefWidth="400.0">
+               <children>
+                  <Circle fx:id="c8" fill="DODGERBLUE" layoutX="43.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c9" fill="DODGERBLUE" layoutX="83.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c10" fill="DODGERBLUE" layoutX="123.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c11" fill="DODGERBLUE" layoutX="163.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c12" fill="DODGERBLUE" layoutX="211.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c13" fill="DODGERBLUE" layoutX="251.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c14" fill="DODGERBLUE" layoutX="291.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="c15" fill="DODGERBLUE" layoutX="331.0" layoutY="34.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="l8" layoutX="29.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l9" layoutX="69.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l10" layoutX="109.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l11" layoutX="149.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l12" layoutX="197.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l13" layoutX="237.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l14" layoutX="277.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="l15" layoutX="317.0" layoutY="26.0" text="Label" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="27.0" layoutY="194.0" prefHeight="200.0" prefWidth="383.0">
+         <children>
+            <HBox layoutY="100.0" prefHeight="100.0" prefWidth="383.0">
+               <children>
+                  <ChoiceBox fx:id="maxMinChoiceBox" prefHeight="25.0" prefWidth="80.0" />
+               </children>
+            </HBox>
+            <HBox layoutY="7.0" prefHeight="100.0" prefWidth="383.0" spacing="30.0">
+               <children>
+                  <TextField fx:id="inputArea" prefHeight="35.0" prefWidth="70.0" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="50.0" text="Add" />
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeFromVector" prefHeight="35.0" prefWidth="60.0" text="Remove" />
+                  <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateHeap" prefHeight="35.0" prefWidth="80.0" text="Generate" />
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
