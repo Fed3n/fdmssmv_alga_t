@@ -144,8 +144,24 @@ public class LessonController {
 		this.reloadPage();
 	}
 	
-	
-	
+	public void goToQuestions(ActionEvent questionPressed) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
+		
+		//Creo manualmente un controller e lo inizializzo col suo costruttore
+		QuestionController controller = new QuestionController(1, 1);
+		//Setto manualmente il controller nel loader
+		loader.setController(controller);
+		
+		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
+		Parent questionParent = (Parent)loader.load();
+		
+    	Scene questionScene = new Scene(questionParent);
+    	
+    	Stage window = (Stage)((Node)questionPressed.getSource()).getScene().getWindow();
+    	
+    	window.setScene(questionScene);
+    	window.show();
+	}
 	
 	
 
