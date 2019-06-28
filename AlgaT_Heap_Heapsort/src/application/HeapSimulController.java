@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -13,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public class HeapSimulController {
@@ -73,8 +76,7 @@ public class HeapSimulController {
 		//Itero sulla lista e per ogni membro creo uno slot del vettore
 		Iterator<Integer> vectorIterator = this.dataVector.iterator();
 		while(vectorIterator.hasNext()) {
-			Integer num = vectorIterator.next();
-			System.out.println(num.toString());		
+			Integer num = vectorIterator.next();	
 			
 			StackPane numPane = new StackPane();
 			Label numLabel = new Label();
@@ -160,7 +162,7 @@ public class HeapSimulController {
 			
 			//TODO Eventuali eventi relativi all'interazione col nodo
 			
-			//Aggiunto all'HBox relativo al livello dell'albero a seconda della loro posizione nel vettore
+			//Aggiungo all'HBox relativo al livello dell'albero a seconda della loro posizione nel vettore
 			if(index == 0) {
 				this.treeLevel0.getChildren().add(nodePane);
 			}
@@ -176,6 +178,30 @@ public class HeapSimulController {
 			else {
 				this.treeLevel3.getChildren().add(nodePane);
 			}
+			
+			//Disegno la linea tra un nodo e suo padre
+			
+			if(index != 0) {
+				StackPane node = this.nodeVector.get(index-1);
+				
+				//Queste sono conversioni coordinate pane > coordinate scena > coordinate pane a livello più alto
+				Bounds circle1ToScene = nodePane.localToScene(nodePane.getBoundsInLocal());
+				Bounds circle1ToTreePane = this.treePane.sceneToLocal(circle1ToScene);
+				
+				Bounds circle2ToScene = node.localToScene(node.getBoundsInLocal());
+				Bounds circle2ToTreePane = this.treePane.sceneToLocal(circle2ToScene);
+				
+				Point2D circle1Center = new Point2D((circle1ToTreePane.getMinX() + nodeCircle.getRadius()*2), circle1ToTreePane.getMinY() + nodeCircle.getRadius()*3);
+				Point2D circle2Center = new Point2D(circle2ToTreePane.getMinX() + nodeCircle.getRadius()*2, circle2ToTreePane.getMinY() + nodeCircle.getRadius()*3);
+				
+				
+				Line line = new Line(circle1Center.getX(), circle1Center.getY(), circle2Center.getX(), circle2Center.getY());
+				line.setStroke(Color.BLACK);
+				this.treePane.getChildren().add(line);
+				
+				
+			}
+			
 			
 			index++;
 		}
