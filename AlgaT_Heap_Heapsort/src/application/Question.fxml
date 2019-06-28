@@ -12,10 +12,20 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="40.0" prefWidth="800.0">
+      <AnchorPane prefHeight="43.0" prefWidth="800.0">
          <children>
-            <Button fx:id="prevButton" layoutX="47.0" layoutY="13.0" mnemonicParsing="false" text="Domanda Precedente" AnchorPane.leftAnchor="30.0" />
-            <Button fx:id="nextButton" layoutX="557.0" layoutY="13.0" mnemonicParsing="false" text="Domanda Successiva" AnchorPane.rightAnchor="30.0" />
+            <Button fx:id="backToLessonButton" layoutX="29.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLesson" prefHeight="25.0" prefWidth="130.0" text="Torna alla lezione" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="54.0" prefWidth="800.0">
+         <children>
+            <Button fx:id="prevButton" layoutX="47.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToPrevQuestion" text="Domanda Precedente" AnchorPane.leftAnchor="30.0" />
+            <Button fx:id="nextButton" layoutX="557.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToNextQuestion" text="Domanda Successiva" AnchorPane.rightAnchor="30.0" />
+            <Label fx:id="resultLabel" alignment="CENTER" layoutX="338.0" layoutY="19.0" prefHeight="24.0" prefWidth="151.0" textFill="#e3200e" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="12.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Label fx:id="titleLabel" alignment="CENTER" prefHeight="60.0" prefWidth="800.0">
@@ -34,7 +44,7 @@
             <Font size="32.0" />
          </font>
       </TextArea>
-      <VBox prefHeight="250.0" prefWidth="800.0">
+      <VBox prefHeight="240.0" prefWidth="800.0">
          <children>
             <RadioButton fx:id="answerButton1" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AnswerSelected" prefHeight="80.0" prefWidth="800.0">
                <font>
@@ -77,7 +87,7 @@
             </RadioButton>
          </children>
       </VBox>
-      <VBox alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="69.0" prefWidth="800.0">
          <VBox.margin>
             <Insets />
          </VBox.margin>
