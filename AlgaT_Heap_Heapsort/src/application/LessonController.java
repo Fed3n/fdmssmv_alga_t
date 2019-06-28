@@ -142,11 +142,6 @@ public class LessonController {
 	public void prevText() {
 		this.textNumber--;
 		this.reloadPage();
-	}
-	
-	
-	
-	
-	
+	}	
 
 }
