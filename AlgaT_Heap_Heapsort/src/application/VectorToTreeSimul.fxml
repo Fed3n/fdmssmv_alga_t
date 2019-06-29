@@ -11,12 +11,12 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VectorToTreeSimulController">
    <children>
-      <Pane fx:id="vectorPane" layoutX="19.0" layoutY="60.0" prefHeight="134.0" prefWidth="350.0">
+      <Pane fx:id="vectorPane" layoutX="14.0" layoutY="60.0" prefHeight="110.0" prefWidth="360.0">
          <children>
-            <HBox fx:id="vectorHbox" layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="310.0" />
+            <HBox fx:id="vectorHbox" layoutX="4.0" layoutY="5.0" prefHeight="100.0" prefWidth="350.0" />
          </children>
       </Pane>
-      <Pane fx:id="treePane" layoutX="386.0" layoutY="60.0" prefHeight="440.0" prefWidth="400.0">
+      <Pane fx:id="treePane" layoutX="386.0" layoutY="146.0" prefHeight="440.0" prefWidth="400.0">
          <children>
             <StackPane fx:id="node0" layoutX="160.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" />
             <StackPane fx:id="node1" layoutX="80.0" layoutY="130.0" prefHeight="40.0" prefWidth="40.0" />
@@ -35,7 +35,7 @@
             <StackPane fx:id="node14" layoutX="300.0" layoutY="330.0" prefHeight="40.0" prefWidth="40.0" />
          </children>
       </Pane>
-      <HBox layoutX="26.0" layoutY="194.0" prefHeight="50.0" prefWidth="360.0" spacing="30.0">
+      <HBox layoutX="26.0" layoutY="170.0" prefHeight="50.0" prefWidth="360.0" spacing="30.0">
          <children>
             <TextField fx:id="inputArea" prefHeight="35.0" prefWidth="70.0" />
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="50.0" text="Add" />
@@ -43,7 +43,7 @@
             <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateHeap" prefHeight="35.0" prefWidth="80.0" text="Generate" />
          </children>
       </HBox>
-      <ChoiceBox fx:id="maxMinChoiceBox" layoutX="289.0" layoutY="244.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextArea fx:id="infoText" layoutX="26.0" layoutY="280.0" prefHeight="150.0" prefWidth="256.0" />
+      <ChoiceBox fx:id="maxMinChoiceBox" layoutX="294.0" layoutY="220.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextArea fx:id="infoText" layoutX="26.0" layoutY="245.0" prefHeight="150.0" prefWidth="256.0" />
    </children>
 </AnchorPane>
