@@ -56,7 +56,8 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 			numPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated == true) {
+					//Per evitare out of bound si attiva solo se l'albero e vettore sono finalizzati e se il nodo effettivamente può esserci
+					if(isGenerated == true && finalIndex < dataVector.size()) {
 						numBox.setFill(Color.GREENYELLOW);
 						StackPane node = nodeVector.get(finalIndex);
 						Circle circle = (Circle)node.getChildren().get(0);	//Il cerchio nello StackPane del nodo dell'albero
@@ -77,7 +78,7 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 						}
 						//Nel caso sia la radice
 						else {
-							info = info + "Questo nodo è la radice dell'albero, di conseguenza non ha figli.\n";
+							info = info + "Questo nodo è la radice dell'albero, di conseguenza non ha padre.\n";
 						}
 						//Evidenzio e inserisco informazioni su eventuali figli
 						if(finalIndex < dataVector.size()/2) {
@@ -120,7 +121,8 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 			numPane.setOnMouseExited(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated == true) {
+					//Per evitare out of bound si attiva solo se l'albero e vettore sono finalizzati e se il nodo effettivamente può esserci
+					if(isGenerated == true && finalIndex < dataVector.size()) {
 						numBox.setFill(Color.WHITE);
 						StackPane node = nodeVector.get(finalIndex);
 						Circle circle = (Circle)node.getChildren().get(0);	//Il cerchio nello StackPane del nodo dell'albero
@@ -204,7 +206,8 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 			node.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated == true) {
+					//Per evitare out of bound si attiva solo se l'albero e vettore sono finalizzati e se il nodo effettivamente può esserci
+					if(isGenerated == true && finalIndex < dataVector.size()) {
 						nodeCircle.setFill(Color.GREENYELLOW);
 						StackPane node = numVector.get(finalIndex);
 						Rectangle rect = (Rectangle)node.getChildren().get(0);	//Il cerchio nello StackPane del nodo dell'albero
@@ -225,7 +228,7 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 						}
 						//Nel caso sia la radice
 						else {
-							info = info + "Questo nodo è la radice dell'albero, di conseguenza non ha figli.\n";
+							info = info + "Questo nodo è la radice dell'albero, di conseguenza non ha padre.\n";
 						}
 						//Evidenzio e inserisco informazioni su eventuali figli
 						if(finalIndex < dataVector.size()/2) {
@@ -268,7 +271,8 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 			node.setOnMouseExited(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated == true) {
+					//Per evitare out of bound si attiva solo se l'albero e vettore sono finalizzati e se il nodo effettivamente può esserci
+					if(isGenerated == true && finalIndex < dataVector.size()) {
 						nodeCircle.setFill(Color.WHITE);
 						StackPane node = numVector.get(finalIndex);
 						Rectangle rect = (Rectangle)node.getChildren().get(0);	//Il cerchio nello StackPane del nodo dell'albero
