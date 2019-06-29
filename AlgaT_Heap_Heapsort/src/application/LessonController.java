@@ -94,7 +94,7 @@ public class LessonController {
 	}
 
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
-		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("HeapSimulatorSB.fxml"));
+		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("HeapSimul2.fxml"));
 
     	Scene heapSimulScene = new Scene(heapSimulParent);
 
