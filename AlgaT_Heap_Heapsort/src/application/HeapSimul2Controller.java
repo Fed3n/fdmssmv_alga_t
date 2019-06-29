@@ -21,46 +21,50 @@ import javafx.scene.shape.Rectangle;
 public class HeapSimul2Controller {
 
     @FXML
-    private Pane vectorPane;
-    
-    
-    //Tutti i livelli in cui possono trovarsi nodi dell'albero (max 4 = 15 elementi)
-    @FXML
-    private Pane treePane;
+    protected Pane vectorPane;
     
     @FXML
-    private HBox treeLevel0;
+    protected Pane treePane;
     
+    //Tutti i possibili nodi dell'albero
     @FXML
-    private StackPane node0, node1, node2, node3, node4, node5, node6, node7, node8, node9, node10, node11, node12, node13, node14;
+    protected StackPane node0, node1, node2, node3, node4, node5, node6, node7, node8, node9, node10, node11, node12, node13, node14;
 
     @FXML
-    private HBox vectorHbox;
+    protected HBox vectorHbox;
 
     @FXML
-    private TextField inputArea;
+    protected TextField inputArea;
 
     @FXML
-    private Button addButton;
+    protected Button addButton;
 
     @FXML
-    private Button removeButton;
+    protected Button removeButton;
     
     @FXML
-    private Button generateButton;
+    protected Button generateButton;
     
     @FXML
-    private ChoiceBox<String> maxMinChoiceBox;
+    protected ChoiceBox<String> maxMinChoiceBox;
     
-    private final Integer MAX_VECTOR_SIZE = 15;
+    protected final Integer MAX_VECTOR_SIZE = 15;
     
-    private ArrayList<Integer> dataVector;
+    protected Boolean isGenerated;
     
-    private ArrayList<StackPane> nodeVector;
-    private ArrayList<Line> treeLines;
+    //Vettore degli interi inseriti
+    protected ArrayList<Integer> dataVector;
+    
+    //Vettore degli StackPane del vettore disegnato
+    protected ArrayList<StackPane> numVector;
+    
+    //Vettori degli StackPane dell'albero e delle linee
+    protected ArrayList<StackPane> nodeVector;
+    protected ArrayList<Line> treeLines;
 
 	public void initialize() {
 		this.dataVector = new ArrayList<Integer>();
+		this.numVector = new ArrayList<StackPane>();
 		this.treeLines = new ArrayList<Line>();
 		this.nodeVector = new ArrayList<StackPane>();
 		this.nodeVector.add(node0);
@@ -80,10 +84,12 @@ public class HeapSimul2Controller {
 		this.nodeVector.add(node14);
 		this.maxMinChoiceBox.getItems().add("MaxHeap");
 		this.maxMinChoiceBox.getItems().add("MinHeap");
+		this.isGenerated = false;
 	}
 	
 	public void drawVector() {
 		this.vectorHbox.getChildren().clear();	//Prima rimuovo il vettore già disegnato
+		this.numVector.clear();
 		
 		//Itero sulla lista e per ogni membro creo uno slot del vettore
 		Iterator<Integer> vectorIterator = this.dataVector.iterator();
@@ -100,6 +106,7 @@ public class HeapSimul2Controller {
 			numPane.getChildren().add(numBox);
 			numPane.getChildren().add(numLabel);
 			this.vectorHbox.getChildren().add(numPane);
+			this.numVector.add(numPane);
 			
 			//TODO Eventuali eventi relativi all'interazione con lo slot del vettore
 		}
@@ -119,7 +126,8 @@ public class HeapSimul2Controller {
 			} catch (NumberFormatException e) {
 				System.out.println("Please input a number");				
 			}
-			this.inputArea.clear();			
+			this.inputArea.clear();		
+			this.isGenerated = false;
 		}		
 	}
 	
@@ -127,6 +135,7 @@ public class HeapSimul2Controller {
 		if (this.dataVector.size() > 0)
 			this.dataVector.remove(this.dataVector.size()-1);			//Rimuove ultimo elemento dal vettore
 			this.drawVector();
+			this.isGenerated = false;
 	}
 	
 	public void generateHeap() {
@@ -198,6 +207,8 @@ public class HeapSimul2Controller {
 			
 			index++;
 		}
+		
+		this.isGenerated = true;
 		
 	}
 	
