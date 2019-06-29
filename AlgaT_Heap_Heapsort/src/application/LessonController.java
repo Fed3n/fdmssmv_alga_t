@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LessonController {
@@ -94,7 +92,7 @@ public class LessonController {
 	}
 
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
-		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("HeapSimul2.fxml"));
+		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("VectorToTreeSimul.fxml"));
 
     	Scene heapSimulScene = new Scene(heapSimulParent);
 
