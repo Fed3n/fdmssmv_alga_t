@@ -7,6 +7,14 @@ public class MinHeap {
 	
 	private ArrayList<Integer> heapVector;
 	
+	//Lista di operazioni per completare il MinHeapRestore
+	private ArrayList<ArrayList<Integer>> sequentialOperations = new ArrayList<ArrayList<Integer>>();
+	
+	//Restituisce la lista di vettori creati ad ogni passo
+	public ArrayList<Integer> getVector(Integer indexNumber){
+		return(this.sequentialOperations.get(indexNumber));
+	}
+	
 	//Minheaprestore applicata a partire dalle foglie (quindi a partire da size/2-1 considerando che partiamo da 0)
 	public ArrayList<Integer> minHeapBuild(ArrayList<Integer> vector){
 		this.heapVector = new ArrayList<Integer>();
@@ -37,12 +45,13 @@ public class MinHeap {
 	//Funzione minheaprestore come da libro
 	public void minHeapRestore(ArrayList<Integer> vector, Integer index) {
 		Integer min = index;
-		
+		this.sequentialOperations.add(this.heapVector);
 		if((this.lChild(index) < this.heapVector.size()) && (this.heapVector.get(this.lChild(index)) < this.heapVector.get(min)))
 			min = this.lChild(index);
 		if((this.rChild(index) < this.heapVector.size()) && (this.heapVector.get(this.rChild(index)) < this.heapVector.get(min)))
 			min = this.rChild(index);
 		if(index != min) {
+			this.sequentialOperations.add(this.heapVector);
 			Collections.swap(this.heapVector, index, min);
 			minHeapRestore(this.heapVector, min);			
 		}
