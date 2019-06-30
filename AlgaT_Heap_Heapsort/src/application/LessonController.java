@@ -18,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class LessonController {
@@ -42,6 +44,9 @@ public class LessonController {
 
     @FXML
     private Button questionButton;
+    
+    @FXML
+    private ImageView image;
 
     private String lessonTitle;
 
@@ -92,13 +97,14 @@ public class LessonController {
 	}
 
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
-		Parent heapSimulParent = FXMLLoader.load(getClass().getResource("VectorToTreeSimul.fxml"));
+		//Parent simulParent = FXMLLoader.load(getClass().getResource("VectorToTreeSimul.fxml"));	//Se volete provare una simulazione velocemente usate questo
+		Parent simulParent = FXMLLoader.load(getClass().getResource(this.simulLocationList.get(this.textNumber-1)));	//Va a prendere il nome dell'fxml a cui accedere dal vettore
 
-    	Scene heapSimulScene = new Scene(heapSimulParent);
+    	Scene simulScene = new Scene(simulParent);
 
     	Stage window = (Stage)((Node)simulPressed.getSource()).getScene().getWindow();
 
-    	window.setScene(heapSimulScene);
+    	window.setScene(simulScene);
     	window.show();
 	}
 
@@ -131,7 +137,9 @@ public class LessonController {
 		} catch (IOException e) {
 			System.out.println("Couldn't find text_" + this.textNumber.toString() + " in the given directory");
 		}
-
+		
+		Image img = new Image(new File("./"+ this.fileGetter + "/image_" + this.textNumber.toString() + ".png").toURI().toString());
+		this.image.setImage(img);
 
 	}
 

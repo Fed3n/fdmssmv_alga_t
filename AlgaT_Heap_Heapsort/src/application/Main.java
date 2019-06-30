@@ -16,6 +16,7 @@ public class Main extends Application {
 		
 		primaryStage.setTitle("AlgaT");
 		primaryStage.setScene(mainScene);
+		primaryStage.sizeToScene();
 		primaryStage.setOnCloseRequest(closeAll -> Platform.exit());
 		primaryStage.show();      
 		} 
