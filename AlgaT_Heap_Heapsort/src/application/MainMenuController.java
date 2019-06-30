@@ -45,7 +45,7 @@ public class MainMenuController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
 		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		LessonController controller = new LessonController("Lezione 1: Heap", 4, 1, "lesson1");
+		LessonController controller = new LessonController("Lezione 1: Heap", 4, "lesson1");
 		//Setto manualmente il controller nel loader
 		loader.setController(controller);
 		
@@ -67,7 +67,7 @@ public class MainMenuController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
 		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, 1, "lesson1");
+		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, "lesson1");
 		//Setto manualmente il controller nel loader
 		loader.setController(controller);
 		
