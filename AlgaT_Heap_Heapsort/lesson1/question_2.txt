@@ -1,0 +1,4 @@
+﻿Selezionare il numero minore
+Fquindici
+Fdodici
+Totto
