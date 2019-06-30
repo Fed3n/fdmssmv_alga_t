@@ -51,7 +51,6 @@ public class MaxHeap {
 		if((this.rChild(index) < this.heapVector.size()) && (this.heapVector.get(this.rChild(index)) > this.heapVector.get(max)))
 			max = this.rChild(index);
 		if(index != max) {
-			this.sequentialOperations.add(this.heapVector);
 			Collections.swap(this.heapVector, index, max);
 			maxHeapRestore(this.heapVector, max);			
 		}
