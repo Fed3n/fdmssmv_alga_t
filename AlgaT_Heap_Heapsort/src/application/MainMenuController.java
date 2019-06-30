@@ -60,8 +60,6 @@ public class MainMenuController {
 		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
 		Parent heapLessonParent = (Parent)loader.load();
 		
-		
-		
     	Scene heapLessonScene = new Scene(heapLessonParent);
     	
     	Stage window = (Stage)((Node)heapPressed.getSource()).getScene().getWindow();
@@ -75,7 +73,7 @@ public class MainMenuController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
 		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, "lesson1");
+		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, "lesson2");
 		//Setto manualmente il controller nel loader
 		loader.setController(controller);
 		

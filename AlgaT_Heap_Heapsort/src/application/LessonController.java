@@ -55,6 +55,9 @@ public class LessonController {
 
     private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
     private final int MAX_LESSON_NUMBER;
+    
+    private Questions questionObject;
+    private Boolean completedQuestion = false;
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	public void initialize() {
@@ -85,8 +88,22 @@ public class LessonController {
 		this.MAX_LESSON_NUMBER = numberOfLessons;
 		this.fileGetter = lessonFileName;
 	}
+	
+	//se il metodo ritorna zero c'è un errore nel nome delle cartelle
+	private Integer getLessonNumber() {
+		Integer n = 0;
+		try {
+			n = Integer.parseInt(this.fileGetter.substring(6));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			System.out.print("The name of some lesson's folder are incorrect.");
+		}
+		return n;
+	}
 
 	public void goBackToMenu(ActionEvent backPressed) throws IOException {
+
+		
 		Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
     	Scene mainMenuScene = new Scene(mainMenuParent);
 
@@ -152,26 +169,17 @@ public class LessonController {
 		this.textNumber--;
 		this.reloadPage();
 	}
+	
+	public void setCompleted(Boolean completed) {
+		this.completedQuestion = completed;
+	}
 
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
-
-		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		QuestionController controller = new QuestionController(2, 1, this, false);
-		//Setto manualmente il controller nel loader
-		loader.setController(controller);
-
-		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
-		Parent questionParent = (Parent)loader.load();
-
-    	Scene questionScene = new Scene(questionParent);
-
-    	Stage window = (Stage)((Node)questionPressed.getSource()).getScene().getWindow();
-
-    	window.setScene(questionScene);
-    	window.show();
-
+		if (!this.completedQuestion) 
+			this.questionObject = new Questions(this.getLessonNumber(),questionPressed,this,this.completedQuestion);
+		else {
+			this.questionObject.loadQuestion(1, true, false, this.completedQuestion);
+		}
 	}
 
 }
