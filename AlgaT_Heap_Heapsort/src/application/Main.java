@@ -1,6 +1,7 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -15,6 +16,8 @@ public class Main extends Application {
 		
 		primaryStage.setTitle("AlgaT");
 		primaryStage.setScene(mainScene);
+		primaryStage.sizeToScene();
+		primaryStage.setOnCloseRequest(closeAll -> Platform.exit());
 		primaryStage.show();      
 		} 
 	
