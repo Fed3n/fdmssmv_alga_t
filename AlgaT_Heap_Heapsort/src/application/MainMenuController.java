@@ -13,17 +13,39 @@ import javafx.stage.Stage;
 
 public class MainMenuController {
 	
+	@FXML
+	private Button creditsButton;
+	
+	@FXML
+	private Button quitButton;
+	
 	@FXML  
 	private Button heapButton;
 	
 	@FXML
-	private Button heapsortButton;     
+	private Button heapsortButton;   
+	
+	public void quit(ActionEvent quitPressed) {
+		Stage stage = (Stage)((Node)quitPressed.getSource()).getScene().getWindow();
+		stage.close();
+	}
+	
+	public void openCredits() throws IOException {
+		Parent creditsParent = FXMLLoader.load(getClass().getResource("Credits.fxml"));
+		Stage creditsWindow = new Stage();
+		Scene creditsScene = new Scene(creditsParent);
+		
+		creditsWindow.setTitle("Credits");
+		creditsWindow.setScene(creditsScene);
+		creditsWindow.show();
+		
+	}
 	
 	public void goToHeapLesson(ActionEvent heapPressed) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
 		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		LessonController controller = new LessonController("Lezione 1: Heap", 4, "lesson1");
+		LessonController controller = new LessonController("Lezione 1: Heap", 4, 1, "lesson1");
 		//Setto manualmente il controller nel loader
 		loader.setController(controller);
 		
@@ -45,7 +67,7 @@ public class MainMenuController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
 		//Creo manualmente un controller e lo inizializzo col suo costruttore
-		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, "lesson1");
+		LessonController controller = new LessonController("Lezione 2: Heapsort", 1, 1, "lesson1");
 		//Setto manualmente il controller nel loader
 		loader.setController(controller);
 		
