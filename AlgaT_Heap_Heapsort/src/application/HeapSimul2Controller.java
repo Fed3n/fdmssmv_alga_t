@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -124,11 +126,17 @@ public class HeapSimul2Controller {
 				this.dataVector.add(num);									//Aggiunge al campo del vettore
 				this.drawVector();											//Aggiorna la grafica del vettore
 			} catch (NumberFormatException e) {
-				System.out.println("Please input a number");				
+				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
+				alert.showAndWait();
+				System.out.println("Please input a number");
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
 		}		
+		else {
+			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");
+			alert.showAndWait();
+		}
 	}
 	
 	public void removeFromVector() {

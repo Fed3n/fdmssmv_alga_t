@@ -18,6 +18,9 @@ import javafx.scene.shape.Rectangle;
 public class VectorToTreeSimulController extends HeapSimul2Controller{
 	
 	@FXML
+	private Label vectorLabel;
+	
+	@FXML
 	private TextArea infoText;
 	
 	@Override
@@ -351,6 +354,24 @@ public class VectorToTreeSimulController extends HeapSimul2Controller{
 		
 		this.isGenerated = true;
 		
+	}
+	
+	@Override
+	public void addToVector() {
+		super.addToVector();
+		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
+	}
+	
+	@Override
+	public void removeFromVector() {
+		super.removeFromVector();
+		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
+	}
+	
+	@Override
+	public void generateHeap() {
+		super.generateHeap();
+		this.vectorLabel.setText("");
 	}
 	
 
