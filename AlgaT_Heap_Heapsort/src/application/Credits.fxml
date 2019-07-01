@@ -5,15 +5,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="60.0" text="Crediti">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <VBox layoutX="14.0" layoutY="50.0" prefHeight="200.0" prefWidth="375.0" spacing="5.0">
+      <VBox layoutX="14.0" layoutY="50.0" prefHeight="220.0" prefWidth="375.0" spacing="5.0">
          <children>
             <Label prefHeight="25.0" prefWidth="370.0" text="Progetto di Federico De Marchi, Manuel Vannini, Stefano Sgarzi">
                <font>
@@ -26,6 +25,11 @@
                </font>
             </Label>
             <Label prefHeight="25.0" prefWidth="370.0" text="Docenti Alan Albert Bertossi, Angelo Di Iorio">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label prefHeight="25.0" prefWidth="370.0" text="A.A. Bertossi &amp; A. Montresor, Algoritmi e Strutture di Dati">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
