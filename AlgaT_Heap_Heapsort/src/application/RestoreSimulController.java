@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -23,8 +24,14 @@ public class RestoreSimulController extends HeapSimul2Controller{
 
 	@FXML
 	private TextArea infoText;
+
+	@FXML
+	private Button btnPrvs;
 	
-	private Integer vectorCounter = 0;
+	@FXML
+	private Button btnNxt;
+	
+	private Integer vectorCounter;
 	
 	private MinHeap minBuildHeap;
 	
@@ -32,24 +39,72 @@ public class RestoreSimulController extends HeapSimul2Controller{
 
 	//Quando aggiungo un elemento al vettore, lo aggiungo anche al grafico
 	public void startSimulation(){
+		this.vectorCounter = 0;
 		this.infoText.setText("Hai aggiunto " + this.inputArea.getText() + ".");
 		this.addToVector();
-		//this.generateHeap();
+		//Mostro il passo 0
+		this.drawVector();
+		this.drawTree();
+		this.btnNxt.setDisable(false);
+		this.addButton.setDisable(true);
+		this.generateHeap();
 	}
 	
 	public void nextStep(){
-		//Modifico il vettore di valori passo per passo
-		vectorCounter++;
-		if(this.maxMinChoiceBox.getValue() == "maxHeapRestore") this.dataVector = this.maxBuildHeap.getVector(vectorCounter);
-		else this.dataVector = this.minBuildHeap.getVector(vectorCounter);
-		this.drawVector();	
+		this.vectorCounter++;
+		this.changeStep();
 	}
 	
 	public void previousStep(){
+		if(this.vectorCounter > 0) {
+			this.btnPrvs.setDisable(false);
+			this.vectorCounter--;
+		}
+		else this.btnPrvs.setDisable(true);
+		this.changeStep();
+	}
+	
+	public void changeStep(){
 		//Modifico il vettore di valori passo per passo
-		vectorCounter--;
-		if(this.maxMinChoiceBox.getValue() == "maxHeapRestore") this.dataVector = this.maxBuildHeap.getVector(vectorCounter);
-		else this.dataVector = this.minBuildHeap.getVector(vectorCounter);
+		System.out.println(this.maxMinChoiceBox.getValue());
+		if(this.maxMinChoiceBox.getValue().compareTo("maxHeapRestore") == 0 && this.maxBuildHeap.getFullList().size() > this.vectorCounter) {
+			this.dataVector.clear();
+			this.dataVector.addAll(this.maxBuildHeap.getVector(this.vectorCounter));
+			this.addButton.setDisable(true);
+			this.btnNxt.setDisable(false);
+			this.infoText.setText("Premi avanti per continuare.");
+		}
+		else if(this.maxMinChoiceBox.getValue().compareTo("maxHeapRestore") == 0 && this.maxBuildHeap.getFullList().size() < this.vectorCounter)  {
+			System.out.println("Sei andato oltre la grandezza massima.");
+			this.addButton.setDisable(false);
+			this.btnNxt.setDisable(true);
+		}
+		else if(this.maxMinChoiceBox.getValue().compareTo("maxHeapRestore") == 0 && this.maxBuildHeap.getFullList().size() == this.vectorCounter) {
+			System.out.println("Sono all'ultima simulazione.");
+			this.addButton.setDisable(false);
+			this.btnNxt.setDisable(true);
+			this.infoText.setText("Inserisci un nuovo numero");
+		}
+		else if(this.maxMinChoiceBox.getValue().compareTo("minHeapRestore") == 0 && this.minBuildHeap.getFullList().size() > this.vectorCounter) {
+			this.dataVector.clear();
+			//Se utilizzo addAll come per maxHeapRestore da errore nella console
+			this.dataVector = this.minBuildHeap.getVector(this.vectorCounter);
+			this.addButton.setDisable(true);
+			this.btnNxt.setDisable(false);
+		}
+		else if (this.maxMinChoiceBox.getValue().compareTo("minHeapRestore") == 0 && this.minBuildHeap.getFullList().size() < this.vectorCounter) {
+			System.out.println("Sei andato oltre la grandezza massima.");
+			System.out.println("la grandezza del vettore é: " + this.dataVector.size() + " e contiene " + this.dataVector.toString());
+			this.addButton.setDisable(false);
+			this.btnNxt.setDisable(true);
+			this.infoText.setText("Premi avanti per continuare.");
+		}
+		else if(this.maxMinChoiceBox.getValue().compareTo("minHeapRestore") == 0 && this.minBuildHeap.getFullList().size() == this.vectorCounter) {
+			System.out.println("Sono all'ultima simulazione.");
+			this.addButton.setDisable(false);
+			this.btnNxt.setDisable(true);
+			this.infoText.setText("Inserisci un nuovo numero");
+		}
 		this.drawVector();
 		this.drawTree();
 	}
@@ -65,7 +120,7 @@ public class RestoreSimulController extends HeapSimul2Controller{
 		this.maxMinChoiceBox.setValue("minHeapRestore");
 	}
 
-	@Override
+	@Override //Creo i vettori ordinati. Con la creazione degli Heap creo anche la lista di tutti i passaggi effettuati
 	public void generateHeap() {
 		if(this.maxMinChoiceBox.getValue() != null) {
 			if(this.maxMinChoiceBox.getValue() == "maxHeapRestore") {
@@ -76,13 +131,10 @@ public class RestoreSimulController extends HeapSimul2Controller{
 				minBuildHeap = new MinHeap();
 				minBuildHeap.minHeapBuild(this.dataVector);
 			}
-			this.maxMinChoiceBox.setDisable(true);
-			this.drawVector();
-			this.drawTree();	
 		}
 	}
 	
-	@Override
+	@Override //Funzione invariata
 	public void drawVector() {
 		this.vectorHbox.getChildren().clear();	//Prima rimuovo il vettore già disegnato
 		this.numVector.clear();
@@ -230,7 +282,7 @@ public class RestoreSimulController extends HeapSimul2Controller{
 		}
 	}
 
-	@Override
+	@Override //Funzione invariata
 	public void drawTree() {
 		//Prima rimuovo l'albero già disegnato
 		this.nodeVector.forEach((node) -> node.getChildren().clear());

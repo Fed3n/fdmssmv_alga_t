@@ -39,8 +39,8 @@
          <children>
             <TextField fx:id="inputArea" prefHeight="35.0" prefWidth="70.0" />
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#startSimulation" prefHeight="35.0" prefWidth="45.0" text="Add" />
-            <Button mnemonicParsing="false" onAction="#previousStep" prefHeight="35.0" prefWidth="62.0" text="Indietro" />
-            <Button mnemonicParsing="false" onAction="#nextStep" prefHeight="35.0" prefWidth="90.0" text="Avanti" />
+            <Button fx:id="btnPrvs" mnemonicParsing="false" onAction="#previousStep" prefHeight="35.0" prefWidth="62.0" text="Indietro" />
+            <Button fx:id="btnNxt" mnemonicParsing="false" onAction="#nextStep" prefHeight="35.0" prefWidth="90.0" text="Avanti" />
          </children>
       </HBox>
       <ChoiceBox fx:id="maxMinChoiceBox" layoutX="294.0" layoutY="220.0" prefHeight="25.0" prefWidth="80.0" />
