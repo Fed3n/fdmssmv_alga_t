@@ -19,8 +19,6 @@ import javafx.stage.Stage;
 
 public class Questions {
 	
-	private Integer lessonNumber;
-	
 	private LessonController lessonController;
 	
 	private ActionEvent questionEvent;
@@ -33,14 +31,13 @@ public class Questions {
     
     private Boolean completed;
     
-    public Questions(Integer lessonNumber, ActionEvent event, LessonController lessController, Boolean complete) throws IOException {
-    	this.lessonNumber = lessonNumber;
+    public Questions(ActionEvent event, LessonController lessController, Boolean complete) throws IOException {
     	this.questionEvent = event;
     	this.lessonController = lessController;
     	this.completed = complete;
     	boolean exist = true;
     	this.loadQuestion(1,exist,true,complete); 	
-    	if (!exist) System.out.println("Couldn't find ./lesson"+this.lessonNumber.toString()+"/question_1.txt. ");
+    	if (!exist) System.out.println("Couldn't find ./lesson"+this.lessonController.getLessonNumber().toString()+"/question_1.txt. ");
     	this.score = 0;
     	this.maxScore = 5;  //per ora tengo conto solamente della prima domanda. Il punteggio è riferito alla costante presente nel controller
     }
@@ -55,7 +52,7 @@ public class Questions {
     	exists = true;
     	
     	try {
-			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonNumber.toString()
+			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
 			+"/question_"+questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
 
 			//ora verifico se la domanda è l'ultima (devo passarlo come parametro al controller) cercando la successiva
@@ -63,14 +60,14 @@ public class Questions {
 			
 		   	try {
 		   	    Integer nextQuestionNumber = questionNumber+1;
-		   		BufferedReader reader2 = Files.newBufferedReader(Paths.get("./lesson"+this.lessonNumber.toString()
+		   		BufferedReader reader2 = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
 		   		+"/question_"+nextQuestionNumber.toString()+".txt"), StandardCharsets.UTF_8);
 		   					
 		   	} catch (Exception e) {
 		   		isLast = true;
 		   	}
 		   		
-		   	QuestionController controller = new QuestionController(this, this.lessonNumber, questionNumber, this.lessonController, isLast, complete);
+		   	QuestionController controller = new QuestionController(this, questionNumber, isLast);
 			
 		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
 		   	loader.setController(controller);
@@ -118,6 +115,18 @@ public class Questions {
     
     public Integer getMaxScore() {
     	return this.maxScore;
+    }
+    
+    public Boolean getCompleted() {
+    	return this.completed;
+    }
+    
+    public Integer getLessonNumber() {
+    	return this.lessonController.getLessonNumber();
+    }
+    
+    public LessonController getLessonController() {
+    	return this.lessonController;
     }
 
 }

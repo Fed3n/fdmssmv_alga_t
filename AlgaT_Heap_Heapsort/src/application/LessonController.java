@@ -56,8 +56,10 @@ public class LessonController {
     private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
     private final int MAX_LESSON_NUMBER;
     
-    private Questions questionObject;
+    private MainMenuController menuController;
+    private Questions questionObject = null;
     private Boolean completedQuestion = false;
+    private Integer lastQuestionLoaded = 0;
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	public void initialize() {
@@ -83,14 +85,15 @@ public class LessonController {
 	//Importante accertarsi che il numero delle lezioni corrisponda al numero di file text e al numero di righe dentro simulLocation.txt nella cartella corrispondente
 	//Prende in input titolo della lezione, numero delle parti della lezione e nome della cartella in ./ dove si trovano i file
 	//Il numero delle parti della lezione deve essere >=1
-	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName) {
+	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName, MainMenuController controller) {
 		this.lessonTitle = lessonName;
 		this.MAX_LESSON_NUMBER = numberOfLessons;
 		this.fileGetter = lessonFileName;
+		this.menuController = controller;
 	}
 	
 	//se il metodo ritorna zero c'è un errore nel nome delle cartelle
-	private Integer getLessonNumber() {
+	public Integer getLessonNumber() {
 		Integer n = 0;
 		try {
 			n = Integer.parseInt(this.fileGetter.substring(6));
@@ -103,10 +106,15 @@ public class LessonController {
 
 	public void goBackToMenu(ActionEvent backPressed) throws IOException {
 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+		//aggiorno il controller con la nuova lezione
+		if (this.getLessonNumber() == 1) this.menuController.setFirstLesson(this);
+		if (this.getLessonNumber() == 2) this.menuController.setSecondLesson(this);
+		MainMenuController controller = new MainMenuController(this.menuController);
+		loader.setController(controller);
+		Parent mainMenuParent = (Parent)loader.load();
+		Scene mainMenuScene = new Scene(mainMenuParent);
 		
-		Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-    	Scene mainMenuScene = new Scene(mainMenuParent);
-
     	Stage window = (Stage)((Node)backPressed.getSource()).getScene().getWindow();
 
     	window.setScene(mainMenuScene);
@@ -173,12 +181,26 @@ public class LessonController {
 	public void setCompleted(Boolean completed) {
 		this.completedQuestion = completed;
 	}
+	
+	public void setLastQuestionLoaded(Integer number) {
+		this.lastQuestionLoaded = number;
+	}
+	
+	//aggiorna a true il campo main menu controller che può rimanere non aggiornato
+	//@ param : l'intero fos indica il numero della lezione da aggiornare
+	public void upgradeMainMenu(Integer fos, LessonController lesson) {
+		if (fos == 1) this.menuController.setFirstLesson(lesson);
+		if (fos == 2) this.menuController.setSecondLesson(lesson);
+	}
 
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
 		if (!this.completedQuestion) 
-			this.questionObject = new Questions(this.getLessonNumber(),questionPressed,this,this.completedQuestion);
+			this.questionObject = new Questions(questionPressed,this,this.completedQuestion);
 		else {
-			this.questionObject.loadQuestion(1, true, false, this.completedQuestion);
+			Integer questionNumber;
+			if (this.lastQuestionLoaded == 0) questionNumber = 1; 
+			else questionNumber = this.lastQuestionLoaded;
+			this.questionObject.loadQuestion(questionNumber, true, false, this.completedQuestion);
 		}
 	}
 
