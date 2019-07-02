@@ -62,11 +62,18 @@ public class QuestionController {
     
     @FXML
     private Label pointsLabel;
+    
+    //parametri provenienti dall'esterno
+    private Questions questionsObject;
+    
+    private Integer questionNumber;
 	
     //costante non modificabile
     private final int MAX_ANSWERS_NUMBER = 3; 
     
-    private String question = null;
+   private final Integer POINT_FIRST_RIGHT_SELECTION = 5;	//punteggio assegnato ad una risposta corretta al primo tentativo
+    
+    private final Integer POINT_SECOND_RIGHT_SELECTION = 2; 	//punteggio assegnato ad una risposta corretta al secondo tentativo
     
     //vettore contenente le risposte
     private ArrayList<String> answers = new ArrayList<String>() {{ add(null); add(null); add(null); }};
@@ -74,41 +81,26 @@ public class QuestionController {
     //vettore contenente booleani relativi alle risposte
     private ArrayList<Boolean> results = new ArrayList<Boolean>() {{ add(false); add(false); add(false); }};
     
-    private Questions questionsObject;
-    
-    private Integer questionNumber;
-    
-    private Integer lessonNumber;
-    
     private Integer attemptsNumber = 0;
-    
-    private final Integer POINT_FIRST_RIGHT_SELECTION = 5;	//punteggio assegnato ad una risposta corretta al primo tentativo
-    
-    private final Integer POINT_SECOND_RIGHT_SELECTION = 2; 	//punteggio assegnato ad una risposta corretta al secondo tentativo
-    
-    private Boolean pointAdded = false;  //diventa true una volta che ho considerato i punti raggiunti
-    
+       
     private Boolean lastQuestion = false;
     
     //la variabile segnala se la corrente selezione della risposta è esatta
     private Boolean rightSelection = false;
-   
-    private Boolean completed;
-    
-    private LessonController lastController = null;
 	
 	public void initialize() throws Exception {
 		this.textArea.setEditable(false);
 		this.textArea.setWrapText(true);
 		this.titleLabel.setText("Domanda n° "+this.questionNumber.toString());
 		try {
-			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonNumber.toString()
+			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.questionsObject.getLessonNumber().toString()
 								+"/question_"+this.questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
 			int i = 0;
 			String line;
+			String question = null;
 			while ((line = reader.readLine()) != null){
 				if (i == 0) //la prima riga contiene la domanda
-					this.question = line;
+					question = line;
 				else {  //il primo carattere contiene (T/F) true o false relativo alla risposta e segue la domanda 
 					/*if ((line.charAt(0) != 'T' || line.charAt(0) != 'F') && line != null) throw new IOException("Error in file ./lesson"+
 							this.lessonNumber.toString()+"/question_"+this.questionNumber.toString()+".txt. Can't find"
@@ -118,19 +110,22 @@ public class QuestionController {
 				}
 				i++;
 				if (i > this.MAX_ANSWERS_NUMBER+1) 
-					throw new IOException("Error in file ./lesson"+this.lessonNumber.toString()+"/question_"+this.questionNumber.toString()+".txt. "
+					throw new IOException("Error in file ./lesson"+this.questionsObject.getLessonNumber().toString()+"/question_"+this.questionNumber.toString()+".txt. "
 							+ "The file does not respect the maximum number of line allowed.");
-			this.textArea.setText(this.question);
+			this.textArea.setText(question);
 			this.answerButton1.setText(answers.get(0));
 			this.answerButton2.setText(answers.get(1));
 			this.answerButton3.setText(answers.get(2));
-			if (!this.completed) {
+			if (!this.questionsObject.getCompleted()) {
 				this.prevButton.setVisible(false);
 				this.nextButton.setDisable(true);
 				this.pointsLabel.setVisible(false);
+				if (this.questionNumber != 1) this.backToLessonButton.setDisable(true);
 			} else {
 				this.prevButton.setVisible(true);
-				if (this.questionNumber == 1) this.prevButton.setDisable(true);
+				this.backToLessonButton.setDisable(false);
+				if (this.questionNumber == 1) 
+					this.prevButton.setDisable(true);
 				else this.prevButton.setDisable(false);
 				if (this.lastQuestion) this.nextButton.setDisable(true);
 				else this.nextButton.setDisable(false);
@@ -149,13 +144,10 @@ public class QuestionController {
 		}
 	} 
 	
-	public QuestionController(Questions father, Integer lessNum, Integer questNum, LessonController controller, Boolean last, Boolean complete) {
-		this.questionsObject = father;
-		this.lessonNumber = lessNum;
+	public QuestionController(Questions quest, Integer questNum, Boolean last) {
+		this.questionsObject = quest;
 		this.questionNumber = questNum;
-		this.lastController = controller;
 		this.lastQuestion = last;
-		this.completed = complete;
 	}
 	
     public void AnswerSelected(ActionEvent event) {
@@ -168,28 +160,33 @@ public class QuestionController {
     }
 
     public void checkAnswer(ActionEvent event) throws IOException {
-		if (this.rightSelection) {
-			if (!this.lastQuestion) {
-				this.nextButton.setDisable(false);
-				this.resultLabel.setTextFill(Color.GREEN);
-				this.resultLabel.setText("Risposta Corretta!");
-				this.attemptsNumber++;
+    	if (this.radioButtons.getSelectedToggle() != null) {
+	    	if (this.rightSelection) {
+				if (!this.lastQuestion) {
+					this.nextButton.setDisable(false);
+					this.resultLabel.setTextFill(Color.GREEN);
+					this.resultLabel.setText("Risposta Corretta!");
+					this.attemptsNumber++;
+				} else {
+					this.resultLabel.setTextFill(Color.BLUE);
+					this.resultLabel.setText("Risposta Corretta! Hai terminato con successo le domande");
+					this.attemptsNumber++;
+					this.questionsObject.addPoints(this.getPoints());
+					this.questionsObject.setCompleted(true);
+					this.questionsObject.loadQuestion(this.questionNumber, true, false, this.questionsObject.getCompleted());
+					
+				}
 			} else {
-				this.resultLabel.setTextFill(Color.BLUE);
-				this.resultLabel.setText("Risposta Corretta! Hai terminato con successo le domande");
+				this.nextButton.setDisable(true);
+				this.resultLabel.setTextFill(Color.RED);
+				this.resultLabel.setText("Risposta Errata, Ritenta.");
 				this.attemptsNumber++;
-				this.questionsObject.addPoints(this.getPoints());
-				this.completed = true;
-				this.questionsObject.setCompleted(this.completed);
-				this.questionsObject.loadQuestion(this.questionNumber, true, false, this.completed);
-				
 			}
-		} else {
-			this.nextButton.setDisable(true);
-			this.resultLabel.setTextFill(Color.RED);
-			this.resultLabel.setText("Risposta Errata, Ritenta.");
-			this.attemptsNumber++;
-		}
+    	} else {
+    		this.resultLabel.setTextFill(Color.RED);
+    		this.resultLabel.setText("Nessuna risposta selezionata");
+    	}
+    	if (!this.questionsObject.getCompleted()) this.backToLessonButton.setDisable(true);
     }	
     
     public void setRightSelection() {
@@ -232,9 +229,11 @@ public class QuestionController {
     
     public void goToLesson(ActionEvent backToLessonPressed) throws IOException {
     	
+    	this.questionsObject.getLessonController().setLastQuestionLoaded(this.questionNumber);
+    	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
-		loader.setController(this.lastController);
+		loader.setController(this.questionsObject.getLessonController());
 		
 		Parent heapLessonParent = (Parent)loader.load();
 	
@@ -244,5 +243,6 @@ public class QuestionController {
     	
     	window.setScene(heapLessonScene);
     	window.show();
+    	
     }
 }
