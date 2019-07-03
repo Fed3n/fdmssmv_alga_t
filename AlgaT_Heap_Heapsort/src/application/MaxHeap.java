@@ -6,7 +6,7 @@ import java.util.Collections;
 public class MaxHeap {
 
 	private ArrayList<Integer> heapVector;
-
+	
 	//Lista di operazioni per completare il MinHeapRestore
 	private ArrayList<ArrayList<Integer>> sequentialOperations;
 
@@ -66,4 +66,5 @@ public class MaxHeap {
 		}
 
 	}
+
 }

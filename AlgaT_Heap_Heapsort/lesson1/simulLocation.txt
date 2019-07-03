@@ -1,5 +1,5 @@
 null
 CompleteTreeSimul.fxml
 VectorToTreeSimul.fxml
-RestoreSimul.fxml
+HeapRestoreSimul.fxml
 null

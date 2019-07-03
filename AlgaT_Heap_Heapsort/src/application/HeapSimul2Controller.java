@@ -132,6 +132,7 @@ public class HeapSimul2Controller {
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
+			System.out.println(this.dataVector.toString());
 		}		
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");

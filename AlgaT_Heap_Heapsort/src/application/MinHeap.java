@@ -20,6 +20,7 @@ public class MinHeap {
 		return(this.sequentialOperations.get(indexNumber));
 	}
 	
+	
 	//Minheaprestore applicata a partire dalle foglie (quindi a partire da size/2-1 considerando che partiamo da 0)
 	public ArrayList<Integer> minHeapBuild(ArrayList<Integer> vector){
 		this.heapVector = new ArrayList<Integer>();
