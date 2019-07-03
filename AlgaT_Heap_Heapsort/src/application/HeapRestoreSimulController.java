@@ -65,71 +65,71 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.prevButton.setDisable(true);
 		this.maxMinChoiceBox.setValue("MaxHeap");
 		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
+		this.instructionList = new ArrayList<String>();
 	}
 	
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
 	public ArrayList<ArrayList<Integer>> stepByStepMaxRestore(ArrayList<Integer> vector, Integer index) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-		ArrayList<String> instructionList = new ArrayList<String>();
 		Boolean finished = false;
-		Boolean swapped = false;
 		
 		//Per come funzionano gli oggetti in java devo creare un nuovo vettore ogni volta che aggiorno la lista di vettori
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		instructionList.add("Premi Avanti per cominciare la simulazione.");
+		this.instructionList.add("Premi Avanti per cominciare la simulazione.");
 		
 		while(!finished) {
-			swapped = false;
+			Integer max = index;
 			
-			//Figlio sinistro > figlio destro, prima controlla che esista un figlio destro
-			if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
-				//Se il figlio più grande è maggiore del padre, si scambiano
-				if(vector.get(index) < vector.get(this.lChild(index))) {
-					instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-					Collections.swap(vector, index, this.lChild(index));
-					swapped = true;
-				}				
-			}
+			if(!(index >= vector.size()/2)){
+				
 			
-			else {
-				//Se il figlio più grande è maggiore del padre, si scambiano
-				if(vector.get(index) < vector.get(this.rChild(index))) {
-					instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-					Collections.swap(vector, index, this.rChild(index));
-					//TODO Evidenza scambio tra padre e rchild
-					swapped = true;
+				//Figlio sinistro > figlio destro, prima controlla che esista un figlio destro
+				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
+					//Se il figlio più grande è maggiore del padre, si scambiano
+					if(vector.get(index) < vector.get(this.lChild(index))) {
+						this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						Collections.swap(vector, index, this.lChild(index));
+						max = this.lChild(index);
+					}				
+				}
+			
+				else {
+					//Se il figlio più grande è maggiore del padre, si scambiano
+					if(vector.get(index) < vector.get(this.rChild(index))) {
+						this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						Collections.swap(vector, index, this.rChild(index));
+						//TODO Evidenza scambio tra padre e rchild
+						max = this.rChild(index);
+					}
 				}
 			}
 			
-			//Se non c'è stato da scambiare o index era il padre l'operazione è terminata
-			if(!swapped || index == 0) {
+			//Se non c'è stato da scambiare l'operazione è terminata
+			if(index == max) {
 				finished = true;
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
 				
 				//Status finale in caso si sia arrivati al padre
-				if(swapped)
-					statusList.add(w);
+				//if(swapped)
+				//statusList.add(w);
 				
-				instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
+				this.instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 				//TODO Evidenza che non c'è più da scambiare
-			}
-			
-			//Altrimenti l'operazione procede sul padre
+				}
+			//L'operazione procede sull'indice
 			else {
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
-				index = this.parent(index);
+				index = max;
 			}	
 			this.printVector(statusList);
 			System.out.println("@@@@@@@@@@@@@@@@");
 		}
-		//this.statusList = statusList;
-		this.instructionList = instructionList;
 		return statusList;
 	}
 	
@@ -137,62 +137,64 @@ public class HeapRestoreSimulController extends HeapSimul{
 		public ArrayList<ArrayList<Integer>> stepByStepMinRestore(ArrayList<Integer> vector, Integer index) {
 			ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
 			Boolean finished = false;
-			Boolean swapped = false;
 			
 			ArrayList<Integer> v = new ArrayList<Integer>();
 			v.addAll(vector);
 			statusList.add(v);
-			instructionList.add("Premi Avanti per cominciare la simulazione.");
+			this.instructionList.add("Premi Avanti per cominciare la simulazione.");
 			
 			while(!finished) {
-				swapped = false;
+				Integer min = index;
 				
-				//Figlio sinistro < figlio destro, prima controlla che esista un figlio destro
-				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
-					//Se il figlio più piccolo è minore del padre, si scambiano
-					if(vector.get(index) > vector.get(this.lChild(index))) {
-						instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-						Collections.swap(vector, index, this.lChild(index));
-						//TODO Evidenza scambio tra padre e lchild
-						swapped = true;
-					}				
-				}
+				if(!(index >= vector.size()/2)){
 				
-				else {
-					//Se il figlio più piccolo è minore del padre, si scambiano
-					if(vector.get(index) > vector.get(this.rChild(index))) {
-						instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-						Collections.swap(vector, index, this.rChild(index));
-						//TODO Evidenza scambio tra padre e rchild
-						swapped = true;
+					//Figlio sinistro < figlio destro, prima controlla che esista un figlio destro
+					if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
+						//Se il figlio più piccolo è minore del padre, si scambiano
+						if(vector.get(index) > vector.get(this.lChild(index))) {
+							this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							Collections.swap(vector, index, this.lChild(index));
+							//TODO Evidenza scambio tra padre e lchild
+							min = this.lChild(index);
+						}				
 					}
+				
+					else {
+						//Se il figlio più piccolo è minore del padre, si scambiano
+						if(vector.get(index) > vector.get(this.rChild(index))) {
+							this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							Collections.swap(vector, index, this.rChild(index));
+							//TODO Evidenza scambio tra padre e rchild
+							min = this.rChild(index);
+						}
+					}
+					
 				}
 				
-				//Se non c'è stato da scambiare o index era il padre l'operazione è terminata
-				if(!swapped || index == 0) {
+				//Se non c'è stato da scambiare l'operazione è terminata
+				if(index == min) {
 					finished = true;
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
 					
 					//Status finale in caso si sia arrivati al padre
-					if(swapped)
-						statusList.add(w);
+					//if(swapped)
+					//statusList.add(w);
 					
-					instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
+					this.instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 					//TODO Evidenza che non c'è più da scambiare
-				}
-				//L'operazione procede sul padre
+					}
+				//L'operazione procede sull'indice
 				else {
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
-					index = this.parent(index);
+					index = min;
 				}	
 				this.printVector(statusList);
 				System.out.println("@@@@@@@@@@@@@@@@");
 			}
-			//this.statusList = statusList;
 			return statusList;
 		}
 	
@@ -242,6 +244,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
+				
+				//Pulisco la instructionList dai precedenti messaggi
+				this.instructionList.clear();
 				
 				System.out.println(this.selectedIndex);
 				System.out.println(this.dataVector.size());
