@@ -1,4 +1,4 @@
-﻿Qual è la capitare della Russia?
-FPietrogrado
-FVladivostok
-TMosca
+﻿L'albero Heap è solamente una rappresentazione astratta che facilita l'elaborazione e la spiegazione di algoritmi con gli Heap. Dopo aver ragionato sull'albero Heap è necessario stabilire la relazione tra un nodo e la sua posizione all'interno del vettore. Se un nodo di grado 2 viene memorizzato in posizione i qual è la posizione dei figli nel vettore? 
+FIl figlio sinistro si trova in posizione 2*i+1 ed il figlio destro si trova in posizione 2*i+2
+FIl figlio sinistro si trova in posizione 2*i-1 ed il figlio destro si trova in posizione 2*i+1
+TIl figlio sinistro si trova in posizione 2*i ed il figlio destro si trova in posizione 2*i+1

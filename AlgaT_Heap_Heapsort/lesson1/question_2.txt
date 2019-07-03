@@ -1,4 +1,4 @@
-﻿Selezionare il numero minore
-Fquindici
-Fdodici
-Totto
+﻿Quante tipologie di Heap esistono?
+Funa
+Tdue
+Ftre

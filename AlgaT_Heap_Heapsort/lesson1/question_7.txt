@@ -1,0 +1,4 @@
+﻿Quale delle seguenti funzioni è stata mostrata in modo ricorsivo?
+FHeapBuild
+TmaxHeapRestore
+FNessuna delle due

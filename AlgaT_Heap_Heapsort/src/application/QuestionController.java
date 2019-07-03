@@ -91,6 +91,9 @@ public class QuestionController {
 	public void initialize() throws Exception {
 		this.textArea.setEditable(false);
 		this.textArea.setWrapText(true);
+		this.answerButton1.setWrapText(true);
+		this.answerButton2.setWrapText(true);
+		this.answerButton3.setWrapText(true);
 		this.titleLabel.setText("Domanda n° "+this.questionNumber.toString());
 		try {
 			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.questionsObject.getLessonNumber().toString()
