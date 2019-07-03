@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 
-public class CompleteTreeSimulController extends HeapSimul2Controller{
+public class CompleteTreeSimulController extends HeapSimul{
 	
 	@FXML
 	private Label vectorLabel;

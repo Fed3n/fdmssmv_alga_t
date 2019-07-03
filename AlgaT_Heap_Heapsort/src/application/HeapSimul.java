@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-public class HeapSimul2Controller {
+public class HeapSimul {
 
     @FXML
     protected Pane vectorPane;
@@ -87,6 +88,23 @@ public class HeapSimul2Controller {
 		this.maxMinChoiceBox.getItems().add("MaxHeap");
 		this.maxMinChoiceBox.getItems().add("MinHeap");
 		this.isGenerated = false;
+	}
+	
+	public ArrayList<Integer> randomVector(){
+		System.out.println("Sono nel randomVector");
+		Random random = new Random();
+		Integer min = 4;
+		Integer m = 15-min;
+		Integer n = random.nextInt(m)+min;	//Valori compresi tra 4 e 15
+		System.out.println("Ho creato la lista di elementi  " + n);
+		
+		//Creo vettore
+		ArrayList<Integer> vector = new ArrayList<Integer>();
+		for(Integer i=0; i < n; i++){
+			vector.add(random.nextInt(99));
+		}
+		System.out.println("La lista contiene i seguenti numeri casuali: " +vector.toString());
+		return(vector);
 	}
 	
 	public void drawVector() {

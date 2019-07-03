@@ -8,9 +8,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -19,7 +21,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 
-public class HeapRestoreSimulController extends HeapSimul2Controller{
+public class HeapRestoreSimulController extends HeapSimul{
 	
 	@FXML
 	private Label vectorLabel;
@@ -41,9 +43,12 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	
 	private ArrayList<ArrayList<Integer>> statusList;	//Lista di stati del vettore durante l'operazione
 	
+	private ArrayList<String> instructionList;			//Lista di istruzioni da inserire 
+	
 	private Integer currentStatusIndex;					//Indice dello stato visualizzato del vettore
 	
 	private Integer selectedIndex;						//Indice del nodo selezionato
+	
 	private Boolean selectable;							//Indica se è possibile selezionare un nodo
 	
 	
@@ -58,11 +63,14 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		this.selectable = false;
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.maxMinChoiceBox.setValue("MaxHeap");
+		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
 	}
 	
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
 	public ArrayList<ArrayList<Integer>> stepByStepMaxRestore(ArrayList<Integer> vector, Integer index) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
+		ArrayList<String> instructionList = new ArrayList<String>();
 		Boolean finished = false;
 		Boolean swapped = false;
 		
@@ -70,6 +78,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
+		instructionList.add("Premi Avanti per cominciare la simulazione.");
 		
 		while(!finished) {
 			swapped = false;
@@ -78,8 +87,8 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
 				//Se il figlio più grande è maggiore del padre, si scambiano
 				if(vector.get(index) < vector.get(this.lChild(index))) {
+					instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 					Collections.swap(vector, index, this.lChild(index));
-					//TODO Evidenza scambio tra padre e lchild
 					swapped = true;
 				}				
 			}
@@ -87,6 +96,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			else {
 				//Se il figlio più grande è maggiore del padre, si scambiano
 				if(vector.get(index) < vector.get(this.rChild(index))) {
+					instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 					Collections.swap(vector, index, this.rChild(index));
 					//TODO Evidenza scambio tra padre e rchild
 					swapped = true;
@@ -99,6 +109,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
+				instructionList.add("Non c'é nulla da scambiare. Simulazione terminata. Genera un nuovo vettore oppure seleziona un nuovo nodo.");
 				//TODO Evidenza che non c'è più da scambiare
 			}
 			
@@ -113,6 +124,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			System.out.println("@@@@@@@@@@@@@@@@");
 		}
 		this.statusList = statusList;
+		this.instructionList = instructionList;
 		return statusList;
 	}
 	
@@ -125,6 +137,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			ArrayList<Integer> v = new ArrayList<Integer>();
 			v.addAll(vector);
 			statusList.add(v);
+			instructionList.add("Premi Avanti per cominciare la simulazione.");
 			
 			while(!finished) {
 				swapped = false;
@@ -133,6 +146,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
 					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.lChild(index))) {
+						instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 						Collections.swap(vector, index, this.lChild(index));
 						//TODO Evidenza scambio tra padre e lchild
 						swapped = true;
@@ -142,6 +156,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 				else {
 					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.rChild(index))) {
+						instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 						Collections.swap(vector, index, this.rChild(index));
 						//TODO Evidenza scambio tra padre e rchild
 						swapped = true;
@@ -154,6 +169,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
+					instructionList.add("Non c'é nulla da scambiare. Simulazione terminata. Genera un nuovo vettore oppure seleziona un nuovo nodo.");
 					//TODO Evidenza che non c'è più da scambiare
 				}
 				//L'operazione procede sul padre
@@ -188,6 +204,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			this.prevButton.setDisable(false);
 			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
+			this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 			this.drawVector();
 			this.drawTree();
 		}
@@ -204,6 +221,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			this.nextButton.setDisable(false);
 			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
+			this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 			this.drawVector();
 			this.drawTree();
 		}
@@ -214,6 +232,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
+				
 				System.out.println(this.selectedIndex);
 				System.out.println(this.dataVector.size());
 				ArrayList<ArrayList<Integer>> test = new ArrayList<ArrayList<Integer>>();
@@ -227,22 +246,29 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 				this.currentStatusIndex = 0;
 				this.selectedIndex = null;
 				this.dataVector = this.statusList.get(this.currentStatusIndex);
+				this.infoText.setText("Premi Avanti per proseguire con la simulazione.");
 				this.drawVector();
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
-				}
-			else {
-				//TODO Stampare che non si esegue operazione su foglia
 			}
+			else {
+				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");
+				alert.showAndWait();
+			}
+		}
+		else if(this.maxMinChoiceBox.getValue() == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un elemento dal menu a tenda.");
+			alert.showAndWait();
 		}
 	}
 	
 	public void readyVector() {
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.infoText.setText("Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi seleziona il nodo dell'albero da cui far partire la simulazione ed infine premi Restore!");
 		this.selectable = true;
-		this.drawVector();
+		//this.drawVector();
 		this.drawTree();
 	}
 	
@@ -382,7 +408,9 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	
 	@Override
 	public void addToVector() {
-		super.addToVector();
+		this.dataVector = super.randomVector();
+		super.drawVector();
+		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		this.selectable = false;
