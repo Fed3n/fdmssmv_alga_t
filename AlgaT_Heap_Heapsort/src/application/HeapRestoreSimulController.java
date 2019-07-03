@@ -24,32 +24,32 @@ import javafx.scene.shape.Rectangle;
 public class HeapRestoreSimulController extends HeapSimul{
 	
 	@FXML
-	private Label vectorLabel;
+	protected Label vectorLabel;
 	
 	@FXML
-	private TextArea infoText;
+	protected TextArea infoText;
 	
 	@FXML
-	private Button restoreButton;
+	protected Button restoreButton;
 	
 	@FXML
-	private Button nextButton;
+	protected Button nextButton;
 	
 	@FXML
-	private Button prevButton;
+	protected Button prevButton;
 	
 	@FXML
-	private Button readyButton;
+	protected Button readyButton;
 	
-	private ArrayList<ArrayList<Integer>> statusList;	//Lista di stati del vettore durante l'operazione
+	protected ArrayList<ArrayList<Integer>> statusList;	//Lista di stati del vettore durante l'operazione
 	
-	private ArrayList<String> instructionList;			//Lista di istruzioni da inserire 
+	protected ArrayList<String> instructionList;			//Lista di istruzioni da inserire 
 	
-	private Integer currentStatusIndex;					//Indice dello stato visualizzato del vettore
+	protected Integer currentStatusIndex;					//Indice dello stato visualizzato del vettore
 	
-	private Integer selectedIndex;						//Indice del nodo selezionato
+	protected Integer selectedIndex;						//Indice del nodo selezionato
 	
-	private Boolean selectable;							//Indica se è possibile selezionare un nodo
+	protected Boolean selectable;							//Indica se è possibile selezionare un nodo
 	
 	
 	
