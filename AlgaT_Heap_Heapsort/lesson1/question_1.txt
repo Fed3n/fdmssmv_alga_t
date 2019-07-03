@@ -1,4 +1,4 @@
-﻿Quando diventi maggiorenne?
-Fa 12 anni
-Ta 18 anni
-Fa 56 anni
+﻿L'heap è una struttura dati costituita da un vettore. Viene utilizzata per l'implementazione di quale struttura dati astratta?
+FAlberi binari di ricerca
+FGrafi orientati
+TCode con priorità

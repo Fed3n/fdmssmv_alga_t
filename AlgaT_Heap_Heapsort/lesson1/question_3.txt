@@ -1,4 +1,4 @@
-﻿Eh adesso devi indovinare...
-Fsi
-Tno
-Fforse
+﻿Un albero Heap è un albero binario che deve rispettare tre proprietà. Quali di queste è falsa?
+FSe h è il livello massimo delle foglie, allora ci sono esattamente 2^h-1 nodi di livello minore di h
+FTutte le foglie che si trovano all'ultimo livello sono "ammucchiate" a sinistra
+TOgni nodo diverso dalla radice ha una priorità che è minore o uguale alla priorità del padre se si tratta di un albero minHeap, altrimenti una priorità che è maggiore o uguale alla priorità del padre se si tratta di un albero maxHeap

@@ -95,6 +95,9 @@ public class QuestionController {
 	public void initialize() throws Exception {
 		this.textArea.setEditable(false);
 		this.textArea.setWrapText(true);
+		this.answerButton1.setWrapText(true);
+		this.answerButton2.setWrapText(true);
+		this.answerButton3.setWrapText(true);
 		this.titleLabel.setText("Domanda n° "+this.questionNumber.toString());
 		if (this.questionsObject.getCompleted()) this.progressBar.setVisible(false);
 		try {

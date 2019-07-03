@@ -1,0 +1,4 @@
+﻿Selezionare il nome della funzione che si occupa di prendere in input un vettore e restituire lo stesso vettore che rispetti le proprietà di un Heap
+FHeapRestore
+FHeapChange
+THeapBuild
