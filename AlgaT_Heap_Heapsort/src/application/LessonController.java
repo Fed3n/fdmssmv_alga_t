@@ -58,7 +58,6 @@ public class LessonController {
     
     private MainMenuController menuController;
     private Questions questionObject = null;
-    private Boolean lessonCompleted = false;
     private Boolean completedQuestion = false;
     private Integer lastQuestionLoaded = 0;
 
@@ -79,7 +78,6 @@ public class LessonController {
 		this.textNumber = 1;
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
 		this.lessonText.setWrapText(true);
-		if (!this.lessonCompleted) this.questionButton.setDisable(true);
 
 		this.reloadPage();
 	}
@@ -142,11 +140,9 @@ public class LessonController {
 			this.prevTextButton.setDisable(true);
 		else this.prevTextButton.setDisable(false);
 
-		if(this.textNumber == MAX_LESSON_NUMBER) {
+		if(this.textNumber == MAX_LESSON_NUMBER)
 			this.nextTextButton.setDisable(true);
-			this.questionButton.setDisable(false);
-			this.lessonCompleted = true;
-		} else this.nextTextButton.setDisable(false);
+		else this.nextTextButton.setDisable(false);
 
 		//Controllo se la parte della lezione ha una simulazione associata o meno, attivo/disattivo pulsante di conseguenza
 		if(this.simulLocationList.get(this.textNumber-1).contentEquals("null")) {

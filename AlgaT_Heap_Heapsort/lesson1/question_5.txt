@@ -1,4 +1,0 @@
-﻿Le funzioni maxHeapRestore e minHeapRestore prendono in input la posizione i di un nodo del vettore e restituiscono un vettore che rispetta le proprieta di maxHeap o minHeap. Quale precondizione è richiesta dalle due funzioni citate?
-FNon devono essere presenti nodi con la stessa priorità
-TI sottoalberi radicati sinistro e destro devono rispettare le proprietà del maxHeap o minHeap
-Fil paramentro i preso in input non deve corrispondere ad una foglia
