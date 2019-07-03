@@ -17,7 +17,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-public class RestoreSimulController extends HeapSimul2Controller{
+public class RestoreSimulController extends HeapSimul{
 
 	@FXML
 	protected ChoiceBox<String> maxMinChoiceBox;
