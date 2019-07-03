@@ -37,13 +37,14 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	private Button prevButton;
 	
 	@FXML
-	private Button drawButton;
+	private Button readyButton;
 	
-	private ArrayList<ArrayList<Integer>> statusList;
+	private ArrayList<ArrayList<Integer>> statusList;	//Lista di stati del vettore durante l'operazione
 	
-	private Integer currentStatusIndex;
+	private Integer currentStatusIndex;					//Indice dello stato visualizzato del vettore
 	
-	private Integer selectedIndex;
+	private Integer selectedIndex;						//Indice del nodo selezionato
+	private Boolean selectable;							//Indica se è possibile selezionare un nodo
 	
 	
 	
@@ -54,6 +55,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		this.infoText.setWrapText(true);	
 		this.currentStatusIndex = 0;
 		this.selectedIndex = null;
+		this.selectable = false;
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 	}
@@ -64,6 +66,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		Boolean finished = false;
 		Boolean swapped = false;
 		
+		//Per come funzionano gli oggetti in java devo creare un nuovo vettore ogni volta che aggiorno la lista di vettori
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
@@ -71,8 +74,8 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		while(!finished) {
 			swapped = false;
 			
-			//Figlio sinistro > figlio destro
-			if(vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
+			//Figlio sinistro > figlio destro, prima controlla che esista un figlio destro
+			if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
 				//Se il figlio più grande è maggiore del padre, si scambiano
 				if(vector.get(index) < vector.get(this.lChild(index))) {
 					Collections.swap(vector, index, this.lChild(index));
@@ -126,9 +129,9 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			while(!finished) {
 				swapped = false;
 				
-				//Figlio sinistro > figlio destro
-				if(vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
-					//Se il figlio più grande è maggiore del padre, si scambiano
+				//Figlio sinistro < figlio destro, prima controlla che esista un figlio destro
+				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
+					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.lChild(index))) {
 						Collections.swap(vector, index, this.lChild(index));
 						//TODO Evidenza scambio tra padre e lchild
@@ -137,7 +140,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 				}
 				
 				else {
-					//Se il figlio più grande è maggiore del padre, si scambiano
+					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.rChild(index))) {
 						Collections.swap(vector, index, this.rChild(index));
 						//TODO Evidenza scambio tra padre e rchild
@@ -177,7 +180,13 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	
 	public void nextStatus() {
 		if(this.statusList.size() > currentStatusIndex+1) {
-			currentStatusIndex++;
+			this.currentStatusIndex++;
+			//Disabilito next se sono all'ultimo
+			if (this.currentStatusIndex+1 >= this.statusList.size())
+				this.nextButton.setDisable(true);
+			
+			this.prevButton.setDisable(false);
+			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
 			this.drawVector();
 			this.drawTree();
@@ -187,6 +196,13 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	public void prevStatus() {
 		if(currentStatusIndex > 0) {
 			currentStatusIndex--;
+			
+			//Disabilito prev se sono al primo
+			if(this.currentStatusIndex <= 0)
+				this.prevButton.setDisable(true);
+			
+			this.nextButton.setDisable(false);
+			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
 			this.drawVector();
 			this.drawTree();
@@ -196,25 +212,36 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 	//Pulsante restore, genera la successione di step-by-step
 	public void generateSteps() {
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
-			ArrayList<ArrayList<Integer>> test = new ArrayList<ArrayList<Integer>>();
-			if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
-				test = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
-			}
+			//Controllo che non sia una foglia
+			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
+				System.out.println(this.selectedIndex);
+				System.out.println(this.dataVector.size());
+				ArrayList<ArrayList<Integer>> test = new ArrayList<ArrayList<Integer>>();
+				if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
+					test = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
+				}
+				else {
+					test = this.stepByStepMinRestore(this.dataVector, this.selectedIndex);
+				}
+				this.printVector(test);	
+				this.currentStatusIndex = 0;
+				this.selectedIndex = null;
+				this.dataVector = this.statusList.get(this.currentStatusIndex);
+				this.drawVector();
+				this.drawTree();
+				this.nextButton.setDisable(false);
+				this.selectable = false;
+				}
 			else {
-				test = this.stepByStepMinRestore(this.dataVector, this.selectedIndex);
+				//TODO Stampare che non si esegue operazione su foglia
 			}
-			this.printVector(test);	
-			this.currentStatusIndex = 0;
-			this.selectedIndex = null;
-			this.dataVector = this.statusList.get(this.currentStatusIndex);
-			this.drawVector();
-			this.drawTree();
-			this.nextButton.setDisable(false);
-			this.prevButton.setDisable(false);
 		}
 	}
 	
-	public void draw() {
+	public void readyVector() {
+		this.nextButton.setDisable(true);
+		this.prevButton.setDisable(true);
+		this.selectable = true;
 		this.drawVector();
 		this.drawTree();
 	}
@@ -247,7 +274,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			numPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated) {
+					if(isGenerated && selectable) {
 						for(Integer index = 0; index < numVector.size(); index++) {
 							Rectangle rect = (Rectangle)numVector.get(index).getChildren().get(0);
 							rect.setStroke(Color.BLUE);
@@ -302,7 +329,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 			node.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					if(isGenerated) {
+					if(isGenerated && selectable) {
 						for(Integer index = 0; index < numVector.size(); index++) {
 							Rectangle rect = (Rectangle)numVector.get(index).getChildren().get(0);
 							rect.setStroke(Color.BLUE);
@@ -358,6 +385,7 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		super.addToVector();
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.selectable = false;
 	}
 	
 	@Override
@@ -365,27 +393,22 @@ public class HeapRestoreSimulController extends HeapSimul2Controller{
 		super.removeFromVector();
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
-	}
-	
-	@Override
-	public void generateHeap() {
-		super.generateHeap();
-		this.vectorLabel.setText("");
+		this.selectable = false;
 	}
 	
 	//Nei seguenti metodi l'indexing è un po' differente perché il vettore parte da 0 e non da 1 come nella teoria//
-		private Integer parent(Integer index) {
-			return ((index-1)/2);
-		}
+	private Integer parent(Integer index) {
+		return ((index-1)/2);
+	}
 
-		private Integer lChild(Integer index) {
-			return (index*2+1);
-		}
+	private Integer lChild(Integer index) {
+		return (index*2+1);
+	}
 
-		private Integer rChild(Integer index) {
-			return (index*2+2);
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private Integer rChild(Integer index) {
+		return (index*2+2);
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 }
 

@@ -29,7 +29,7 @@ public class MaxHeap {
 		System.out.println("Ho creato la lista ed ha dimensione " + this.sequentialOperations.size());
 		
 
-		for(Integer index = this.heapVector.size()/2-1; index >= 0; index--) {
+		for(Integer index = (this.heapVector.size()-1)/2; index >= 0; index--) {
 			this.sequentialOperations.add(this.heapVector);
 			this.maxHeapRestore(this.heapVector, index);
 		}
