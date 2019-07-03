@@ -29,12 +29,15 @@ public class Questions {
     
     private Integer score;
     
+    private Integer questionsNumber = 0;
+    
     private Boolean completed;
     
     public Questions(ActionEvent event, LessonController lessController, Boolean complete) throws IOException {
     	this.questionEvent = event;
     	this.lessonController = lessController;
     	this.completed = complete;
+    	this.setQuestionNumber();
     	boolean exist = true;
     	this.loadQuestion(1,exist,true,complete); 	
     	if (!exist) System.out.println("Couldn't find ./lesson"+this.lessonController.getLessonNumber().toString()+"/question_1.txt. ");
@@ -88,6 +91,23 @@ public class Questions {
 		}
     }
     
+    //metodo per settare dinamicamente la variabile di classe : numero di domande
+    //il metodo cerca di caricare i file richiesti fino a che non finiscono e viene lanciata un'eccezione
+    public void setQuestionNumber() {
+    	Integer i = 1;
+    	Boolean presence = true;
+    	while (presence) {
+    	   	try {
+    	   		BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
+    	   		+"/question_"+i.toString()+".txt"), StandardCharsets.UTF_8);
+    	   		i++;
+    	   	} catch (Exception e) {
+    	   		presence = false;
+    	   	}
+    	}
+    	this.questionsNumber = i-1;
+    }
+    
     //il parametro booleano mi informa nel caso in cui i punti siano già stati assegnati
     public void nextQuestion(ActionEvent nextPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points;  
@@ -129,4 +149,7 @@ public class Questions {
     	return this.lessonController;
     }
 
+    public Integer getQuestionsNumber() {
+    	return this.questionsNumber;
+    }
 }

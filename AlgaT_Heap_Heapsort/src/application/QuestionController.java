@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
@@ -63,6 +64,9 @@ public class QuestionController {
     @FXML
     private Label pointsLabel;
     
+    @FXML
+    private ProgressBar progressBar;
+    
     //parametri provenienti dall'esterno
     private Questions questionsObject;
     
@@ -95,6 +99,7 @@ public class QuestionController {
 		this.answerButton2.setWrapText(true);
 		this.answerButton3.setWrapText(true);
 		this.titleLabel.setText("Domanda n° "+this.questionNumber.toString());
+		if (this.questionsObject.getCompleted()) this.progressBar.setVisible(false);
 		try {
 			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.questionsObject.getLessonNumber().toString()
 								+"/question_"+this.questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
@@ -112,6 +117,7 @@ public class QuestionController {
 					answers.set(i-1, line.substring(1));
 				}
 				i++;
+			}
 				if (i > this.MAX_ANSWERS_NUMBER+1) 
 					throw new IOException("Error in file ./lesson"+this.questionsObject.getLessonNumber().toString()+"/question_"+this.questionNumber.toString()+".txt. "
 							+ "The file does not respect the maximum number of line allowed.");
@@ -119,6 +125,7 @@ public class QuestionController {
 			this.answerButton1.setText(answers.get(0));
 			this.answerButton2.setText(answers.get(1));
 			this.answerButton3.setText(answers.get(2));
+			this.setProgressBar();
 			if (!this.questionsObject.getCompleted()) {
 				this.prevButton.setVisible(false);
 				this.nextButton.setDisable(true);
@@ -139,7 +146,6 @@ public class QuestionController {
 				this.setRightSelection();
 				this.pointsLabel.setVisible(true);
 				this.pointsLabel.setText("Punteggio raggiunto: "+this.questionsObject.getScore().toString()+"/"+this.questionsObject.getMaxScore().toString());
-				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -151,6 +157,10 @@ public class QuestionController {
 		this.questionsObject = quest;
 		this.questionNumber = questNum;
 		this.lastQuestion = last;
+	}
+	
+	private void setProgressBar() {
+		this.progressBar.setProgress((double)1/this.questionsObject.getQuestionsNumber()*questionNumber);
 	}
 	
     public void AnswerSelected(ActionEvent event) {
