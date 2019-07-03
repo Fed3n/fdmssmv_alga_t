@@ -87,7 +87,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 			if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
 				//Se il figlio più grande è maggiore del padre, si scambiano
 				if(vector.get(index) < vector.get(this.lChild(index))) {
-					instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+					instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 					Collections.swap(vector, index, this.lChild(index));
 					swapped = true;
 				}				
@@ -96,7 +96,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 			else {
 				//Se il figlio più grande è maggiore del padre, si scambiano
 				if(vector.get(index) < vector.get(this.rChild(index))) {
-					instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+					instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 					Collections.swap(vector, index, this.rChild(index));
 					//TODO Evidenza scambio tra padre e rchild
 					swapped = true;
@@ -109,7 +109,12 @@ public class HeapRestoreSimulController extends HeapSimul{
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
-				instructionList.add("Non c'é nulla da scambiare. Simulazione terminata. Genera un nuovo vettore oppure seleziona un nuovo nodo.");
+				
+				//Status finale in caso si sia arrivati al padre
+				if(swapped)
+					statusList.add(w);
+				
+				instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 				//TODO Evidenza che non c'è più da scambiare
 			}
 			
@@ -123,7 +128,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 			this.printVector(statusList);
 			System.out.println("@@@@@@@@@@@@@@@@");
 		}
-		this.statusList = statusList;
+		//this.statusList = statusList;
 		this.instructionList = instructionList;
 		return statusList;
 	}
@@ -146,7 +151,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
 					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.lChild(index))) {
-						instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 						Collections.swap(vector, index, this.lChild(index));
 						//TODO Evidenza scambio tra padre e lchild
 						swapped = true;
@@ -156,7 +161,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				else {
 					//Se il figlio più piccolo è minore del padre, si scambiano
 					if(vector.get(index) > vector.get(this.rChild(index))) {
-						instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " é maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
 						Collections.swap(vector, index, this.rChild(index));
 						//TODO Evidenza scambio tra padre e rchild
 						swapped = true;
@@ -169,7 +174,12 @@ public class HeapRestoreSimulController extends HeapSimul{
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
-					instructionList.add("Non c'é nulla da scambiare. Simulazione terminata. Genera un nuovo vettore oppure seleziona un nuovo nodo.");
+					
+					//Status finale in caso si sia arrivati al padre
+					if(swapped)
+						statusList.add(w);
+					
+					instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 					//TODO Evidenza che non c'è più da scambiare
 				}
 				//L'operazione procede sul padre
@@ -182,7 +192,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				this.printVector(statusList);
 				System.out.println("@@@@@@@@@@@@@@@@");
 			}
-			this.statusList = statusList;
+			//this.statusList = statusList;
 			return statusList;
 		}
 	
@@ -235,14 +245,18 @@ public class HeapRestoreSimulController extends HeapSimul{
 				
 				System.out.println(this.selectedIndex);
 				System.out.println(this.dataVector.size());
-				ArrayList<ArrayList<Integer>> test = new ArrayList<ArrayList<Integer>>();
+				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
-					test = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
+					vector = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
 				}
 				else {
-					test = this.stepByStepMinRestore(this.dataVector, this.selectedIndex);
+					vector = this.stepByStepMinRestore(this.dataVector, this.selectedIndex);
 				}
-				this.printVector(test);	
+				//Assegno il vettore di status generato al suo campo
+				this.statusList = vector;
+				this.printVector(vector);	
+				
+				//Poi resetto la schermata dell'interazione
 				this.currentStatusIndex = 0;
 				this.selectedIndex = null;
 				this.dataVector = this.statusList.get(this.currentStatusIndex);
@@ -251,6 +265,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
+				
+				System.out.println(this.instructionList.size());
+				System.out.println(this.statusList.size());
 			}
 			else {
 				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");
