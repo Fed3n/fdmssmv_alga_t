@@ -76,7 +76,6 @@ public class LessonController {
 			System.out.println("Couldn't find simulLocation.txt inside the directory" + this.fileGetter);
 		}
 		this.titleLabel.setText(lessonTitle);
-		this.textNumber = 1;
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
 		this.lessonText.setWrapText(true);
 		if (!this.lessonCompleted) this.questionButton.setDisable(true);
@@ -92,6 +91,7 @@ public class LessonController {
 		this.MAX_LESSON_NUMBER = numberOfLessons;
 		this.fileGetter = lessonFileName;
 		this.menuController = controller;
+		this.textNumber = 1;
 	}
 	
 	//se il metodo ritorna zero c'è un errore nel nome delle cartelle
