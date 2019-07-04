@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class QuestionController {
@@ -57,6 +58,9 @@ public class QuestionController {
     
     @FXML
     private Button backToLessonButton;
+    
+    @FXML
+    private Button explanationButton;    
     
     @FXML
     private Label resultLabel;
@@ -112,7 +116,7 @@ public class QuestionController {
 				if (i == 0) //la prima riga contiene la domanda
 					question = line;
 				else if (i == 4) {
-					
+					this.explanation = line;
 				} else {  //il primo carattere contiene (T/F) true o false relativo alla risposta e segue la domanda. Solo una risposta 
 						//può essere quella corretta
 					results.set(i-1, line.charAt(0) == 'T');
@@ -120,7 +124,7 @@ public class QuestionController {
 				}
 				i++;
 			}
-				if (i > this.MAX_ANSWERS_NUMBER+1) 
+				if (i > this.MAX_ANSWERS_NUMBER+2) //è presente la spiegazione ed inoltre una riga vuota che può scappare
 					throw new IOException("Error in file ./lesson"+this.questionsObject.getLessonNumber().toString()+"/question_"+this.questionNumber.toString()+".txt. "
 							+ "The file does not respect the maximum number of line allowed.");
 			this.textArea.setText(question);
@@ -132,6 +136,7 @@ public class QuestionController {
 				this.prevButton.setVisible(false);
 				this.nextButton.setDisable(true);
 				this.pointsLabel.setVisible(false);
+				this.explanationButton.setVisible(false);
 				if (this.questionNumber != 1) this.backToLessonButton.setDisable(true);
 			} else {
 				this.prevButton.setVisible(true);
@@ -148,6 +153,7 @@ public class QuestionController {
 				this.setRightSelection();
 				this.pointsLabel.setVisible(true);
 				this.pointsLabel.setText("Punteggio raggiunto: "+this.questionsObject.getScore().toString()+"/"+this.questionsObject.getMaxScore().toString());
+				this.explanationButton.setVisible(true);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -177,6 +183,8 @@ public class QuestionController {
     public void checkAnswer(ActionEvent event) throws IOException {
     	if (this.radioButtons.getSelectedToggle() != null) {
 	    	if (this.rightSelection) {
+	    		if (this.attemptsNumber == 2) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
+	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
 					this.resultLabel.setTextFill(Color.GREEN);
@@ -259,5 +267,20 @@ public class QuestionController {
     	window.setScene(heapLessonScene);
     	window.show();
     	
+    }
+    
+    public void openExplanation(ActionEvent e) throws IOException {
+    	
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Explanation.fxml"));
+		ExplanationController controller = new ExplanationController(this.explanation);
+		loader.setController(controller);
+		Parent explanationParent = (Parent)loader.load();
+		Scene explanationScene = new Scene(explanationParent);
+		Stage explanationWindow = new Stage();
+		explanationWindow.initOwner(this.questionsObject.getQuestionStage());
+		explanationWindow.initModality(Modality.WINDOW_MODAL);
+		explanationWindow.setTitle("spiegazione risposta corretta");
+		explanationWindow.setScene(explanationScene);
+		explanationWindow.show();
     }
 }

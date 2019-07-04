@@ -97,7 +97,7 @@
       <AnchorPane prefHeight="70.0" prefWidth="800.0">
          <children>
             <Button fx:id="checkButton" alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="22.0" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="25.0" prefWidth="120.0" text="Verifica" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="340.0" />
-            <Button layoutX="655.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Spiegazione" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="30.0" />
+            <Button fx:id="explanationButton" layoutX="655.0" layoutY="22.0" mnemonicParsing="false" onAction="#openExplanation" prefHeight="25.0" prefWidth="100.0" text="Spiegazione" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="30.0" />
          </children>
       </AnchorPane>
    </children>

@@ -2,3 +2,4 @@
 FHeapRestore
 FHeapChange
 THeapBuild
+HeapRestore si occupa di ripristinare un Heap nel quale è stato modificato un nodo; HeapChange non esiste. HeapBuild è la funzione richiesta.

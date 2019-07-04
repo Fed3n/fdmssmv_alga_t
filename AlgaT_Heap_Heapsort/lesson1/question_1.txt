@@ -2,3 +2,4 @@
 FAlberi binari di ricerca
 FGrafi orientati
 TCode con priorità
+L'heap è una struttura dati costituita da un vettore che viene però rappresentata da un albero binario con determinate caratteristiche. Questo albero contiene nodi ordinabili tramite una relazione d'ordine e alcune funzioni definite su di esso garantiscono che l'elemento nella radice sarà sempre l'elemento con priorità primaria. L'heap viene quindi utilizzato per l'implementazione di code con priorità, cioè code nel nelle quali gli elementi non sono solo ordinati per con logica FirstIn-FirstOut ma anche secondo una relazione d'ordine.

@@ -2,3 +2,4 @@
 Funa
 Tdue
 Ftre
+La risposta corretta è "due" perchè abbiamo visto due tipologie di Heap, il maxHeap ed il minHeap.

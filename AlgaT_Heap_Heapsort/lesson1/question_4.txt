@@ -2,3 +2,4 @@
 TIl figlio sinistro si trova in posizione 2*i ed il figlio destro si trova in posizione 2*i+1
 FIl figlio sinistro si trova in posizione 2*i+1 ed il figlio destro si trova in posizione 2*i+2
 FIl figlio sinistro si trova in posizione 2*i-1 ed il figlio destro si trova in posizione 2*i+1
+La risposta corretta è la prima. La seconda e la terza risposta lasciano uno spazio vuoto nel vettore rispettivamente prima ed in mezzo ai figli che non ha senso in quanto non può essere occupato dal padre che si troverà nelle posizioni precedenti.

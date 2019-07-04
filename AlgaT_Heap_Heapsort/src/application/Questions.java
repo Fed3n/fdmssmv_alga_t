@@ -152,4 +152,8 @@ public class Questions {
     public Integer getQuestionsNumber() {
     	return this.questionsNumber;
     }
+    
+    public Stage getQuestionStage() {
+    	return this.questionStage;
+    }
 }

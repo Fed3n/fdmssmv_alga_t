@@ -2,3 +2,4 @@
 TmaxHeapRestore
 FHeapBuild
 FNessuna delle due
+La funzione maxHeapRestore è ricorsiva, come mostrato nell'immagine a fianco della lezione dedicata. La funzione HeapBuild richiama in modo iterativo la funzione maxHeapRestore o minHeapRestore.

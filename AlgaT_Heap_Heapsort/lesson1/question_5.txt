@@ -2,3 +2,4 @@
 FNon devono essere presenti nodi con la stessa priorità
 TI sottoalberi radicati sinistro e destro devono rispettare le proprietà del maxHeap o minHeap
 Fil paramentro i preso in input non deve corrispondere ad una foglia
+Dall'immagine del codice a fianco alla lezione relativa si può osservare che nodi con la stessa priorità non causano problemi, in quanto la relazione rischiesta è "minore uguale" o "maggiore uguale". L'algoritmo viene richiamato su un Heap a cui è stato modificato un nodo, questo viene inserito in input e scambiato con altri finche non vengono ristabilirne le proprietà dell'Heap; in assenza di queste precondizioni l'algoritmo non restituisce un Heap. Se viene inserita in input la posizione di una foglia l'algoritmo non scatena un'eccezione ma semplicemente non trova i figli del nodo inserito e non fa nulla.
