@@ -15,20 +15,11 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		statusList.add(v);
 		System.out.println("Aggiungo " + v.toString());
 		
-		this.instructionList.add("Prima di tutto si applica heapRestore su tutti i nodi non foglia.");
+		this.instructionList.add("Prima di tutto si applica maxHeapRestore su tutti i nodi non foglia.");
 		
 		
 		//MaxHeapRestore su tutte le foglie
 		for(Integer index = (vector.size()/2-1); index >= 0; index--) {
-			
-			ArrayList<Integer> w = new ArrayList<Integer>();
-			w.addAll(vector);
-			statusList.add(w);
-			System.out.println("Aggiungo " + w.toString());
-			
-			this.instructionList.add("Applichiamo heapRestore sul nodo in posizione " + (index+1) + " del vettore.");
-			
-			//TODO Evidenzia esecuzione di heapRestore su index
 			
 			//Append della lista di status ottenuta tramite heapRestore
 			ArrayList<ArrayList<Integer>> sL = new ArrayList<ArrayList<Integer>>();
@@ -55,21 +46,12 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		statusList.add(v);
 		System.out.println("Aggiungo " + v.toString());
 		
-		this.instructionList.add("Prima di tutto si applica heapRestore su tutti i nodi non foglia.");
+		this.instructionList.add("Prima di tutto si applica minHeapRestore su tutti i nodi non foglia.");
 		
 		
 		//MaxHeapRestore su tutte le foglie
 		for(Integer index = (vector.size()/2-1); index >= 0; index--) {
-			
-			ArrayList<Integer> w = new ArrayList<Integer>();
-			w.addAll(vector);
-			statusList.add(w);
-			System.out.println("Aggiungo " + w.toString());
-			
-			this.instructionList.add("Applichiamo heapRestore sul nodo in posizione " + (index+1) + " del vettore.");
-			
-			//TODO Evidenzia esecuzione di heapRestore su index
-			
+	
 			//Append della lista di status ottenuta tramite heapRestore
 			ArrayList<ArrayList<Integer>> sL = new ArrayList<ArrayList<Integer>>();
 			
