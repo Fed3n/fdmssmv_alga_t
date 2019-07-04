@@ -13,9 +13,14 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <VBox layoutX="14.0" layoutY="200.0" prefHeight="200.0" prefWidth="330.0" spacing="30.0">
+      <VBox layoutX="14.0" layoutY="169.0" prefHeight="326.0" prefWidth="330.0" spacing="30.0">
          <children>
             <Button fx:id="heapButton" mnemonicParsing="false" onAction="#goToHeapLesson" prefHeight="80.0" prefWidth="300.0" text="LEZIONE 1: HEAP">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+            <Button fx:id="pirorityQueueButton" mnemonicParsing="false" onAction="#goToPriorityQueueLesson" prefHeight="80.0" prefWidth="300.0" text="LEZIONE 2: PRIORITY QUEUE">
                <font>
                   <Font size="21.0" />
                </font>
