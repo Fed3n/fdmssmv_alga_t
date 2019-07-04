@@ -43,8 +43,6 @@ public class CompleteTreeSimulController extends HeapSimul{
 			}
 		}
 		
-		
-		
 	}
 	
 	public void highlightCompleteness() {

@@ -85,8 +85,10 @@ public class QuestionController {
     //vettore contenente booleani relativi alle risposte
     private ArrayList<Boolean> results = new ArrayList<Boolean>() {{ add(false); add(false); add(false); }};
     
+    private String explanation = null;
+    	
     private Integer attemptsNumber = 0;
-       
+       	
     private Boolean lastQuestion = false;
     
     //la variabile segnala se la corrente selezione della risposta è esatta
@@ -109,11 +111,11 @@ public class QuestionController {
 			while ((line = reader.readLine()) != null){
 				if (i == 0) //la prima riga contiene la domanda
 					question = line;
-				else {  //il primo carattere contiene (T/F) true o false relativo alla risposta e segue la domanda 
-					/*if ((line.charAt(0) != 'T' || line.charAt(0) != 'F') && line != null) throw new IOException("Error in file ./lesson"+
-							this.lessonNumber.toString()+"/question_"+this.questionNumber.toString()+".txt. Can't find"
-							+ " 'T' (indicating true) or 'F' (indicating false) at the beginning of the answer");
-				*/	results.set(i-1, line.charAt(0) == 'T');
+				else if (i == 4) {
+					
+				} else {  //il primo carattere contiene (T/F) true o false relativo alla risposta e segue la domanda. Solo una risposta 
+						//può essere quella corretta
+					results.set(i-1, line.charAt(0) == 'T');
 					answers.set(i-1, line.substring(1));
 				}
 				i++;
