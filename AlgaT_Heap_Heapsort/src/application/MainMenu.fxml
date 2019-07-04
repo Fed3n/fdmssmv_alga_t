@@ -25,7 +25,7 @@
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button fx:id="heapsortButton" mnemonicParsing="false" onAction="#goToHeapsortLesson" prefHeight="80.0" prefWidth="300.0" text="LEZIONE 2: HEAPSORT">
+            <Button fx:id="heapsortButton" mnemonicParsing="false" onAction="#goToHeapsortLesson" prefHeight="80.0" prefWidth="300.0" text="LEZIONE 3: HEAPSORT">
                <font>
                   <Font size="21.0" />
                </font>
