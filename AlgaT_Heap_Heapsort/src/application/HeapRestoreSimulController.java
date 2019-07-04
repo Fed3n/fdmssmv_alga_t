@@ -45,8 +45,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 	
 	protected ArrayList<String> instructionList;			//Lista di istruzioni da inserire 
 	
-	protected ArrayList<ArrayList<Integer>> lightableIndex;	//Lista dei nodi da illuminare ad ogni passaggio sequenziale
-	
 	protected Integer currentStatusIndex;					//Indice dello stato visualizzato del vettore
 	
 	protected Integer selectedIndex;						//Indice del nodo selezionato
@@ -67,155 +65,136 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.prevButton.setDisable(true);
 		this.maxMinChoiceBox.setValue("MaxHeap");
 		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
+		this.instructionList = new ArrayList<String>();
 	}
 	
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
 	public ArrayList<ArrayList<Integer>> stepByStepMaxRestore(ArrayList<Integer> vector, Integer index) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-		ArrayList<String> instructionList = new ArrayList<String>();
-		ArrayList<ArrayList<Integer>> lightableIndex = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> l = new ArrayList<Integer>();
 		Boolean finished = false;
-		Boolean swapped = false;
 		
 		//Per come funzionano gli oggetti in java devo creare un nuovo vettore ogni volta che aggiorno la lista di vettori
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		instructionList.add("Premi Avanti per cominciare la simulazione.");
-		lightableIndex.add(null);
+		this.instructionList.add("Premi Avanti per cominciare la simulazione.");
 		
 		while(!finished) {
-			swapped = false;
+			Integer max = index;
 			
-			//Figlio sinistro > figlio destro, prima controlla che esista un figlio destro
-			if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
-				//Se il figlio più grande è maggiore del padre, si scambiano
-				if(vector.get(index) < vector.get(this.lChild(index))) {
-					instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-					l.add(index);
-					l.add(this.lChild(index));
-					lightableIndex.add(l);
-					Collections.swap(vector, index, this.lChild(index));
-					swapped = true;
-				}				
-			}
+			if(!(index >= vector.size()/2)){
+				
 			
-			else {
-				//Se il figlio più grande è maggiore del padre, si scambiano
-				if(vector.get(index) < vector.get(this.rChild(index))) {
-					instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-					l.add(index);
-					l.add(this.rChild(index));
-					lightableIndex.add(l);
-					Collections.swap(vector, index, this.rChild(index));
-					swapped = true;
+				//Figlio sinistro > figlio destro, prima controlla che esista un figlio destro
+				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) >= vector.get(this.rChild(index))){
+					//Se il figlio più grande è maggiore del padre, si scambiano
+					if(vector.get(index) < vector.get(this.lChild(index))) {
+						this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						Collections.swap(vector, index, this.lChild(index));
+						max = this.lChild(index);
+					}				
+				}
+			
+				else {
+					//Se il figlio più grande è maggiore del padre, si scambiano
+					if(vector.get(index) < vector.get(this.rChild(index))) {
+						this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						Collections.swap(vector, index, this.rChild(index));
+						//TODO Evidenza scambio tra padre e rchild
+						max = this.rChild(index);
+					}
 				}
 			}
 			
-			//Se non c'è stato da scambiare o index era il padre l'operazione è terminata
-			if(!swapped || index == 0) {
+			//Se non c'è stato da scambiare l'operazione è terminata
+			if(index == max) {
 				finished = true;
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
 				
 				//Status finale in caso si sia arrivati al padre
-				if(swapped)
-					statusList.add(w);
+				//if(swapped)
+				//statusList.add(w);
 				
-				instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
-				lightableIndex.add(null);
+				this.instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 				//TODO Evidenza che non c'è più da scambiare
-			}
-			
-			//Altrimenti l'operazione procede sul padre
+				}
+			//L'operazione procede sull'indice
 			else {
 				ArrayList<Integer> w = new ArrayList<Integer>();
 				w.addAll(vector);
 				statusList.add(w);
-				index = this.parent(index);
+				index = max;
 			}	
 			this.printVector(statusList);
 			System.out.println("@@@@@@@@@@@@@@@@");
 		}
-		//this.statusList = statusList;
-		this.instructionList = instructionList;
-		this.lightableIndex = lightableIndex;
 		return statusList;
 	}
 	
 	//La funzione crea la lista di status del vettore con una minHeapRestore step-by-step
 		public ArrayList<ArrayList<Integer>> stepByStepMinRestore(ArrayList<Integer> vector, Integer index) {
 			ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-			ArrayList<ArrayList<Integer>> lightableIndex = new ArrayList<ArrayList<Integer>>();
-			ArrayList<Integer> l = new ArrayList<Integer>();
 			Boolean finished = false;
-			Boolean swapped = false;
 			
 			ArrayList<Integer> v = new ArrayList<Integer>();
 			v.addAll(vector);
 			statusList.add(v);
-			instructionList.add("Premi Avanti per cominciare la simulazione.");
-			lightableIndex.add(null);
+			this.instructionList.add("Premi Avanti per cominciare la simulazione.");
 			
 			while(!finished) {
-				swapped = false;
+				Integer min = index;
 				
-				//Figlio sinistro < figlio destro, prima controlla che esista un figlio destro
-				if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
-					//Se il figlio più piccolo è minore del padre, si scambiano
-					if(vector.get(index) > vector.get(this.lChild(index))) {
-						instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-						l.add(index);
-						l.add(this.lChild(index));
-						lightableIndex.add(l);
-						Collections.swap(vector, index, this.lChild(index));
-						//TODO Evidenza scambio tra padre e lchild
-						swapped = true;
-					}				
-				}
+				if(!(index >= vector.size()/2)){
 				
-				else {
-					//Se il figlio più piccolo è minore del padre, si scambiano
-					if(vector.get(index) > vector.get(this.rChild(index))) {
-						instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
-						l.add(index);
-						l.add(this.rChild(index));
-						lightableIndex.add(l);
-						Collections.swap(vector, index, this.rChild(index));
-						//TODO Evidenza scambio tra padre e rchild
-						swapped = true;
+					//Figlio sinistro < figlio destro, prima controlla che esista un figlio destro
+					if((this.rChild(index) >= vector.size()) || vector.get(this.lChild(index)) <= vector.get(this.rChild(index))){
+						//Se il figlio più piccolo è minore del padre, si scambiano
+						if(vector.get(index) > vector.get(this.lChild(index))) {
+							this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							Collections.swap(vector, index, this.lChild(index));
+							//TODO Evidenza scambio tra padre e lchild
+							min = this.lChild(index);
+						}				
 					}
+				
+					else {
+						//Se il figlio più piccolo è minore del padre, si scambiano
+						if(vector.get(index) > vector.get(this.rChild(index))) {
+							this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							Collections.swap(vector, index, this.rChild(index));
+							//TODO Evidenza scambio tra padre e rchild
+							min = this.rChild(index);
+						}
+					}
+					
 				}
 				
-				//Se non c'è stato da scambiare o index era il padre l'operazione è terminata
-				if(!swapped || index == 0) {
+				//Se non c'è stato da scambiare l'operazione è terminata
+				if(index == min) {
 					finished = true;
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
 					
 					//Status finale in caso si sia arrivati al padre
-					if(swapped)
-						statusList.add(w);
+					//if(swapped)
+					//statusList.add(w);
 					
-					instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
-					lightableIndex.add(null);
+					this.instructionList.add("Non c'è nulla da scambiare. heapRestore termina.");
 					//TODO Evidenza che non c'è più da scambiare
-				}
-				//L'operazione procede sul padre
+					}
+				//L'operazione procede sull'indice
 				else {
 					ArrayList<Integer> w = new ArrayList<Integer>();
 					w.addAll(vector);
 					statusList.add(w);
-					index = this.parent(index);
+					index = min;
 				}	
 				this.printVector(statusList);
 				System.out.println("@@@@@@@@@@@@@@@@");
 			}
-			//this.statusList = statusList;
-			this.lightableIndex = lightableIndex;
 			return statusList;
 		}
 	
@@ -229,8 +208,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 	
 	public void nextStatus() {
 		if(this.statusList.size() > currentStatusIndex+1) {
-			ArrayList<Integer> i;
-			
 			this.currentStatusIndex++;
 			//Disabilito next se sono all'ultimo
 			if (this.currentStatusIndex+1 >= this.statusList.size())
@@ -240,25 +217,13 @@ public class HeapRestoreSimulController extends HeapSimul{
 			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
 			this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
-			
-			this.drawTree();
 			this.drawVector();
-			
-			i = this.lightableIndex.get(this.currentStatusIndex);
-			if(i != null) {
-				for(int j = 0; j < i.size(); j++) {
-					System.out.println("Devo colorare " + i.get(j));
-					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
-					circ.setStroke(Color.CORAL);
-				}
-			}
-			
+			this.drawTree();
 		}
 	}
 	
 	public void prevStatus() {
 		if(currentStatusIndex > 0) {
-			ArrayList<Integer> i;
 			currentStatusIndex--;
 			
 			//Disabilito prev se sono al primo
@@ -269,18 +234,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 			
 			this.dataVector = this.statusList.get(this.currentStatusIndex);
 			this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
-			
 			this.drawVector();
 			this.drawTree();
-			
-			i = this.lightableIndex.get(this.currentStatusIndex);
-			if(i != null) {
-				for(int j = 0; j < i.size(); j++) {
-					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
-					circ.setStroke(Color.CORAL);
-				}
-			}
-			
 		}
 	}
 	
@@ -289,6 +244,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
+				
+				//Pulisco la instructionList dai precedenti messaggi
+				this.instructionList.clear();
 				
 				System.out.println(this.selectedIndex);
 				System.out.println(this.dataVector.size());
