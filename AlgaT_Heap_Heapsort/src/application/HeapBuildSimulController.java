@@ -24,9 +24,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 			//Append della lista di status ottenuta tramite heapRestore
 			ArrayList<ArrayList<Integer>> sL = new ArrayList<ArrayList<Integer>>();
 			
-			System.out.println("Vettore prima: " + vector.toString());
 			sL = this.stepByStepMaxRestore(vector, index);
-			System.out.println("Vettore dopo: " + vector.toString());
 			statusList.addAll(sL);
 		}		
 		
@@ -55,9 +53,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 			//Append della lista di status ottenuta tramite heapRestore
 			ArrayList<ArrayList<Integer>> sL = new ArrayList<ArrayList<Integer>>();
 			
-			System.out.println("Vettore prima: " + vector.toString());
 			sL = this.stepByStepMinRestore(vector, index);
-			System.out.println("Vettore dopo: " + vector.toString());
 			statusList.addAll(sL);
 		}		
 		
@@ -91,14 +87,14 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				this.currentStatusIndex = 0;
 				this.selectedIndex = null;
 				this.dataVector = this.statusList.get(this.currentStatusIndex);
-				this.infoText.setText("Premi Avanti per proseguire con la simulazione.");
+				this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 				this.drawVector();
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
 					
-				System.out.println(this.instructionList.size());
-				System.out.println(this.statusList.size());
+				System.out.println("Dimensione stringhe: " + this.instructionList.size());
+				System.out.println("Dimensione vettori: " + this.statusList.size());
 				}
 				
 			else  {

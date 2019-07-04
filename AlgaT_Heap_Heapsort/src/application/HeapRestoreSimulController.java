@@ -309,8 +309,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 				this.nextButton.setDisable(false);
 				this.selectable = false;
 				
-				System.out.println(this.instructionList.size());
-				System.out.println(this.statusList.size());
+				System.out.println("Dimensione stringhe: " + this.instructionList.size());
+				System.out.println("Dimensione vettori: " + this.statusList.size());
 			}
 			else {
 				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");
@@ -485,15 +485,15 @@ public class HeapRestoreSimulController extends HeapSimul{
 	}
 	
 	//Nei seguenti metodi l'indexing è un po' differente perché il vettore parte da 0 e non da 1 come nella teoria//
-	private Integer parent(Integer index) {
+	protected Integer parent(Integer index) {
 		return ((index-1)/2);
 	}
 
-	private Integer lChild(Integer index) {
+	protected Integer lChild(Integer index) {
 		return (index*2+1);
 	}
 
-	private Integer rChild(Integer index) {
+	protected Integer rChild(Integer index) {
 		return (index*2+2);
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
