@@ -1,5 +1,5 @@
-﻿I metodi della Coda con Priorità mostrati sono relativi ad una coda con priorità inversa, cioè nella quale il valore con priorità minore ha la precedente. Volendo implementare una Coda con Priorità diretta come cambieranno le funzioni della specifica? Selezionare la scelta errata.
-Fmin e deleteMin saranno sostituite da max e deleteMax
-Fle funzioni isEmpty e insert non subiranno cambiamenti
-Tla funzione decrease non subirà cambiamenti
-La prima scelta è corretta, la secondo è anche questa corretta, perchè isEmpty ed insert non dipendono dal tipo di priorità assegnata, cambia solamente la precondizione sulla priorità dell'oggetto che si desidera inserire, ma non il nome della funzione. La terza scelta è errata perchè la funzione decrease diventa increase. infatti sarebbe necessario, in questo caso, aumentare la priorità di un oggetto anzichè diminuirla: azione che andrebbe a penalizzarlo.  
+﻿Quale delle seguenti affermazioni sulla Coda a Priorità è errata facendo riferimanto alla specifica vista nelle parti della lezione?
+TLa funzione min ritorna in ogni caso l'elemento con priorità minore della Coda con Priorità
+FE' possibile introdurre qualsiasi criterio per stabilire la priorità tra due oggetti, purchè questo criterio sia esprimibile da una relazione d'ordine 
+FUna coda con priorità può essere solamente istanziata vuota.
+L'affermazione errata è la prima: non è vero che in ogni caso la funzione min ritorna un elemento, nel caso in cui lo Heap sia vuoto la funzione min ritorna null. Le altre due affermazioni sono corrette. Riguardo alla terza, lo Heap viene creato vuoto e si iniziano ad inserire gli elementi, analogamente a quanto avviene con una Coda.

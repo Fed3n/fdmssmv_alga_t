@@ -1,5 +1,5 @@
-﻿Per quale motivo l'implementazione con gli alberi delle Code con Priorità non è ottimale?
-TPerchè la quantità di memoria utilizzata è maggiore rispetto all'Heap e l'organizzazione dei dati è molto più complessa
-FPerchè non è possibile raggiungere una complessità O(log n) per tutte le funzioni
-FPerchè alcune funzioni hanno complessità costante e altre hanno complessità O(n), quindi si può avere una complessità più bassa
-Gli alberi binari permettono di implementare tutte le funzioni della specifica con complessità O(log n), analogamente a quanto avviene con gli Heap, ma la complessità della struttura dati ottenuta è eccessivamente alta e c'è un'impiego maggiore di memoria
+﻿I metodi della Coda con Priorità mostrati sono relativi ad una coda con priorità inversa, cioè nella quale il valore con priorità minore ha la precedenza. Volendo implementare una Coda con Priorità diretta come cambieranno le funzioni della specifica? Selezionare la scelta errata.
+Fmin e deleteMin saranno sostituite da max e deleteMax
+Fle funzioni isEmpty e insert non subiranno cambiamenti
+Tla funzione decrease non subirà cambiamenti
+La prima scelta è corretta, la secondo è anche questa corretta, perchè isEmpty ed insert non dipendono dal tipo di priorità assegnata, cambia solamente la precondizione sulla priorità dell'oggetto che si desidera inserire, ma non il nome della funzione. La terza scelta è errata perchè la funzione decrease diventa increase. infatti sarebbe necessario, in questo caso, aumentare la priorità di un oggetto anzichè diminuirla: azione che andrebbe a penalizzarlo.  

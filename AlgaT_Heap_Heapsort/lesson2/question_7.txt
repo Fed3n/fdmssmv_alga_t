@@ -1,0 +1,5 @@
+﻿Quale delle seguenti precondizioni è richiesta alla funzione insert di una coda con priorità inversa?
+FLa priorità associata al nodo da inserire non deve essere uguale alla priorità di un nodo già presente nell'Heap
+FL'oggetto inserito non deve essere una copia di un altro oggetto presente nell'Heap
+TLa priorità associata al nodo da inserire deve essere minore o uguale alla priorità minima permessa
+La risposta corretta è la terza: le priorità devono essere rispettate, non è possibile quindi inserire una priorità negativa o minore di quanto consentito. La prima risposta è errata perchè se due oggetti dell'heap hanno la stessa priorità la specifica non descrive come vengono trattati; in ogni caso eliminare questa situazione proposta è molto limitante, poichè ricadrebbe in una lista ordinata. La seconda soluzione non determina alcun problema perchè non importa la natura dell'oggetto ma che siano dello stesso tipo.

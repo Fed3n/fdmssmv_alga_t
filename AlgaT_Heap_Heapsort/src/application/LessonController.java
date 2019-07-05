@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LessonController {
@@ -61,6 +62,7 @@ public class LessonController {
     private Boolean lessonCompleted = false;
     private Boolean completedQuestion = false;
     private Integer lastQuestionLoaded = 0;
+    private Boolean questionAlertShowed = false; //variabile che utilizzo per mostrare solo una volta la finestra che avverte di non poter tornare indietro dopo aver visto la prima domanda
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	public void initialize() {
@@ -112,6 +114,7 @@ public class LessonController {
 		//aggiorno il controller con la nuova lezione
 		if (this.getLessonNumber() == 1) this.menuController.setFirstLesson(this);
 		if (this.getLessonNumber() == 2) this.menuController.setSecondLesson(this);
+		if (this.getLessonNumber() == 3) this.menuController.setThirdLesson(this);
 		MainMenuController controller = new MainMenuController(this.menuController);
 		loader.setController(controller);
 		Parent mainMenuParent = (Parent)loader.load();
@@ -136,7 +139,7 @@ public class LessonController {
 	}
 
 	//Ricarica la pagina usando i parametri di textNumber
-	public void reloadPage() {
+	public void reloadPage() {		
 		//Controllo se sono all'inizio o alla fine della lezione e accendo/spengo i bottoni per avanzare o retrocedere
 		if (this.textNumber == 1)
 			this.prevTextButton.setDisable(true);
@@ -199,14 +202,35 @@ public class LessonController {
 	}
 
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
-		if (!this.completedQuestion)
-			this.questionObject = new Questions(questionPressed,this,this.completedQuestion);
-		else {
-			Integer questionNumber;
-			if (this.lastQuestionLoaded == 0) questionNumber = 1;
-			else questionNumber = this.lastQuestionLoaded;
-			this.questionObject.loadQuestion(questionNumber, true, false, this.completedQuestion);
+		
+		if (!this.questionAlertShowed) {
+			this.questionAlertShowed = true;
+			this.openAlertQuestion(questionPressed);
+			
+		} else {
+			if (!this.completedQuestion)
+				this.questionObject = new Questions(questionPressed,this,this.completedQuestion);
+			else {
+				Integer questionNumber;
+				if (this.lastQuestionLoaded == 0) questionNumber = 1;
+				else questionNumber = this.lastQuestionLoaded;
+				this.questionObject.loadQuestion(questionNumber, true, false, this.completedQuestion);
+				}
 		}
 	}
-
+	
+	public void openAlertQuestion(ActionEvent event) throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionsAlert.fxml"));
+		QuestionAlertController controller = new QuestionAlertController(this, event);
+		loader.setController(controller);
+		Parent alertParent = (Parent)loader.load();
+		Scene alertScene = new Scene(alertParent);
+		Stage alertWindow = new Stage();
+		alertWindow.initOwner(this.menuController.getStage());
+		alertWindow.initModality(Modality.WINDOW_MODAL);
+		alertWindow.setTitle("Warning");
+		alertWindow.setScene(alertScene);
+		alertWindow.show();
+	}
 }

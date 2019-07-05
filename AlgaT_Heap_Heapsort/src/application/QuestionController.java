@@ -97,6 +97,12 @@ public class QuestionController {
     
     //la variabile segnala se la corrente selezione della risposta è esatta
     private Boolean rightSelection = false;
+    
+    private Boolean rightSelectionHasHappened = false;
+    private Boolean allClicked = false;
+    private Boolean oneClicked = false;
+    private Boolean twoClicked = false;
+    private Boolean threeClicked = false;
 	
 	public void initialize() throws Exception {
 		this.textArea.setEditable(false);
@@ -137,7 +143,7 @@ public class QuestionController {
 				this.nextButton.setDisable(true);
 				this.pointsLabel.setVisible(false);
 				this.explanationButton.setVisible(false);
-				if (this.questionNumber != 1) this.backToLessonButton.setDisable(true);
+				this.backToLessonButton.setDisable(true);
 			} else {
 				this.prevButton.setVisible(true);
 				this.backToLessonButton.setDisable(false);
@@ -182,8 +188,13 @@ public class QuestionController {
 
     public void checkAnswer(ActionEvent event) throws IOException {
     	if (this.radioButtons.getSelectedToggle() != null) {
+	    	//aggiorno i booleani della selezione
+	    	if (this.answerButton1.isSelected()) this.oneClicked = true;
+	    	if (this.answerButton2.isSelected()) this.twoClicked = true;
+	    	if (this.answerButton3.isSelected()) this.threeClicked = true;
+	    	this.allClickedText();
 	    	if (this.rightSelection) {
-	    		if (this.attemptsNumber == 2) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
+	    		if (this.attemptsNumber >= 2 && this.allClicked && !this.rightSelectionHasHappened) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
 	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
@@ -197,8 +208,8 @@ public class QuestionController {
 					this.questionsObject.addPoints(this.getPoints());
 					this.questionsObject.setCompleted(true);
 					this.questionsObject.loadQuestion(this.questionNumber, true, false, this.questionsObject.getCompleted());
-					
 				}
+				this.rightSelectionHasHappened = true;
 			} else {
 				this.nextButton.setDisable(true);
 				this.resultLabel.setTextFill(Color.RED);
@@ -211,6 +222,10 @@ public class QuestionController {
     	}
     	if (!this.questionsObject.getCompleted()) this.backToLessonButton.setDisable(true);
     }	
+    
+    private void allClickedText() {
+    	if (this.oneClicked && this.twoClicked && this.threeClicked) this.allClicked = true;
+    }
     
     public void setRightSelection() {
 		this.resultLabel.setTextFill(Color.GREEN);

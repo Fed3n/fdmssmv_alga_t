@@ -37,6 +37,8 @@ public class MainMenuController {
 
 	private LessonController lesson3;
 
+	private Stage currentStage = null;
+	
 	public MainMenuController() {
 		this.lesson1 = null;
 		this.lesson2 = null;
@@ -56,6 +58,7 @@ public class MainMenuController {
 		if(alert.getResult() == ButtonType.YES) {
 		Stage stage = (Stage)((Node)quitPressed.getSource()).getScene().getWindow();
 		stage.close();
+		this.currentStage = null;
 		}
 	}
 
@@ -97,6 +100,7 @@ public class MainMenuController {
     	window.setScene(heapLessonScene);
     	window.show();
 
+    	this.currentStage = window;
 	}
 
 	public void goToPriorityQueueLesson(ActionEvent heapPressed) throws IOException {
@@ -125,6 +129,7 @@ public class MainMenuController {
     	window.setScene(priorityQueueScene);
     	window.show();
 
+    	this.currentStage = window;
 	}
 	
 	public void goToHeapsortLesson(ActionEvent heapPressed) throws IOException {
@@ -153,6 +158,7 @@ public class MainMenuController {
     	window.setScene(heapSortLessonScene);
     	window.show();
 
+    	this.currentStage = window;
 	}
 
 	public LessonController getFirstLesson() {
@@ -177,5 +183,9 @@ public class MainMenuController {
 
 	public void setThirdLesson(LessonController controller) {
 		this.lesson3 = controller;
+	}
+	
+	public Stage getStage() {
+		return this.currentStage;
 	}
 }
