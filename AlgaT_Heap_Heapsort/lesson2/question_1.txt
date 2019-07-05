@@ -1,4 +1,5 @@
-﻿Il colore del cielo di che colore e?
-Fverde
-Farancione
-Tazzurro
+﻿La Coda con Priorità è una struttura dati Astratta che è simile ad una coda, ma in più richiede che sia stabilito un ordine di priorita tra gli elementi in coda. Quale delle seguenti funzioni non sono entrambe richieste dalla specifica della Coda con Priorità? 
+Fmin e deleteMin
+Tinsert e delete
+FisEmpty e decrease
+Le funzioni isEmpty, min, deleteMin, decrease sono rischieste dalla specifica delle code con priorità ed il loro funzionamento è spiegato nella parte di lezione dedicata. La funzione delete non può esistere perchè non è possibile eliminare un elemento ma è solo possibile estrarre il primo elemento che si trova in coda, quindi la funzione che svolge questo compito è deleteMin che non contiene parametri.

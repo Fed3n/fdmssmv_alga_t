@@ -104,7 +104,7 @@ public class MainMenuController {
 
 		if (this.lesson2 == null) {
 			//Creo manualmente un controller e lo inizializzo col suo costruttore
-			LessonController controller = new LessonController("Lezione 2: PriorityQueue", 4, "lesson2", this);
+			LessonController controller = new LessonController("Lezione 2: PriorityQueue", 5, "lesson2", this);
 			this.lesson2 = controller;
 			//Setto manualmente il controller nel loader
 			loader.setController(controller);
