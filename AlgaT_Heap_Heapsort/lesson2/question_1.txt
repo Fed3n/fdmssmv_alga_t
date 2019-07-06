@@ -1,4 +1,4 @@
-﻿La Coda con Priorità è una struttura dati Astratta che è simile ad una coda, ma in più richiede che sia stabilito un ordine di priorita tra gli elementi in coda. Quale delle seguenti funzioni non sono entrambe richieste dalla specifica della Coda con Priorità? 
+﻿La Coda con Priorità è una struttura dati Astratta che è simile ad una Coda, ma in più richiede che sia stabilito un ordine di priorita tra gli elementi. Quale delle seguenti funzioni non sono entrambe richieste dalla specifica della Coda con Priorità? 
 Fmin e deleteMin
 Tinsert e delete
 FisEmpty e decrease

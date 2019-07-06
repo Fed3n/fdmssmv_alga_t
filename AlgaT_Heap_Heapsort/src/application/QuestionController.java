@@ -296,6 +296,8 @@ public class QuestionController {
 		explanationWindow.initModality(Modality.WINDOW_MODAL);
 		explanationWindow.setTitle("spiegazione risposta corretta");
 		explanationWindow.setScene(explanationScene);
+		controller.setStage(explanationWindow);
+		//reimposto la dimensione della stage in base al testo contenuto
 		explanationWindow.show();
     }
 }

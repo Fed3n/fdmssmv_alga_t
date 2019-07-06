@@ -1,5 +1,5 @@
-﻿Per quale motivo l'implementazione con gli alberi delle Code con Priorità non è ottimale?
+﻿Per quale motivo l'implementazione delle Code con Priorità con Alberi Bilanciati non è ottimale?
 TPerchè la quantità di memoria utilizzata è maggiore rispetto all'Heap e l'organizzazione dei dati è molto più complessa
-FPerchè non è possibile raggiungere una complessità O(log n) per tutte le funzioni
-FPerchè alcune funzioni hanno complessità costante e altre hanno complessità O(n), quindi si può avere una complessità più bassa
-Gli alberi binari permettono di implementare tutte le funzioni della specifica con complessità O(log n), analogamente a quanto avviene con gli Heap, ma la complessità della struttura dati ottenuta è eccessivamente alta e c'è un'impiego maggiore di memoria rispetto allo Heap.
+FPerchè non è possibile raggiungere una complessità O(log n) per tutte le funzioni della specifica
+FPerchè alcune funzioni hanno complessità costante e altre hanno complessità O(n), quindi si può raggiungere una complessità media più bassa con altre implementazioni
+Gli alberi binari permettono di implementare tutte le funzioni della specifica con complessità O(log n), analogamente a quanto avviene con gli Heap; ma la complessità della struttura dati ottenuta è eccessivamente alta e c'è un'impiego maggiore di memoria rispetto allo Heap.

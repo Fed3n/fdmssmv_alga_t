@@ -2,4 +2,4 @@
 TisEmpty e min
 Fmin e decrease
 Fdecrease e isEmpty
-Le funzioni isEmpty e min hanno complessità costante perchè la prima richiede un test booleano e la seconda ritorna un intero che è sempre in posizione uno. Decrease, invece richiede l'operazione di decremento della propria priorità ma anche di un ripristino dell'heap che può non rispettare più la terza regola (ogni nodo eccetto la radice ha una complessità maggiore o uguale a quella del padre); ha perciò complessità O(log n).
+Le funzioni isEmpty e min hanno complessità costante perchè la prima richiede un test booleano e la seconda ritorna un intero che è sempre in posizione uno. Decrease, invece richiede l'operazione di decremento della propria priorità ma anche il di un ripristino dell'heap che può aver infranto la terza regola (ogni nodo eccetto la radice ha una complessità maggiore o uguale a quella del padre); ha perciò complessità O(log n).

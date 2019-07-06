@@ -2,4 +2,4 @@
 Fmin e deleteMin saranno sostituite da max e deleteMax
 Fle funzioni isEmpty e insert non subiranno cambiamenti
 Tla funzione decrease non subirà cambiamenti
-La prima scelta è corretta, la secondo è anche questa corretta, perchè isEmpty ed insert non dipendono dal tipo di priorità assegnata, cambia solamente la precondizione sulla priorità dell'oggetto che si desidera inserire, ma non il nome della funzione. La terza scelta è errata perchè la funzione decrease diventa increase. infatti sarebbe necessario, in questo caso, aumentare la priorità di un oggetto anzichè diminuirla: azione che andrebbe a penalizzarlo.  
+La prima scelta è corretta. La secondo è corretta, perchè isEmpty ed insert non dipendono dal tipo di priorità assegnata, per quanto riguarda insert cambia solamente la precondizione sulla priorità dell'oggetto che si desidera inserire, ma non il nome della funzione. La terza scelta è errata perchè la funzione decrease diventa increase. infatti sarebbe necessario, in questo caso, aumentare la priorità di un oggetto anzichè diminuirla (azione che andrebbe a penalizzarlo).  

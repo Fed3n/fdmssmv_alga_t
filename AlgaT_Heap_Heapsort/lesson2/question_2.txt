@@ -1,5 +1,5 @@
-﻿Quale delle seguenti affermazioni sulla Coda a Priorità è errata facendo riferimanto alla specifica vista nelle parti della lezione?
+﻿Quale delle seguenti affermazioni sulla Coda a Priorità è errata facendo riferimento alla specifica vista nella parte della lezione?
 TLa funzione min ritorna in ogni caso l'elemento con priorità minore della Coda con Priorità
 FE' possibile introdurre qualsiasi criterio per stabilire la priorità tra due oggetti, purchè questo criterio sia esprimibile da una relazione d'ordine 
 FUna coda con priorità può essere solamente istanziata vuota.
-L'affermazione errata è la prima: non è vero che in ogni caso la funzione min ritorna un elemento, nel caso in cui lo Heap sia vuoto la funzione min ritorna null. Le altre due affermazioni sono corrette. Riguardo alla terza, lo Heap viene creato vuoto e si iniziano ad inserire gli elementi, analogamente a quanto avviene con una Coda.
+L'affermazione errata è la prima: non è vero che in ogni caso la funzione min ritorna un elemento, nel caso in cui lo Heap sia vuoto la funzione min ritorna null. Le altre due affermazioni sono corrette. Riguardo alla terza, lo Heap viene creato vuoto e successivamente si possono inserire gli elementi, analogamente a quanto avviene con una Coda.
