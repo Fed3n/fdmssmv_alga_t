@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -103,18 +104,25 @@ public class HeapSimul {
 	}
 	
 	public void goToLesson(ActionEvent event) throws IOException {
+		
 		Scene thisScene = ((Node)event.getSource()).getScene();
 		//dopo aver ottenuto la Stage sulla quale sono, e sulla quale ho memorizzato il controller del
 		//chiamante. Ora che ho il controller posso ripristinare la situazione precedente
     	LessonController lesson = (LessonController) thisScene.getUserData();
-    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
     	Stage thisStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		loader.setController(lesson);
 		Parent lessonParent = (Parent)loader.load();
 		Scene lessonScene = new Scene(lessonParent);
-		thisStage.setScene(lessonScene);
-		thisStage.show();
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Perderai i progressi della simulazione, sicuro di uscire?", ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+
+		if (alert.getResult() == ButtonType.YES) {
+			thisStage.setScene(lessonScene);
+			thisStage.show();
+		}
+    	
 	}
 	
 	public ArrayList<Integer> randomVector(){
