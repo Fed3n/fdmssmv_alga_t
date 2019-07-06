@@ -1,4 +1,5 @@
-﻿Il colore del cielo di che colore e?
-Fverde
-Farancione
-Tazzurro
+﻿In questa lezione abbiamo studiato l'algoritmo HeapSort. Qual è lo scopo di questo algoritmo?
+FOrdinare un albero Heap
+FOrdinate un Heap
+TOrdinare un Vettore
+L'HeapSort prende in input un vettore qualsiasi e restituisce un vettore ordinato. Le prime due risposte sono equivalenti, perchè ordinare un Heap e ordinare l'albero Heap è esattamente la stessa cosa, in quanto un albero Heap è una rappresentazione astratta dell'Heap. Queste ultime due risposte sono errate.

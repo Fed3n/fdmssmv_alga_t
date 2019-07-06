@@ -1,4 +1,5 @@
-﻿Come si chiama l'uccello migratore con piu' resistenza?
-T"gna faccio piu'"
-F"so stanco"
-F"mo muoio"
+﻿Quale delle seguenti funzioni non viene richiamata dall'HeapSort?
+FHeapBuild
+TInsert
+FmaxHeapRestore
+La funzione HeapBuild viene utilizzata per ottenere un maxHeap a partire dal vettore inserito in input. La funzione maxHeapRestore viene utilizzata per ristabilire ad ogni riduzione dell'Heap qual è la nuova radice, cioè l'elemento con priorità maggiore. La funzione insert non è utilizzata nell'Heapsort. 

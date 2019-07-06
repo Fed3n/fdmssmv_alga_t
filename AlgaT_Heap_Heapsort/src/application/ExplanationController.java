@@ -28,6 +28,8 @@ public class ExplanationController {
     	//questo settaggio di lunghezza massima del testo e calcolato in base alla dimensione del font.
     	if (this.textValue.length() > 715) 
     		this.stage.setHeight((double)380);
+    	if (this.textValue.length() > 760) 
+    		this.stage.setHeight((double)400);
     }
 
 }

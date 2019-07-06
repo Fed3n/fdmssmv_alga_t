@@ -1,4 +1,5 @@
-﻿Selezionare la capita dell'Australia
-TColombo
-FColonia
-FNew Messico
+﻿Quale delle seguenti affermazioni sull'HeapSort è errata?
+TAbbiamo visto l'Heapsort realizzato con un maxHeap, ma con opportuni cambiamenti è possibile realizzarlo anche con un minHeap
+FLa complessità dell'HeapSort è Ottima ed è O(n log n), in quanto esiste una limitazione inferiore che richiede almeno n log n operazioni.
+FLa funzione HeapSort non richiede precondizioni oltre al fatto che il vettore non sia nullo
+La seconda e la terza risposta sono corrette, la prima è errata. L'heapSort è stato definito su di un maxHeap perchè un minHeap non ha le proprietà necessarie a svolgere questo compito. L'unica possibilità è l'utilizzo di un minHeap di appoggio inizialmente vuoto nel quale si inseriscono tutti gli elementi di un vettore e poi si estraggono dal minHeap per riscriverli sul vettore da destra verso sinistra. In quest'ultimo caso la complessità è la stessa ma la memoria richiesta raddopia.
