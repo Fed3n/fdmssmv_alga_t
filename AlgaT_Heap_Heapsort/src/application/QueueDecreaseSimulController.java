@@ -1,89 +1,35 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public class QueueDecreaseSimulController extends HeapSimul {
-	
-
-    @FXML
-    private HBox vectorPane;
-
-    @FXML
-    private HBox vectorHbox;
 
     @FXML
     private Label vectorLabel;
 
     @FXML
-    private Pane treePane;
-
-    @FXML
-    private StackPane node0;
-
-    @FXML
-    private StackPane node1;
-
-    @FXML
-    private StackPane node2;
-
-    @FXML
-    private StackPane node3;
-
-    @FXML
-    private StackPane node4;
-
-    @FXML
-    private StackPane node5;
-
-    @FXML
-    private StackPane node6;
-
-    @FXML
-    private StackPane node7;
-
-    @FXML
-    private StackPane node8;
-
-    @FXML
-    private StackPane node9;
-
-    @FXML
-    private StackPane node10;
-
-    @FXML
-    private StackPane node11;
-
-    @FXML
-    private StackPane node12;
-
-    @FXML
-    private StackPane node13;
-
-    @FXML
-    private StackPane node14;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button removeButton;
-
-    @FXML
     private Button readyButton;
 
     @FXML
-    private ChoiceBox<?> maxMinChoiceBox;
-
-    @FXML
     private TextArea infoText;
+    
+    @FXML
+    private TextArea inputArea;
 
     @FXML
     private Button decreaseButton;
@@ -93,39 +39,68 @@ public class QueueDecreaseSimulController extends HeapSimul {
 
     @FXML
     private Button nextButton;
-
+    
     @FXML
-    void addToVector(ActionEvent event) {
-
-    }
-
-    @FXML
-    void generateSteps(ActionEvent event) {
-
-    }
-
-    @FXML
-    void nextStatus(ActionEvent event) {
-
-    }
-
-    @FXML
-    void prevStatus(ActionEvent event) {
-
-    }
-
-    @FXML
-    void readyVector(ActionEvent event) {
-
-    }
-
-    @FXML
-    void removeFromVector(ActionEvent event) {
-
-    }
+    private Button priorityButton;
+    
+	protected ArrayList<ArrayList<Integer>> statusList;		//Lista di stati del vettore durante l'operazione
+	
+	protected ArrayList<String> instructionList;			//Lista di istruzioni da inserire
+	
+	protected ArrayList<ArrayList<Integer>> lightableIndex;	//Lista dei nodi da illuminare ad ogni passaggio sequenziale
+	
+	private Boolean treeDrawn;
+	
+	
 
 	public void initialize() {
 		super.initialize();
+		this.infoText.setEditable(false);
+		this.inputArea.setEditable(false);
+		this.infoText.setWrapText(true);	
+		this.nextButton.setDisable(true);
+		this.prevButton.setDisable(true);
+		this.priorityButton.setDisable(true);
+		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
+		this.instructionList = new ArrayList<String>();
+		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+		this.treeDrawn = false;
+	}
+
+	public void addToVector(ActionEvent event) {
+		this.statusList.add(super.randomVector());
+		super.drawVector();
+		super.isGenerated = true;
+		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
+	}
+	
+    public void readyVector(ActionEvent event) {
+    	if (super.isGenerated) {
+    		super.drawTree();
+    		this.treeDrawn = true;
+    		this.infoText.setText("Ora seleziona un nodo dell'albero, inserisci di quanto vuoi decrementare la priorità" 
+    				+ " del nodo selezionato nella casella affianco a 'Select' e premi su Decrease.");
+    	} else 
+    		this.infoText.setText("E' necessario creare il vettore prima di disegnare l'albero");
+    }
+    
+	public void priorityValue(ActionEvent event){
 		
 	}
+	
+    public void generateSteps(ActionEvent event) {
+
+    }
+
+    public void nextStatus(ActionEvent event) {
+
+    }
+    
+    public void prevStatus(ActionEvent event) {
+
+    }
+    
+    public void removeFromVector(ActionEvent event) {
+
+    }
 }

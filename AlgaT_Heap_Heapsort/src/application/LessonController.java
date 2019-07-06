@@ -15,7 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -216,20 +219,16 @@ public class LessonController {
 	
 	public void openAlertQuestion(ActionEvent event) throws IOException {
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionsAlert.fxml"));
-		QuestionAlertController controller = new QuestionAlertController(this, event);
-		loader.setController(controller);
-		Parent alertParent = (Parent)loader.load();
-		Scene alertScene = new Scene(alertParent);
-		Stage alertWindow = new Stage();
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Dopo aver visto la prima domanda non ti sarà "
+				+ "più possibile accedere alle lezioni fino a che non avrai completato tutte le domande."
+				+ " Assicurati di aver letto attentamente la parte della lezione prima di procedere."
+				, ButtonType.OK, ButtonType.CANCEL);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Attenzione!");
+		alert.showAndWait();
 		
-		Stage thisStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		MainMenuController mainMenu = (MainMenuController) thisStage.getUserData();
-		
-		alertWindow.initOwner(mainMenu.getStage());
-		alertWindow.initModality(Modality.WINDOW_MODAL);
-		alertWindow.setTitle("Warning");
-		alertWindow.setScene(alertScene);
-		alertWindow.show();
+		if (alert.getResult() == ButtonType.OK) {
+			this.goToQuestions(event);
+		}
 	}
 }

@@ -53,8 +53,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 	
 	protected Boolean selectable;							//Indica se è possibile selezionare un nodo
 	
-	
-	
 	@Override
 	public void initialize() {
 		super.initialize();

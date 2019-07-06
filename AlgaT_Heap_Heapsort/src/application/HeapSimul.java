@@ -116,6 +116,8 @@ public class HeapSimul {
 		Scene lessonScene = new Scene(lessonParent);
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Perderai i progressi della simulazione, sicuro di uscire?", ButtonType.YES, ButtonType.NO);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Attenzione!");
 		alert.showAndWait();
 
 		if (alert.getResult() == ButtonType.YES) {
