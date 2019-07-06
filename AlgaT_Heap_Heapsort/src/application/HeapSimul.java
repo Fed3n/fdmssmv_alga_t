@@ -55,6 +55,8 @@ public class HeapSimul {
     
     protected Boolean isGenerated;
     
+    protected Boolean restoreController;
+    
     //Vettore degli interi inseriti
     protected ArrayList<Integer> dataVector;
     

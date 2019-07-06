@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -18,16 +19,21 @@ import javafx.scene.shape.Rectangle;
 public class VectorToTreeSimulController extends HeapSimul{
 	
 	@FXML
-	private Label vectorLabel;
+	private TextArea infoText;
 	
 	@FXML
-	private TextArea infoText;
+	private Button randomButton;
 	
 	@Override
 	public void initialize() {
 		super.initialize();
 		this.infoText.setEditable(false);
-		this.infoText.setWrapText(true);		
+		this.infoText.setWrapText(true);
+		this.maxMinChoiceBox.setValue("MaxHeap");
+		this.removeButton.setDisable(true);
+		this.generateButton.setDisable(true);
+		this.infoText.setText("Inserisci un numero e premi 'Add' per generare un heap manualmente.\nOppure premi 'Random Heap' per generare un Heap in mono casuale.");
+		
 	}
 	
 	@Override
@@ -356,22 +362,53 @@ public class VectorToTreeSimulController extends HeapSimul{
 		
 	}
 	
+	public void createRandom(){
+		this.dataVector = super.randomVector();
+		this.drawVector();
+		this.randomButton.setDisable(true);
+		this.addButton.setDisable(true);
+		this.removeButton.setDisable(true);
+		this.generateButton.setDisable(false);
+		this.infoText.setText("Premi su Make Heap per generare e rappresentare l'heap.");
+	}
+	
 	@Override
 	public void addToVector() {
 		super.addToVector();
-		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
+		if(this.dataVector.size() >= 1) {
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.infoText.setText("Trasforma in heap prima di interagire!");
+		}
+		this.generateButton.setDisable(false);
 	}
 	
 	@Override
 	public void removeFromVector() {
 		super.removeFromVector();
-		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
+		if(this.dataVector.size() >= 1 ) {
+			this.infoText.setText("Trasforma in heap prima di interagire!");
+			this.generateButton.setDisable(false);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+		} else {
+			this.infoText.setText("Inserisci un numero e premi 'Add'/noppure genera un vettore casuale.");
+			this.addButton.setDisable(false);
+			this.removeButton.setDisable(true);
+			this.generateButton.setDisable(true);
+			this.randomButton.setDisable(false);
+			this.drawTree();
+		}
 	}
 	
 	@Override
 	public void generateHeap() {
 		super.generateHeap();
-		this.vectorLabel.setText("");
+		this.infoText.setText("Premi su un nodo o una foglia dell'albero creato per visualizzarne le informazioni.");
+		this.addButton.setDisable(false);
+		this.generateButton.setDisable(false);
+		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
+		else this.removeButton.setDisable(true);
 	}
 	
 

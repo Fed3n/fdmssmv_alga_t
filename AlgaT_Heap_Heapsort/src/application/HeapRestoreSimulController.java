@@ -41,9 +41,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 	@FXML
 	protected Button readyButton;
 	
-	protected ArrayList<ArrayList<Integer>> statusList;	//Lista di stati del vettore durante l'operazione
+	protected ArrayList<ArrayList<Integer>> statusList;		//Lista di stati del vettore durante l'operazione
 	
-	protected ArrayList<String> instructionList;			//Lista di istruzioni da inserire 
+	protected ArrayList<String> instructionList;			//Lista di istruzioni da inserire
 	
 	protected ArrayList<ArrayList<Integer>> lightableIndex;	//Lista dei nodi da illuminare ad ogni passaggio sequenziale
 	
@@ -122,7 +122,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				w.addAll(vector);
 				statusList.add(w);
 				
-				this.instructionList.add("Non c'è nulla da scambiare. maxHeapRestore termina.");
+				this.instructionList.add("Non c'è nulla da scambiare. maxHeapRestore termina. Premi su Ready per continuare.");
 				this.lightableIndex.add(null);
 				//TODO Evidenza che non c'è più da scambiare
 				}
@@ -191,7 +191,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 					w.addAll(vector);
 					statusList.add(w);
 					
-					this.instructionList.add("Non c'è nulla da scambiare. minHeapRestore termina.");
+					this.instructionList.add("Non c'è nulla da scambiare. minHeapRestore termina. Premi su Ready per continuare.");
 					this.lightableIndex.add(null);
 					//TODO Evidenza che non c'è più da scambiare
 					}

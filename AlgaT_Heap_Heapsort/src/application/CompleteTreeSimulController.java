@@ -12,16 +12,17 @@ import javafx.scene.shape.Rectangle;
 public class CompleteTreeSimulController extends HeapSimul{
 	
 	@FXML
-	private Label vectorLabel;
-	
-	@FXML
 	private TextArea infoText;
 	
 	@Override
 	public void initialize() {
 		super.initialize();
+		this.removeButton.setDisable(true);
 		this.infoText.setEditable(false);
-		this.infoText.setWrapText(true);		
+		this.infoText.setWrapText(true);
+		this.infoText.setText("Inserisci un numero e premi 'Add'");
+		this.maxMinChoiceBox.setValue("MaxHeap");
+		this.generateButton.setDisable(true);
 	}
 	
 	//Calcolo altezza dell'albero con log2(n)
@@ -77,6 +78,9 @@ public class CompleteTreeSimulController extends HeapSimul{
 				info = info + "C'è un solo nodo interno di grado 1, evidenziato in rosso.\n";
 			}
 		}
+		else if (this.dataVector.size() == 0) {
+			info = info + "L'albero é vuoto. Per generare un nuovo Heap scrivi un numero e premi Add";
+		}
 		else {
 			info = info + "Questo albero ha solo la radice.\n";			
 		}
@@ -88,21 +92,40 @@ public class CompleteTreeSimulController extends HeapSimul{
 	@Override
 	public void addToVector() {
 		super.addToVector();
-		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
-		this.resetScreen();
+		if(this.dataVector.size() >= 1) {
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.resetScreen();
+			this.infoText.setText("Trasforma in heap prima di interagire!");
+		}
+		this.generateButton.setDisable(false);
 	}
 	
 	@Override
 	public void removeFromVector() {
 		super.removeFromVector();
-		this.vectorLabel.setText("Trasforma in heap prima di interagire!");
 		this.resetScreen();
+		if(this.dataVector.size() >= 1 ) {
+			this.infoText.setText("Trasforma in heap prima di interagire!");
+			this.generateButton.setDisable(false);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+		} else {
+			this.infoText.setText("Inserisci un numero e premi 'Add'");
+			this.addButton.setDisable(false);
+			this.removeButton.setDisable(true);
+			this.generateButton.setDisable(true);
+			this.drawTree();
+		}
 	}
 	
 	@Override
 	public void generateHeap() {
 		super.generateHeap();
-		this.vectorLabel.setText("");
+		this.addButton.setDisable(false);
+		this.generateButton.setDisable(true);
+		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
+		else this.removeButton.setDisable(true);
 		if(this.isGenerated == true)
 			this.highlightCompleteness();
 	}
