@@ -46,6 +46,7 @@
       </HBox>
       <ChoiceBox fx:id="maxMinChoiceBox" layoutX="294.0" layoutY="220.0" prefHeight="25.0" prefWidth="80.0" />
       <TextArea fx:id="infoText" layoutX="26.0" layoutY="245.0" prefHeight="150.0" prefWidth="256.0" />
-      <Label layoutX="26.0" layoutY="43.0" prefHeight="50.0" prefWidth="715.0" text="In questa interazione puoi generare un heap e osservare come l'albero ne rispetti le proprietà" />
+      <Label layoutX="26.0" layoutY="53.0" prefHeight="40.0" prefWidth="715.0" text="In questa interazione puoi generare un heap e osservare come l'albero ne rispetti le proprietà" />
+      <Button fx:id="lessonButton" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLesson" text="Torna alla lezione" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>

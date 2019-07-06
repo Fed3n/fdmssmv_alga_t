@@ -135,6 +135,9 @@ public class LessonController {
     	Stage window = (Stage)((Node)simulPressed.getSource()).getScene().getWindow();
 
     	window.setScene(simulScene);
+    	
+    	window.setUserData(this);
+    	
     	window.show();
 	}
 

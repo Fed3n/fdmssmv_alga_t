@@ -1,16 +1,22 @@
 package application;
 
 import java.util.Random;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
@@ -20,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class HeapSimul {
 
@@ -47,6 +54,9 @@ public class HeapSimul {
     
     @FXML
     protected Button generateButton;
+    
+    @FXML
+    protected Button lessonButton;
     
     @FXML
     protected ChoiceBox<String> maxMinChoiceBox;
@@ -90,6 +100,18 @@ public class HeapSimul {
 		this.maxMinChoiceBox.getItems().add("MaxHeap");
 		this.maxMinChoiceBox.getItems().add("MinHeap");
 		this.isGenerated = false;
+	}
+	
+	public void goToLesson(ActionEvent event) throws IOException {
+		Stage lastStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    	LessonController lesson = (LessonController) lastStage.getUserData();
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
+		loader.setController(lesson);
+		Parent lessonParent = (Parent)loader.load();
+		Scene lessonScene = new Scene(lessonParent);
+		lastStage.setScene(lessonScene);
+		lastStage.show();
 	}
 	
 	public ArrayList<Integer> randomVector(){

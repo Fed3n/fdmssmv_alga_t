@@ -45,7 +45,7 @@
       </HBox>
       <ChoiceBox fx:id="maxMinChoiceBox" layoutX="26.0" layoutY="444.0" prefHeight="25.0" prefWidth="80.0" />
       <TextArea fx:id="infoText" layoutX="26.0" layoutY="245.0" prefHeight="150.0" prefWidth="256.0" />
-      <Label layoutX="26.0" layoutY="43.0" prefHeight="50.0" prefWidth="715.0" text="In questa interazione puoi selezionare un nodo non foglia dell'albero e osservare step-by-step heapRestore" />
+      <Label layoutX="26.0" layoutY="53.0" prefHeight="40.0" prefWidth="715.0" text="In questa interazione puoi selezionare un nodo non foglia dell'albero e osservare step-by-step heapRestore" />
       <HBox layoutX="26.0" layoutY="404.0" prefHeight="40.0" prefWidth="256.0" spacing="10.0">
          <children>
             <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#generateSteps" prefHeight="35.0" prefWidth="80.0" text="Restore!" />
@@ -53,5 +53,6 @@
             <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextStatus" prefHeight="35.0" prefWidth="60.0" text="Avanti" />
          </children>
       </HBox>
+      <Button fx:id="lessonButton" layoutX="40.0" layoutY="18.0" mnemonicParsing="false" onAction="#goToLesson" text="Torna alla lezione" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>

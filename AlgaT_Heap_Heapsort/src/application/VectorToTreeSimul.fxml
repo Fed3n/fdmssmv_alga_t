@@ -45,12 +45,13 @@
          </children>
       </HBox>
       <TextArea fx:id="infoText" layoutX="26.0" layoutY="245.0" prefHeight="150.0" prefWidth="256.0" />
-      <Label layoutX="26.0" layoutY="43.0" prefHeight="50.0" prefWidth="715.0" text="In questa interazione puoi generare un heap e osservare la relazione tra le posizioni degli elementi nel vettore e nell'albero" />
+      <Label layoutX="26.0" layoutY="53.0" prefHeight="40.0" prefWidth="715.0" text="In questa interazione puoi generare un heap e osservare la relazione tra le posizioni degli elementi nel vettore e nell'albero" />
       <HBox layoutX="26.0" layoutY="195.0" prefHeight="50.0" prefWidth="256.0" spacing="45.0">
          <children>
             <Button fx:id="randomButton" mnemonicParsing="false" onAction="#createRandom" prefHeight="35.0" prefWidth="130.0" text="Random Heap" />
             <ChoiceBox fx:id="maxMinChoiceBox" prefHeight="25.0" prefWidth="80.0" />
          </children>
       </HBox>
+      <Button fx:id="lessonButton" layoutX="33.0" layoutY="17.0" mnemonicParsing="false" onAction="#goToLesson" text="Torna alla lezione" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>
