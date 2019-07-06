@@ -57,7 +57,6 @@ public class LessonController {
     private	Integer textNumber;		//Indica a che pagina della lezione ci si trova
     private final int MAX_LESSON_NUMBER;
 
-    private MainMenuController menuController;
     private Questions questionObject = null;
     private Boolean lessonCompleted = false;
     private Boolean completedQuestion = false;
@@ -88,11 +87,10 @@ public class LessonController {
 	//Importante accertarsi che il numero delle lezioni corrisponda al numero di file text e al numero di righe dentro simulLocation.txt nella cartella corrispondente
 	//Prende in input titolo della lezione, numero delle parti della lezione e nome della cartella in ./ dove si trovano i file
 	//Il numero delle parti della lezione deve essere >=1
-	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName, MainMenuController controller) {
+	public LessonController(String lessonName, Integer numberOfLessons, String lessonFileName) {
 		this.lessonTitle = lessonName;
 		this.MAX_LESSON_NUMBER = numberOfLessons;
 		this.fileGetter = lessonFileName;
-		this.menuController = controller;
 		this.textNumber = 1;
 	}
 
@@ -110,12 +108,11 @@ public class LessonController {
 
 	public void goBackToMenu(ActionEvent backPressed) throws IOException {
 
+		Stage thisStage = (Stage)((Node)backPressed.getSource()).getScene().getWindow();
+		MainMenuController controller = (MainMenuController)thisStage.getUserData();
+		controller.upgradeLessons(this); //il metodo si occupa di non perdere il controller attuale
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-		//aggiorno il controller con la nuova lezione
-		if (this.getLessonNumber() == 1) this.menuController.setFirstLesson(this);
-		if (this.getLessonNumber() == 2) this.menuController.setSecondLesson(this);
-		if (this.getLessonNumber() == 3) this.menuController.setThirdLesson(this);
-		MainMenuController controller = new MainMenuController(this.menuController);
 		loader.setController(controller);
 		Parent mainMenuParent = (Parent)loader.load();
 		Scene mainMenuScene = new Scene(mainMenuParent);
@@ -136,7 +133,10 @@ public class LessonController {
 
     	window.setScene(simulScene);
     	
-    	window.setUserData(this);
+    	simulScene.setUserData(this);
+    	//utilizzo il metodo setUserData che mi permette di incamerare un oggetto nella stage, in questo
+    	//modo quando dovrò tornare indietro potrò avere facilmente l'oggetto attuale
+    //	window.setUserData(this);
     	
     	window.show();
 	}
@@ -196,14 +196,6 @@ public class LessonController {
 		this.lastQuestionLoaded = number;
 	}
 
-	//aggiorna a true il campo main menu controller che può rimanere non aggiornato
-	//@ param : l'intero fos indica il numero della lezione da aggiornare
-	public void upgradeMainMenu(Integer fos, LessonController lesson) {
-		if (fos == 1) this.menuController.setFirstLesson(lesson);
-		if (fos == 2) this.menuController.setSecondLesson(lesson);
-		if (fos == 3) this.menuController.setThirdLesson(lesson);
-	}
-
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
 		
 		if (!this.questionAlertShowed) {
@@ -230,7 +222,11 @@ public class LessonController {
 		Parent alertParent = (Parent)loader.load();
 		Scene alertScene = new Scene(alertParent);
 		Stage alertWindow = new Stage();
-		alertWindow.initOwner(this.menuController.getStage());
+		
+		Stage thisStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		MainMenuController mainMenu = (MainMenuController) thisStage.getUserData();
+		
+		alertWindow.initOwner(mainMenu.getStage());
 		alertWindow.initModality(Modality.WINDOW_MODAL);
 		alertWindow.setTitle("Warning");
 		alertWindow.setScene(alertScene);

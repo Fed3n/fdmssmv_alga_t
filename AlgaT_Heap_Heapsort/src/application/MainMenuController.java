@@ -76,19 +76,13 @@ public class MainMenuController {
 	public void goToHeapLesson(ActionEvent heapPressed) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
-
+		LessonController controller;
 		if (this.lesson1 == null) {
-			//Creo manualmente un controller e lo inizializzo col suo costruttore
-			LessonController controller = new LessonController("Lezione 1: Heap", 5, "lesson1", this);
+			controller = new LessonController("Lezione 1: Heap", 5, "lesson1");
 			this.lesson1 = controller;
-			//Setto manualmente il controller nel loader
-			loader.setController(controller);
 		} else 
-			if (this.lesson2 != null) this.lesson1.upgradeMainMenu(2, this.lesson2);
-			loader.setController(this.lesson1);
-			
-			if (this.lesson3 != null) this.lesson1.upgradeMainMenu(3, lesson3);
-			loader.setController(this.lesson1);
+			controller = this.lesson1;
+		loader.setController(controller);
 
 		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
 		Parent heapLessonParent = (Parent)loader.load();
@@ -98,6 +92,7 @@ public class MainMenuController {
     	Stage window = (Stage)((Node)heapPressed.getSource()).getScene().getWindow();
 
     	window.setScene(heapLessonScene);
+    	window.setUserData(this);
     	window.show();
 
     	this.currentStage = window;
@@ -105,19 +100,14 @@ public class MainMenuController {
 
 	public void goToPriorityQueueLesson(ActionEvent heapPressed) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
-
+		LessonController controller;
 		if (this.lesson2 == null) {
 			//Creo manualmente un controller e lo inizializzo col suo costruttore
-			LessonController controller = new LessonController("Lezione 2: PriorityQueue", 5, "lesson2", this);
-			this.lesson2 = controller;
-			//Setto manualmente il controller nel loader
-			loader.setController(controller);
-		} else
-			if (this.lesson1 != null) this.lesson2.upgradeMainMenu(1, this.lesson1);
-			loader.setController(this.lesson2);
-			
-			if (this.lesson3 != null) this.lesson2.upgradeMainMenu(3, this.lesson3);
-			loader.setController(this.lesson2);
+			controller = new LessonController("Lezione 2: PriorityQueue", 5, "lesson2");
+			this.lesson2 = controller;	
+		} else 
+			controller = this.lesson2;
+		loader.setController(controller);
 
 		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
 		Parent priorityQueueParent = (Parent)loader.load();
@@ -127,6 +117,7 @@ public class MainMenuController {
     	Stage window = (Stage)((Node)heapPressed.getSource()).getScene().getWindow();
 
     	window.setScene(priorityQueueScene);
+    	window.setUserData(this);
     	window.show();
 
     	this.currentStage = window;
@@ -134,19 +125,13 @@ public class MainMenuController {
 	
 	public void goToHeapsortLesson(ActionEvent heapPressed) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
-
+		LessonController controller;
 		if (this.lesson3 == null) {
-			//Creo manualmente un controller e lo inizializzo col suo costruttore
-			LessonController controller = new LessonController("Lezione 3: Heapsort", 2, "lesson3", this);
+			controller = new LessonController("Lezione 3: Heapsort", 2, "lesson3");
 			this.lesson3 = controller;
-			//Setto manualmente il controller nel loader
-			loader.setController(controller);
-		} else
-			if (this.lesson1 != null) this.lesson3.upgradeMainMenu(1, this.lesson1);
-			loader.setController(this.lesson3);
-			
-			if (this.lesson2 != null) this.lesson3.upgradeMainMenu(2, this.lesson2);
-			loader.setController(this.lesson3);
+		} else 
+			controller = this.lesson3;
+		loader.setController(controller);
 
 		//Creo il parent dal loader con fxml e controller associato *IL FILE FXML NON DEVE AVERE UN CONTROLLER DI DEFAULT*
 		Parent heapSortLessonParent = (Parent)loader.load();
@@ -156,9 +141,17 @@ public class MainMenuController {
     	Stage window = (Stage)((Node)heapPressed.getSource()).getScene().getWindow();
 
     	window.setScene(heapSortLessonScene);
+    	window.setUserData(this);
     	window.show();
 
     	this.currentStage = window;
+	}
+	
+	public void upgradeLessons(LessonController lesson) {
+		Integer num = lesson.getLessonNumber();
+		if (num == 1) this.lesson1 = lesson;
+		if (num == 2) this.lesson2 = lesson;
+		if (num == 3) this.lesson3 = lesson;
 	}
 
 	public LessonController getFirstLesson() {

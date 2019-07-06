@@ -103,15 +103,18 @@ public class HeapSimul {
 	}
 	
 	public void goToLesson(ActionEvent event) throws IOException {
-		Stage lastStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	LessonController lesson = (LessonController) lastStage.getUserData();
+		Scene thisScene = ((Node)event.getSource()).getScene();
+		//dopo aver ottenuto la Stage sulla quale sono, e sulla quale ho memorizzato il controller del
+		//chiamante. Ora che ho il controller posso ripristinare la situazione precedente
+    	LessonController lesson = (LessonController) thisScene.getUserData();
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
+    	Stage thisStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		loader.setController(lesson);
 		Parent lessonParent = (Parent)loader.load();
 		Scene lessonScene = new Scene(lessonParent);
-		lastStage.setScene(lessonScene);
-		lastStage.show();
+		thisStage.setScene(lessonScene);
+		thisStage.show();
 	}
 	
 	public ArrayList<Integer> randomVector(){
