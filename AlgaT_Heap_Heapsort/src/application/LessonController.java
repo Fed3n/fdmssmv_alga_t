@@ -62,7 +62,7 @@ public class LessonController {
 
     private Questions questionObject = null;
     private Boolean lessonCompleted = false;  
-    private Boolean questionAlertShowed = false; //variabile che utilizzo per mostrare solo una volta la finestra che 
+    private Boolean questionAlertShown = false; //variabile che utilizzo per mostrare solo una volta la finestra che 
     											//avverte di non poter tornare indietro dopo aver visto le domande
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
@@ -192,13 +192,19 @@ public class LessonController {
 
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
 		
-		if (!this.questionAlertShowed) {
-			this.questionAlertShowed = true;
+		if (!this.questionAlertShown) {
+			this.questionAlertShown = true;
 			this.openAlertQuestion(questionPressed);
 			
 		} else {
-			if (this.questionObject == null)
-				this.questionObject = new Questions(questionPressed,this);
+			if (this.questionObject == null) {
+				
+				Stage thisStage = (Stage)((Node)questionPressed.getSource()).getScene().getWindow();
+				
+				this.questionObject = new Questions(thisStage,this);
+				
+			}
+				
 			else {
 				Integer questionNumber = this.questionObject.getLastQuestionLoaded();
 				this.questionObject.loadQuestion(questionNumber, true, false);
