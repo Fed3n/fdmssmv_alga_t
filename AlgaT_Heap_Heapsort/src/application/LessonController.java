@@ -61,9 +61,7 @@ public class LessonController {
     private final int MAX_LESSON_NUMBER;
 
     private Questions questionObject = null;
-    private Integer lastQuestionLoaded = 0;   //ultima domanda mostrata
     private Boolean lessonCompleted = false;  
-    private Boolean completedQuestion = false;
     private Boolean questionAlertShowed = false; //variabile che utilizzo per mostrare solo una volta la finestra che 
     											//avverte di non poter tornare indietro dopo aver visto le domande
 
@@ -191,16 +189,6 @@ public class LessonController {
 		this.textNumber--;
 		this.reloadPage();
 	}
-	
-	////////////////////////---------------------------------
-
-	public void setCompleted(Boolean completed) {
-		this.completedQuestion = completed;
-	}
-	
-	public void setLastQuestionLoaded(Integer number) {
-		this.lastQuestionLoaded = number;
-	}
 
 	public void goToQuestions(ActionEvent questionPressed) throws IOException {
 		
@@ -209,18 +197,14 @@ public class LessonController {
 			this.openAlertQuestion(questionPressed);
 			
 		} else {
-			if (!this.completedQuestion)
-				this.questionObject = new Questions(questionPressed,this,this.completedQuestion);
+			if (this.questionObject == null)
+				this.questionObject = new Questions(questionPressed,this);
 			else {
-				Integer questionNumber;
-				if (this.lastQuestionLoaded == 0) questionNumber = 1;
-				else questionNumber = this.lastQuestionLoaded;
-				this.questionObject.loadQuestion(questionNumber, true, false, this.completedQuestion);
+				Integer questionNumber = this.questionObject.getLastQuestionLoaded();
+				this.questionObject.loadQuestion(questionNumber, true, false);
 				}
 		}
 	}
-	
-	////////////////////////---------------------------------
 	
 	public void openAlertQuestion(ActionEvent event) throws IOException {
 		

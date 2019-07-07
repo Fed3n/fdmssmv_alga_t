@@ -209,7 +209,7 @@ public class QuestionController {
 					this.attemptsNumber++;
 					this.questionsObject.addPoints(this.getPoints());
 					this.questionsObject.setCompleted(true);
-					this.questionsObject.loadQuestion(this.questionNumber, true, false, this.questionsObject.getCompleted());
+					this.questionsObject.loadQuestion(this.questionNumber, true, false);
 				}
 				this.rightSelectionHasHappened = true;
 			} else {
@@ -245,10 +245,6 @@ public class QuestionController {
     	return points;
     }
     
-    public Integer getMaxPoint() {
-    	return this.POINT_FIRST_RIGHT_SELECTION;
-    }
-    
     public Integer getQuestionNumber() {
     	return this.questionNumber;
     }
@@ -269,7 +265,7 @@ public class QuestionController {
     
     public void goToLesson(ActionEvent backToLessonPressed) throws IOException {
     	
-    	this.questionsObject.getLessonController().setLastQuestionLoaded(this.questionNumber);
+    	this.questionsObject.setLastQuestionLoaded(this.questionNumber);
     	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
 		
