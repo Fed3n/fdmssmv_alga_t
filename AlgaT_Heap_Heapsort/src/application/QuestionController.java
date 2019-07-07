@@ -71,15 +71,10 @@ public class QuestionController {
     @FXML
     private ProgressBar progressBar;
     
-    //parametri provenienti dall'esterno
-    private Questions questionsObject;
-    
-    private Integer questionNumber;
-	
-    //costante non modificabile
+    //costante non modificabile (a meno che non si vada a cambiare il file fxml e a modificare la gestione delle risposte)
     private final int MAX_ANSWERS_NUMBER = 3; 
     
-   private final Integer POINT_FIRST_RIGHT_SELECTION = 5;	//punteggio assegnato ad una risposta corretta al primo tentativo
+    private final Integer POINT_FIRST_RIGHT_SELECTION = 5;	//punteggio assegnato ad una risposta corretta al primo tentativo
     
     private final Integer POINT_SECOND_RIGHT_SELECTION = 2; 	//punteggio assegnato ad una risposta corretta al secondo tentativo
     
@@ -89,8 +84,14 @@ public class QuestionController {
     //vettore contenente booleani relativi alle risposte
     private ArrayList<Boolean> results = new ArrayList<Boolean>() {{ add(false); add(false); add(false); }};
     
+    //stringa che conterrà la spiegazione delle risposte
     private String explanation = null;
-    	
+    
+    //contenente parametri provenienti dall'esterno
+    private Questions questionsObject;
+    
+    private Integer questionNumber;
+    
     private Integer attemptsNumber = 0;
        	
     private Boolean lastQuestion = false;
