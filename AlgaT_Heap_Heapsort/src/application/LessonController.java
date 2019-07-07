@@ -127,6 +127,7 @@ public class LessonController {
 	}
 
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
+		
 		//Parent simulParent = FXMLLoader.load(getClass().getResource("VectorToTreeSimul.fxml"));	//Se volete provare una simulazione velocemente usate questo
 		Parent simulParent = FXMLLoader.load(getClass().getResource(this.simulLocationList.get(this.textNumber-1)));	//Va a prendere il nome dell'fxml a cui accedere dal vettore
 
