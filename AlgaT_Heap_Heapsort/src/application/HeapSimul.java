@@ -276,6 +276,17 @@ public class HeapSimul {
 		
 	}
 	
-	
+	//Nei seguenti metodi l'indexing è un po' differente perché il vettore parte da 0 e non da 1 come nella teoria//
+	protected Integer parent(Integer index) {
+		return ((index-1)/2);		//nel caso particolare in cui l'indice è 2, il risultato è (int)0.5 che da 0
+	}
+
+	protected Integer lChild(Integer index) {
+		return (index*2+1);
+	}
+
+	protected Integer rChild(Integer index) {
+		return (index*2+2);
+	}	
 
 }

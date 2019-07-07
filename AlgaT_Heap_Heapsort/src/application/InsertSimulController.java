@@ -432,17 +432,18 @@ public class InsertSimulController extends HeapSimul{
 		//Creo i passaggi sucessivi
 		Integer i = vector.size()-1;
 		System.out.println("Il vettore arriva fino alla posizione: " + i);
-		while (i > 0 && vector.get(i) < vector.get((i-1)/2)) {
+		while (i > 0 && vector.get(i) < vector.get(super.parent(i))) {
 			System.out.println("Sono nel ciclo, posizione 1: " + i + " e posizione 2: " + (i-1)/2);
 			System.out.println(vector.get(i) + " é minore di " + vector.get((i-1)/2) + " per cui li scambio.");
 			System.out.println(statusList.toString() + " prima di scambio.");
 			l = new ArrayList<Integer>();
 			l.addAll(vector);
-			Collections.swap(l, i, ((i-1)/2));
+			Collections.swap(l, i, super.parent(i));
+			Collections.swap(vector, i, super.parent(i));
 			statusList.add(l);
 			System.out.println(vector.toString() + " aggiunto a statusList");
 			System.out.println(statusList.toString() + " statusList momentanea");
-			i = (i-1)/2;
+			i = super.parent(i);
 		}
 		this.statusList = new ArrayList<ArrayList<Integer>>();
 		this.statusList.addAll(statusList);

@@ -481,21 +481,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.prevButton.setDisable(true);
 		this.selectable = false;
 	}
-	
-	//Nei seguenti metodi l'indexing è un po' differente perché il vettore parte da 0 e non da 1 come nella teoria//
-	protected Integer parent(Integer index) {
-		return ((index-1)/2);
-	}
-
-	protected Integer lChild(Integer index) {
-		return (index*2+1);
-	}
-
-	protected Integer rChild(Integer index) {
-		return (index*2+2);
-	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 }
 
 
