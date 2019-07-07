@@ -25,7 +25,10 @@ public class Questions {
     
     private Integer score;
     
-    private Boolean completed;
+    private Boolean completed;    
+    
+    
+    //modifica
     
 	private LessonController lessonController;
 	
