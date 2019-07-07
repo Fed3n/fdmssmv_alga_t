@@ -209,7 +209,7 @@ public class QuestionController {
 					this.attemptsNumber++;
 					this.questionsObject.addPoints(this.getPoints());
 					this.questionsObject.setCompleted(true);
-					this.questionsObject.loadQuestion(this.questionNumber, true, false);
+					this.questionsObject.loadQuestion(this.questionNumber, true);
 				}
 				this.rightSelectionHasHappened = true;
 			} else {

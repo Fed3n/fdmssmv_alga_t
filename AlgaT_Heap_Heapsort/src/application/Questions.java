@@ -43,7 +43,7 @@ public class Questions {
     	this.setQuestionNumber();
     	this.maxScore = this.questionsNumber*this.MAX_POINT_FOR_ONE_QUESTION;
     	boolean exist = true;
-    	this.loadQuestion(1,exist,true); 
+    	this.loadQuestion(1,exist); 
     	if (!exist) System.out.println("Couldn't find ./lesson"+this.lessonController.getLessonNumber().toString()+"/question_1.txt. ");
     	this.score = 0;
     	this.lastQuestionLoaded = 1;
@@ -53,7 +53,7 @@ public class Questions {
     //@param exists : ritorna false sono nel caso la domanda non sia presente
     //@param firstQuestion : true se la domanda è la prima domanda ad essere richiamata (non necessariamente sempre la domanda numero 1), false altrimenti 	
 		   	
-    public void loadQuestion(Integer questionNumber, Boolean exists, Boolean firstCall) throws IOException {
+    public void loadQuestion(Integer questionNumber, Boolean exists) throws IOException {
     	
     	//verifico se la domanda è presente caricando il file. Se il caricamento del file fallisce significa che non c'è.
     	exists = true;
@@ -110,12 +110,12 @@ public class Questions {
     //il parametro booleano mi informa nel caso in cui i punti siano già stati assegnati
     public void nextQuestion(ActionEvent nextPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points;  
-    	this.loadQuestion(controller.getQuestionNumber()+1, true, false); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
+    	this.loadQuestion(controller.getQuestionNumber()+1, true); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
     }
     
     public void prevQuestion(ActionEvent prevPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points; 
-    	this.loadQuestion(controller.getQuestionNumber()-1, true, false); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
+    	this.loadQuestion(controller.getQuestionNumber()-1, true); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
     }
     
     //metodo necessario per il caso in cui non devo chiamare next o prev question ma ho necessità di memorizzare il punteggio
@@ -135,7 +135,7 @@ public class Questions {
     	return this.completed;
     }
     
-    public void setCompleted(Boolean completed) {
+   public void setCompleted(Boolean completed) {
     	this.completed = completed;
     }
     
@@ -147,14 +147,14 @@ public class Questions {
     	return this.lessonController;
     }
 
-    public Integer getQuestionsNumber() {
+   public Integer getQuestionsNumber() {
     	return this.questionsNumber;
     }
     
-    public Stage getQuestionStage() {
+   public Stage getQuestionStage() {
     	return this.lessonStage;
     }
-    
+   
     public Integer getLastQuestionLoaded() {
     	return this.lastQuestionLoaded;
     }
