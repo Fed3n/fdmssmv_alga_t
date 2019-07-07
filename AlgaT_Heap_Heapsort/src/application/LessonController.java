@@ -198,13 +198,9 @@ public class LessonController {
 			
 		} else {
 			if (this.questionObject == null) {
-				
 				Stage thisStage = (Stage)((Node)questionPressed.getSource()).getScene().getWindow();
-				
 				this.questionObject = new Questions(thisStage,this);
-				
 			}
-				
 			else {
 				Integer questionNumber = this.questionObject.getLastQuestionLoaded();
 				this.questionObject.loadQuestion(questionNumber, true, false);

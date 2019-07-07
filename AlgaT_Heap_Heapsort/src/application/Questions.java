@@ -34,10 +34,10 @@ public class Questions {
     
 	private LessonController lessonController;  //controller della lezione precedente per ottenere il numero della lezione
     
-    private Stage questionStage;  //stage 
+    private Stage lessonStage;  //stage of the lesson
     
     public Questions(Stage lessonStage, LessonController lessController) throws IOException {
-    	this.questionStage = lessonStage;
+    	this.lessonStage = lessonStage;
     	this.lessonController = lessController;
     	this.completed = false;
     	this.setQuestionNumber();
@@ -82,8 +82,8 @@ public class Questions {
 			
 	    	Scene scene = new Scene(root);
 	
-	    	this.questionStage.setScene(scene);
-	    	this.questionStage.show();
+	    	this.lessonStage.setScene(scene);
+	    	this.lessonStage.show();
 	    	
     	} catch (Exception e) {
     		exists = false;
@@ -152,7 +152,7 @@ public class Questions {
     }
     
     public Stage getQuestionStage() {
-    	return this.questionStage;
+    	return this.lessonStage;
     }
     
     public Integer getLastQuestionLoaded() {
