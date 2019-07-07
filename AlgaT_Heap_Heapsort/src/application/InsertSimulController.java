@@ -23,6 +23,12 @@ public class InsertSimulController extends HeapSimul{
 	@FXML
 	private TextArea infoText;
 	
+	@FXML
+	private Button nextButton;
+	
+	@FXML
+	private Button prevButton;
+	
 	private ArrayList<ArrayList<Integer>> statusList;
 	
 	private Integer currentStatusIndex;
@@ -33,8 +39,11 @@ public class InsertSimulController extends HeapSimul{
 		this.infoText.setEditable(false);
 		this.infoText.setWrapText(true);
 		this.maxMinChoiceBox.setValue("MinHeap");
+		this.maxMinChoiceBox.setDisable(true);
 		this.removeButton.setDisable(true);
 		this.generateButton.setDisable(true);
+		this.prevButton.setDisable(true);
+		this.nextButton.setDisable(true);
 		this.infoText.setText("Scrivi il numero da inserire nella PriorityQueue e premi Add.");
 		this.currentStatusIndex = 0;
 	}
@@ -371,6 +380,8 @@ public class InsertSimulController extends HeapSimul{
 		if(this.dataVector.size() >= 1) {
 			this.addButton.setDisable(true);
 			this.removeButton.setDisable(true);
+			this.prevButton.setDisable(true);
+			this.nextButton.setDisable(true);
 			this.infoText.setText("Premi genera per visualizzare l'albero relativo.");
 		}
 		this.generateButton.setDisable(false);
@@ -396,10 +407,11 @@ public class InsertSimulController extends HeapSimul{
 	@Override
 	public void generateHeap() {
 		this.infoText.setText("Premi su avanti per procedere nei passi per il riposizionamento della foglia.");
-		this.addButton.setDisable(false);
-		this.generateButton.setDisable(false);
-		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
-		else this.removeButton.setDisable(true);
+		this.nextButton.setDisable(false);
+		this.prevButton.setDisable(true);
+		this.addButton.setDisable(true);
+		this.removeButton.setDisable(true);
+		this.generateButton.setDisable(true);
 		this.drawTree();
 		this.currentStatusIndex = 0;
 		this.generateStepbyStep();
@@ -419,27 +431,18 @@ public class InsertSimulController extends HeapSimul{
 		
 		//Creo i passaggi sucessivi
 		Integer i = vector.size()-1;
-		while (this.maxMinChoiceBox.getValue().equalsIgnoreCase("MinHeap") && i > 0 && vector.get(i) < vector.get(i/2)) {
-			System.out.println(vector.get(i) + " é minore di " + vector.get(i/2) + " per cui li scambio.");
+		System.out.println("Il vettore arriva fino alla posizione: " + i);
+		while (i > 0 && vector.get(i) < vector.get((i-1)/2)) {
+			System.out.println("Sono nel ciclo, posizione 1: " + i + " e posizione 2: " + (i-1)/2);
+			System.out.println(vector.get(i) + " é minore di " + vector.get((i-1)/2) + " per cui li scambio.");
 			System.out.println(statusList.toString() + " prima di scambio.");
 			l = new ArrayList<Integer>();
 			l.addAll(vector);
-			Collections.swap(l, i, (int)(i/2));
+			Collections.swap(l, i, ((i-1)/2));
 			statusList.add(l);
 			System.out.println(vector.toString() + " aggiunto a statusList");
 			System.out.println(statusList.toString() + " statusList momentanea");
-			i = i/2;
-		}
-		while (this.maxMinChoiceBox.getValue().equalsIgnoreCase("MaxHeap") && i > 0 && vector.get(i) > vector.get(i/2)) {
-			System.out.println(vector.get(i) + " é maggiore di " + vector.get(i/2) + " per cui li scambio.");
-			System.out.println(statusList.toString() + " prima di scambio.");
-			l = new ArrayList<Integer>();
-			l.addAll(vector);
-			Collections.swap(l, i, (i/2));
-			statusList.add(l);
-			System.out.println(vector.toString() + " aggiunto a statusList");
-			System.out.println(statusList.toString() + " statusList momentanea");
-			i = i/2;
+			i = (i-1)/2;
 		}
 		this.statusList = new ArrayList<ArrayList<Integer>>();
 		this.statusList.addAll(statusList);
@@ -448,6 +451,7 @@ public class InsertSimulController extends HeapSimul{
 
 	public void next(){
 		this.currentStatusIndex++;
+		this.prevButton.setDisable(false);
 		if(this.currentStatusIndex < this.statusList.size()) {
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
@@ -455,6 +459,25 @@ public class InsertSimulController extends HeapSimul{
 			this.drawTree();
 		} else {
 			this.infoText.setText("Passaggi completati, aggiungi un altro elemento e premi su genera.");
+			this.addButton.setDisable(false);
+			this.generateButton.setDisable(false);
+			this.nextButton.setDisable(true);
+		}
+	}
+	
+	public void prev() {
+		this.currentStatusIndex--;
+		this.nextButton.setDisable(false);
+		this.addButton.setDisable(true);
+		this.generateButton.setDisable(true);
+		this.nextButton.setDisable(false);
+		if(this.currentStatusIndex > 0) {
+			this.dataVector = new ArrayList<Integer>();
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.drawVector();
+			this.drawTree();
+		} else {
+			this.infoText.setText("Premi avanti per proseguire con i passaggi.");
 		}
 	}
 }
