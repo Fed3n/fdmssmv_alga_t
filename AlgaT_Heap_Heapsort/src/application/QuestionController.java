@@ -116,6 +116,7 @@ public class QuestionController {
 		this.titleLabel.setText("Domanda n° "+this.questionNumber.toString());
 		if (this.questionsObject.getCompleted()) this.progressBar.setVisible(false);
 		try {
+			//leggo da file e memorizzo nei campi
 			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.questionsObject.getLessonNumber().toString()
 								+"/question_"+this.questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
 			int i = 0;
@@ -141,6 +142,7 @@ public class QuestionController {
 			this.answerButton2.setText(answers.get(1));
 			this.answerButton3.setText(answers.get(2));
 			this.setProgressBar();
+			//distinguo le due diverse situazioni: domande già completate -> modalità controllo; domande ancora da completare -> modalità normale
 			if (!this.questionsObject.getCompleted()) {
 				this.prevButton.setVisible(false);
 				this.nextButton.setDisable(true);
@@ -150,16 +152,15 @@ public class QuestionController {
 			} else {
 				this.prevButton.setVisible(true);
 				this.backToLessonButton.setDisable(false);
-				if (this.questionNumber == 1) 
-					this.prevButton.setDisable(true);
-				else this.prevButton.setDisable(false);
+				if (this.questionNumber == 1) this.prevButton.setDisable(true);
+					else this.prevButton.setDisable(false);
 				if (this.lastQuestion) this.nextButton.setDisable(true);
-				else this.nextButton.setDisable(false);
+					else this.nextButton.setDisable(false);
 				this.checkButton.setDisable(true);
 				this.answerButton1.setDisable(true);
 				this.answerButton2.setDisable(true);
 				this.answerButton3.setDisable(true);
-				this.setRightSelection();
+				this.setRightSelection();   //metodo che imposta la risposta corretta
 				this.pointsLabel.setVisible(true);
 				this.pointsLabel.setText("Punteggio raggiunto: "+this.questionsObject.getScore().toString()+"/"+this.questionsObject.getMaxScore().toString());
 				this.explanationButton.setVisible(true);
@@ -176,10 +177,12 @@ public class QuestionController {
 		this.lastQuestion = last;
 	}
 	
+	//calcola e imposta il valore di avanzamento della barra delle domande
 	private void setProgressBar() {
 		this.progressBar.setProgress((double)1/this.questionsObject.getQuestionsNumber()*questionNumber);
 	}
 	
+	//metodo che setta il paramentro this.rightSelection a true o false nel caso la selezione della risposta sia corretta o errata
     public void AnswerSelected(ActionEvent event) {
     	this.resultLabel.setText(null);
 		RadioButton b = (RadioButton)event.getSource();
@@ -189,25 +192,26 @@ public class QuestionController {
 		else this.rightSelection = false;
     }
 
+    //Attivato premendo il bottone verifica, verifica la risposta ed aggiorna lo stato dei bottoni
     public void checkAnswer(ActionEvent event) throws IOException {
     	if (this.radioButtons.getSelectedToggle() != null) {
+    		this.attemptsNumber++;
 	    	//aggiorno i booleani della selezione
 	    	if (this.answerButton1.isSelected()) this.oneClicked = true;
 	    	if (this.answerButton2.isSelected()) this.twoClicked = true;
 	    	if (this.answerButton3.isSelected()) this.threeClicked = true;
 	    	this.allClickedText();
 	    	if (this.rightSelection) {
-	    		if (this.attemptsNumber >= 2 && this.allClicked && !this.rightSelectionHappened) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
+	    		//mostro la spiegazione all'ultimo tentativo di risposta se sono rispettate le condizioni.
+	    		if (this.attemptsNumber >= 3 && this.allClicked && !this.rightSelectionHappened) 
 	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
 					this.resultLabel.setTextFill(Color.GREEN);
 					this.resultLabel.setText("Risposta Corretta!");
-					this.attemptsNumber++;
 				} else {
 					this.resultLabel.setTextFill(Color.BLUE);
 					this.resultLabel.setText("Risposta Corretta! Hai terminato con successo le domande");
-					this.attemptsNumber++;
 					this.questionsObject.addPoints(this.getPoints());
 					this.questionsObject.setCompleted(true);
 					this.questionsObject.loadQuestion(this.questionNumber);
@@ -217,7 +221,6 @@ public class QuestionController {
 				this.nextButton.setDisable(true);
 				this.resultLabel.setTextFill(Color.RED);
 				this.resultLabel.setText("Risposta Errata, Ritenta.");
-				this.attemptsNumber++;
 			}
     	} else {
     		this.resultLabel.setTextFill(Color.RED);
@@ -226,6 +229,7 @@ public class QuestionController {
     	if (!this.questionsObject.getCompleted()) this.backToLessonButton.setDisable(true);
     }	
     
+    //setta il valore allClicked correttamente
     private void allClickedText() {
     	if (this.oneClicked && this.twoClicked && this.threeClicked) this.allClicked = true;
     }
@@ -246,21 +250,17 @@ public class QuestionController {
     	return points;
     }
     
-    public Integer getQuestionNumber() {
-    	return this.questionNumber;
-    }
-    
 	//la funzione non verrà chiamata se questa lezione è la prima perchè il bottone sarà disattivato
     public void goToPrevQuestion(ActionEvent event) throws IOException {
     	Integer points = 0;
-    	if (this.rightSelection) points = this.getPoints();
+    	points = this.getPoints();
     	this.questionsObject.prevQuestion(event, points, this);
     }
     
     //se questa sarà l'ultima funzione il bottone sarà disabilitato
     public void goToNextQuestion(ActionEvent event) throws IOException {
     	Integer points = 0;
-    	if (this.rightSelection) points = this.getPoints();
+    	points = this.getPoints();
     	this.questionsObject.nextQuestion(event, points, this);
     }    
     
@@ -269,18 +269,13 @@ public class QuestionController {
     	this.questionsObject.setLastQuestionLoaded(this.questionNumber);
     	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Lesson.fxml"));
-		
 		loader.setController(this.questionsObject.getLessonController());
-		
 		Parent heapLessonParent = (Parent)loader.load();
-	
-    	Scene heapLessonScene = new Scene(heapLessonParent);
+		Scene heapLessonScene = new Scene(heapLessonParent);
     	
     	Stage window = (Stage)((Node)backToLessonPressed.getSource()).getScene().getWindow();
-    	
     	window.setScene(heapLessonScene);
     	window.show();
-    	
     }
     
     public void openExplanation(ActionEvent e) throws IOException {
@@ -291,12 +286,17 @@ public class QuestionController {
 		Parent explanationParent = (Parent)loader.load();
 		Scene explanationScene = new Scene(explanationParent);
 		Stage explanationWindow = new Stage();
+		
 		explanationWindow.initOwner(this.questionsObject.getQuestionStage());
 		explanationWindow.initModality(Modality.WINDOW_MODAL);
 		explanationWindow.setTitle("spiegazione risposta corretta");
+		
 		explanationWindow.setScene(explanationScene);
 		controller.setStage(explanationWindow);
-		//reimposto la dimensione della stage in base al testo contenuto
 		explanationWindow.show();
+    }
+    
+    public Integer getQuestionNumber() {
+    	return this.questionNumber;
     }
 }
