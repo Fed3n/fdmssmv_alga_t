@@ -19,19 +19,19 @@ import javafx.stage.Stage;
 
 public class Questions {
 	
+    private Integer questionsNumber = 0;
+	    
+    private Integer maxScore;	//punteggio massimo ottenibile
+    
+    private Integer score;
+    
+    private Boolean completed;
+    
 	private LessonController lessonController;
 	
 	private ActionEvent questionEvent;
     
     private Stage questionStage;
-    
-    private Integer maxScore;	//punteggio massimo ottenibile
-    
-    private Integer score;
-    
-    private Integer questionsNumber = 0;
-    
-    private Boolean completed;
     
     public Questions(ActionEvent event, LessonController lessController, Boolean complete) throws IOException {
     	this.questionEvent = event;

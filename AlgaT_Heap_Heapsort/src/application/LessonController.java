@@ -61,10 +61,11 @@ public class LessonController {
     private final int MAX_LESSON_NUMBER;
 
     private Questions questionObject = null;
-    private Boolean lessonCompleted = false;
+    private Integer lastQuestionLoaded = 0;   //ultima domanda mostrata
+    private Boolean lessonCompleted = false;  
     private Boolean completedQuestion = false;
-    private Integer lastQuestionLoaded = 0;
-    private Boolean questionAlertShowed = false; //variabile che utilizzo per mostrare solo una volta la finestra che avverte di non poter tornare indietro dopo aver visto la prima domanda
+    private Boolean questionAlertShowed = false; //variabile che utilizzo per mostrare solo una volta la finestra che 
+    											//avverte di non poter tornare indietro dopo aver visto le domande
 
     //Il metodo viene chiamato appena viene caricato il file FXML corrispondente
 	public void initialize() {
@@ -104,26 +105,27 @@ public class LessonController {
 			n = Integer.parseInt(this.fileGetter.substring(6));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			System.out.print("The name of some lesson's folder are incorrect.");
+			System.out.print("The name of some lesson's folder is incorrect.");
 		}
 		return n;
 	}
 
 	public void goBackToMenu(ActionEvent backPressed) throws IOException {
 
+		//ottengo la finestra della lezione dall'evento
 		Stage thisStage = (Stage)((Node)backPressed.getSource()).getScene().getWindow();
+		//riprendo il controller del mainMenù dalla stage, dove lo avevo memorizzato, con il metodo getUserData
 		MainMenuController controller = (MainMenuController)thisStage.getUserData();
-		controller.upgradeLessons(this); //il metodo si occupa di non perdere il controller attuale
+		//aggiorno nel MainMenùController il controller di questa lezione per non perdere eventuali modifiche
+		controller.upgradeLessons(this); 
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+		//setto il controller che ho memorizzato, per ristabilire la situazione precedente
 		loader.setController(controller);
-		Parent mainMenuParent = (Parent)loader.load();
+		Parent mainMenuParent = (Parent)loader.load();			
 		Scene mainMenuScene = new Scene(mainMenuParent);
-
-    	Stage window = (Stage)((Node)backPressed.getSource()).getScene().getWindow();
-
-    	window.setScene(mainMenuScene);
-    	window.show();
+    	thisStage.setScene(mainMenuScene);
+    	thisStage.show();
 	}
 
 	public void goToSimulation(ActionEvent simulPressed) throws IOException {
@@ -136,10 +138,9 @@ public class LessonController {
 
     	window.setScene(simulScene);
     	
-    	simulScene.setUserData(this);
     	//utilizzo il metodo setUserData che mi permette di incamerare un oggetto nella stage, in questo
     	//modo quando dovrò tornare indietro potrò avere facilmente l'oggetto attuale
-    //	window.setUserData(this);
+    	simulScene.setUserData(this);
     	
     	window.show();
 	}
@@ -190,11 +191,13 @@ public class LessonController {
 		this.textNumber--;
 		this.reloadPage();
 	}
+	
+	////////////////////////---------------------------------
 
 	public void setCompleted(Boolean completed) {
 		this.completedQuestion = completed;
 	}
-
+	
 	public void setLastQuestionLoaded(Integer number) {
 		this.lastQuestionLoaded = number;
 	}
@@ -216,6 +219,8 @@ public class LessonController {
 				}
 		}
 	}
+	
+	////////////////////////---------------------------------
 	
 	public void openAlertQuestion(ActionEvent event) throws IOException {
 		
