@@ -71,6 +71,8 @@ public class QuestionController {
     @FXML
     private ProgressBar progressBar;
     
+    //CAMPI DI INIZIALIZZAZIONE   
+    
     //costante non modificabile (a meno che non si vada a cambiare il file fxml e a modificare la gestione delle risposte)
     private final int MAX_ANSWERS_NUMBER = 3; 
     
@@ -84,23 +86,22 @@ public class QuestionController {
     //vettore contenente booleani relativi alle risposte
     private ArrayList<Boolean> results = new ArrayList<Boolean>() {{ add(false); add(false); add(false); }};
     
-    //stringa che conterrà la spiegazione delle risposte
-    private String explanation = null;
+    private String explanation = null;   //stringa che conterrà la spiegazione delle risposte
     
-    //contenente parametri provenienti dall'esterno
-    private Questions questionsObject;
+    private Questions questionsObject;   //oggetto Questions contenente parametri provenienti dall'esterno
     
     private Integer questionNumber;
     
-    private Integer attemptsNumber = 0;  //numero di tentativi di risposta fatti 
-       	
     private Boolean lastQuestion = false;  //true se è l'ultima domanda
     
-    //la variabile segnala se la corrente selezione della risposta è esatta
-    private Boolean rightSelection = false;
+    //CAMPI RELATIVI AL CONTROLLO DELLE RISPOSTE
+    
+    private Integer attemptsNumber = 0;  //numero di tentativi di risposta fatti 
+    
+    private Boolean rightSelection = false;    //la variabile segnala se la corrente selezione della risposta è esatta
     
     //variabili booleane per la gestione dei vari casi per determinare se mostrare o meno la spiegazione
-    private Boolean rightSelectionHasHappened = false;
+    private Boolean rightSelectionHappened = false;
     private Boolean allClicked = false;
     private Boolean oneClicked = false;
     private Boolean twoClicked = false;
@@ -196,7 +197,7 @@ public class QuestionController {
 	    	if (this.answerButton3.isSelected()) this.threeClicked = true;
 	    	this.allClickedText();
 	    	if (this.rightSelection) {
-	    		if (this.attemptsNumber >= 2 && this.allClicked && !this.rightSelectionHasHappened) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
+	    		if (this.attemptsNumber >= 2 && this.allClicked && !this.rightSelectionHappened) //mostro la spiegazione all'ultimo tentativo di risposta. in realtà il tentativo sarebbe il numero tre ma lo incremento successivamente
 	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
@@ -209,9 +210,9 @@ public class QuestionController {
 					this.attemptsNumber++;
 					this.questionsObject.addPoints(this.getPoints());
 					this.questionsObject.setCompleted(true);
-					this.questionsObject.loadQuestion(this.questionNumber, true);
+					this.questionsObject.loadQuestion(this.questionNumber);
 				}
-				this.rightSelectionHasHappened = true;
+				this.rightSelectionHappened = true;
 			} else {
 				this.nextButton.setDisable(true);
 				this.resultLabel.setTextFill(Color.RED);

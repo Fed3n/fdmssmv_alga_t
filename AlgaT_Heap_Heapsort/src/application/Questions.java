@@ -42,40 +42,32 @@ public class Questions {
     	this.completed = false;
     	this.setQuestionNumber();
     	this.maxScore = this.questionsNumber*this.MAX_POINT_FOR_ONE_QUESTION;
-    	boolean exist = true;
-    	this.loadQuestion(1,exist); 
-    	if (!exist) System.out.println("Couldn't find ./lesson"+this.lessonController.getLessonNumber().toString()+"/question_1.txt. ");
+    	this.loadQuestion(1); 
     	this.score = 0;
     	this.lastQuestionLoaded = 1;
     }
     
     //la funzione seguente carica la domanda richiesta modificando lo stage
-    //@param exists : ritorna false sono nel caso la domanda non sia presente
-		   	
-    public void loadQuestion(Integer questionNumber, Boolean exists) throws IOException {
-    	
-    	//verifico se la domanda è presente caricando il file. Se il caricamento del file fallisce significa che non c'è.
-    	exists = true;
+    //postcondition: se la domanda non è presente lancia un'eccezione
+    public void loadQuestion(Integer questionNumber) {
     	
     	try {
-			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
-			+"/question_"+questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
-
-			QuestionController controller = new QuestionController(this, questionNumber, this.questionsNumber == questionNumber);
+    		QuestionController controller = new QuestionController(this, questionNumber, this.questionsNumber == questionNumber);
 			
 		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
 		   	loader.setController(controller);
 			Parent root = loader.load();
-			
 	    	Scene scene = new Scene(root);
 	
 	    	this.lessonStage.setScene(scene);
 	    	this.lessonStage.show();
 	    	
-    	} catch (Exception e) {
-    		exists = false;
+		} catch (IOException e) {
+			System.out.println("Cannot find file ./lesson"+this.getLessonNumber()+"/question_"+questionNumber+" . Unable to"
+					+" load the question.");
+			e.printStackTrace();
 		}
-    }
+	}
     
     //metodo per settare dinamicamente la variabile di classe : numero di domande
     //il metodo cerca di caricare i file richiesti fino a che non finiscono e viene lanciata un'eccezione
@@ -96,12 +88,12 @@ public class Questions {
     
     public void nextQuestion(ActionEvent nextPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points;  
-    	this.loadQuestion(controller.getQuestionNumber()+1, true); 
+    	this.loadQuestion(controller.getQuestionNumber()+1); 
     }
     
     public void prevQuestion(ActionEvent prevPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points; 
-    	this.loadQuestion(controller.getQuestionNumber()-1, true); 
+    	this.loadQuestion(controller.getQuestionNumber()-1); 
     }
     
     //metodo necessario per il caso in cui non devo chiamare next o prev question ma ho necessità di memorizzare il punteggio

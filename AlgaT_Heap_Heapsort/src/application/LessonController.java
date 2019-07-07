@@ -203,7 +203,7 @@ public class LessonController {
 			}
 			else {
 				Integer questionNumber = this.questionObject.getLastQuestionLoaded();
-				this.questionObject.loadQuestion(questionNumber, true);
+				this.questionObject.loadQuestion(questionNumber);
 				}
 		}
 	}
