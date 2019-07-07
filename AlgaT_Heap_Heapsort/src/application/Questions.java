@@ -51,7 +51,6 @@ public class Questions {
     
     //la funzione seguente carica la domanda richiesta modificando lo stage
     //@param exists : ritorna false sono nel caso la domanda non sia presente
-    //@param firstQuestion : true se la domanda è la prima domanda ad essere richiamata (non necessariamente sempre la domanda numero 1), false altrimenti 	
 		   	
     public void loadQuestion(Integer questionNumber, Boolean exists) throws IOException {
     	
@@ -62,19 +61,7 @@ public class Questions {
 			BufferedReader reader = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
 			+"/question_"+questionNumber.toString()+".txt"), StandardCharsets.UTF_8);
 
-			//ora verifico se la domanda è l'ultima (devo passarlo come parametro al controller) cercando la successiva
-			Boolean isLast = false;
-			
-		   	try {
-		   	    Integer nextQuestionNumber = questionNumber+1;
-		   		BufferedReader reader2 = Files.newBufferedReader(Paths.get("./lesson"+this.lessonController.getLessonNumber().toString()
-		   		+"/question_"+nextQuestionNumber.toString()+".txt"), StandardCharsets.UTF_8);
-		   					
-		   	} catch (Exception e) {
-		   		isLast = true;
-		   	}
-		   		
-		   	QuestionController controller = new QuestionController(this, questionNumber, isLast);
+			QuestionController controller = new QuestionController(this, questionNumber, this.questionsNumber == questionNumber);
 			
 		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("Question.fxml"));
 		   	loader.setController(controller);
@@ -107,15 +94,14 @@ public class Questions {
     	this.questionsNumber = i-1;
     }
     
-    //il parametro booleano mi informa nel caso in cui i punti siano già stati assegnati
     public void nextQuestion(ActionEvent nextPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points;  
-    	this.loadQuestion(controller.getQuestionNumber()+1, true); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
+    	this.loadQuestion(controller.getQuestionNumber()+1, true); 
     }
     
     public void prevQuestion(ActionEvent prevPressed, Integer points, QuestionController controller) throws IOException {
     	this.score += points; 
-    	this.loadQuestion(controller.getQuestionNumber()-1, true); //non inserisco una variabile booleana perchè non mi interessa sapere se questa domanda è l'ultima
+    	this.loadQuestion(controller.getQuestionNumber()-1, true); 
     }
     
     //metodo necessario per il caso in cui non devo chiamare next o prev question ma ho necessità di memorizzare il punteggio
