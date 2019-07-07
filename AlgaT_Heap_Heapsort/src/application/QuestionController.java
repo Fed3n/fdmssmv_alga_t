@@ -92,13 +92,14 @@ public class QuestionController {
     
     private Integer questionNumber;
     
-    private Integer attemptsNumber = 0;
+    private Integer attemptsNumber = 0;  //numero di tentativi di risposta fatti 
        	
-    private Boolean lastQuestion = false;
+    private Boolean lastQuestion = false;  //true se è l'ultima domanda
     
     //la variabile segnala se la corrente selezione della risposta è esatta
     private Boolean rightSelection = false;
     
+    //variabili booleane per la gestione dei vari casi per determinare se mostrare o meno la spiegazione
     private Boolean rightSelectionHasHappened = false;
     private Boolean allClicked = false;
     private Boolean oneClicked = false;
