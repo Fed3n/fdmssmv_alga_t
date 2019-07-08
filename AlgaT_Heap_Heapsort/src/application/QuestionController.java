@@ -101,7 +101,6 @@ public class QuestionController {
     private Boolean rightSelection = false;    //la variabile segnala se la corrente selezione della risposta è esatta
     
     //variabili booleane per la gestione dei vari casi per determinare se mostrare o meno la spiegazione
-    private Boolean rightSelectionHappened = false;
     private Boolean allClicked = false;
     private Boolean oneClicked = false;
     private Boolean twoClicked = false;
@@ -203,7 +202,7 @@ public class QuestionController {
 	    	this.allClickedText();
 	    	if (this.rightSelection) {
 	    		//mostro la spiegazione all'ultimo tentativo di risposta se sono rispettate le condizioni.
-	    		if (this.attemptsNumber >= 3 && this.allClicked && !this.rightSelectionHappened) 
+	    		if (this.attemptsNumber >= 3 && this.allClicked) 
 	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
@@ -216,7 +215,6 @@ public class QuestionController {
 					this.questionsObject.setCompleted(true);
 					this.questionsObject.loadQuestion(this.questionNumber);
 				}
-				this.rightSelectionHappened = true;
 			} else {
 				this.nextButton.setDisable(true);
 				this.resultLabel.setTextFill(Color.RED);
