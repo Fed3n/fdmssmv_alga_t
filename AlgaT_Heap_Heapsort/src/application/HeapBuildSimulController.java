@@ -2,10 +2,46 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 
 public class HeapBuildSimulController extends HeapRestoreSimulController {
+	
+	@FXML
+	private Button manualButton;
+	
+	@Override
+	public void initialize(){
+		 super.initialize();
+		 this.infoText.appendText("\nOppure aggiungi manualmente numeri premendo Add.");
+	}
+	
+	public void manualAdd(){
+		this.readyButton.setDisable(false);
+		this.removeButton.setDisable(false);
+		//Controlla che non vada oltre la dimensione massima
+		if (this.dataVector.size() < this.MAX_VECTOR_SIZE) {
+			
+			try {
+				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
+				this.dataVector.add(num);									//Aggiunge al campo del vettore
+				this.drawVector();											//Aggiorna la grafica del vettore
+			} catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
+				alert.showAndWait();
+				System.out.println("Please input a number");
+			}
+			this.inputArea.clear();		
+			this.isGenerated = false;
+			System.out.println(this.dataVector.toString());
+		}
+		else {
+			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");
+			alert.showAndWait();
+		}
+	}
 	
 	public ArrayList<ArrayList<Integer>> stepByStepMaxHeapBuild(ArrayList<Integer> vector) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
@@ -16,6 +52,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica maxHeapRestore su tutti i nodi non foglia.");
+		this.lightableIndex.add(null);
 		
 		
 		//MaxHeapRestore su tutte le foglie
@@ -32,6 +69,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		vv.addAll(vector);
 		statusList.add(vv);
 		this.instructionList.add("L'operazione heapBuild termina e ora il vettore è un heap.");
+		this.lightableIndex.add(null);
 		
 		return statusList;
 	}
@@ -45,6 +83,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica minHeapRestore su tutti i nodi non foglia.");
+		this.lightableIndex.add(null);
 		
 		
 		//MaxHeapRestore su tutte le foglie
@@ -61,6 +100,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		vv.addAll(vector);
 		statusList.add(vv);
 		this.instructionList.add("L'operazione heapBuild termina e ora il vettore è un heap.");
+		this.lightableIndex.add(null);
 		
 		return statusList;
 	}
@@ -69,6 +109,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	//Pulsante build, genera la successione di step-by-step
 		public void generateSteps() {
 			if((this.maxMinChoiceBox.getValue() != null)) {
+				this.manualButton.setDisable(true);
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				
 				this.instructionList.clear();
@@ -103,4 +144,22 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 			}
 		}
 	
+	@Override
+	public void nextStatus(){
+		super.nextStatus();
+		if (this.currentStatusIndex+1 >= this.statusList.size()) this.manualButton.setDisable(false);
+		else this.manualButton.setDisable(true);
+	}
+	
+	@Override
+	public void prevStatus(){
+		super.prevStatus();
+		this.manualButton.setDisable(true);
+	}
+	
+	@Override
+	public void readyVector(){
+		super.readyVector();
+		this.manualButton.setDisable(true);
+	}
 }

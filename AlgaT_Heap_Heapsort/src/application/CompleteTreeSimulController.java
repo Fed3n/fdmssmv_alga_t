@@ -101,10 +101,9 @@ public class CompleteTreeSimulController extends HeapSimul{
 	public void addToVector() {
 		super.addToVector();
 		if(this.dataVector.size() >= 1) {
-			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
+			this.removeButton.setDisable(false);
 			this.resetScreen();
-			this.infoText.setText("Trasforma in heap prima di interagire!");
+			this.infoText.setText("Aggiungi un altro elemento oppure premi Make heap per interagire.");
 		}
 		this.generateButton.setDisable(false);
 	}
@@ -116,8 +115,6 @@ public class CompleteTreeSimulController extends HeapSimul{
 		if(this.dataVector.size() >= 1 ) {
 			this.infoText.setText("Trasforma in heap prima di interagire!");
 			this.generateButton.setDisable(false);
-			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
 		} else {
 			this.infoText.setText("Inserisci un numero e premi 'Add'");
 			this.addButton.setDisable(false);

@@ -379,24 +379,24 @@ public class InsertSimulController extends HeapSimul{
 		super.addToVector();
 		if(this.dataVector.size() >= 1) {
 			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
+			this.removeButton.setDisable(false);
 			this.prevButton.setDisable(true);
 			this.nextButton.setDisable(true);
+			this.generateButton.setDisable(false);
 			this.infoText.setText("Premi genera per visualizzare l'albero relativo.");
 		}
-		this.generateButton.setDisable(false);
 	}
 	
 	@Override
 	public void removeFromVector() {
 		super.removeFromVector();
 		if(this.dataVector.size() >= 1 ) {
-			this.infoText.setText("Trasforma in heap prima di interagire!");
+			this.infoText.setText("Premi genera prima di interagire.");
 			this.generateButton.setDisable(false);
 			this.addButton.setDisable(true);
 			this.removeButton.setDisable(true);
 		} else {
-			this.infoText.setText("Inserisci un numero e premi 'Add'/noppure genera un vettore casuale.");
+			this.infoText.setText("Inserisci un numero e premi 'Add'.");
 			this.addButton.setDisable(false);
 			this.removeButton.setDisable(true);
 			this.generateButton.setDisable(true);
@@ -407,14 +407,20 @@ public class InsertSimulController extends HeapSimul{
 	@Override
 	public void generateHeap() {
 		this.infoText.setText("Premi su avanti per procedere nei passi per il riposizionamento della foglia.");
-		this.nextButton.setDisable(false);
-		this.prevButton.setDisable(true);
-		this.addButton.setDisable(true);
-		this.removeButton.setDisable(true);
-		this.generateButton.setDisable(true);
-		this.drawTree();
-		this.currentStatusIndex = 0;
-		this.generateStepbyStep();
+		if(this.dataVector.size() >= 1) {
+			this.nextButton.setDisable(false);
+			this.prevButton.setDisable(true);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.generateButton.setDisable(true);
+			this.drawTree();
+			this.currentStatusIndex = 0;
+			this.generateStepbyStep();
+			this.dataVector = new ArrayList<Integer>();
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.drawVector();
+			this.drawTree();
+		}
 	}
 	
 	public void generateStepbyStep(){
@@ -424,6 +430,7 @@ public class InsertSimulController extends HeapSimul{
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> vector = new ArrayList<Integer>();
 		ArrayList<Integer> l;
+		ArrayList<Integer> k;
 		vector.addAll(this.dataVector);
 		statusList.add(vector);
 		System.out.println(vector.toString() + " aggiunto a statusList");
@@ -432,16 +439,18 @@ public class InsertSimulController extends HeapSimul{
 		//Creo i passaggi sucessivi
 		Integer i = vector.size()-1;
 		System.out.println("Il vettore arriva fino alla posizione: " + i);
-		while (i > 0 && vector.get(i) < vector.get(super.parent(i))) {
+		l = new ArrayList<Integer>();
+		l.addAll(vector);
+		while (i > 0 && l.get(i) < l.get(super.parent(i))) {
 			System.out.println("Sono nel ciclo, posizione 1: " + i + " e posizione 2: " + (i-1)/2);
-			System.out.println(vector.get(i) + " é minore di " + vector.get((i-1)/2) + " per cui li scambio.");
+			System.out.println(l.get(i) + " é minore di " + l.get((i-1)/2) + " per cui li scambio.");
 			System.out.println(statusList.toString() + " prima di scambio.");
-			l = new ArrayList<Integer>();
-			l.addAll(vector);
+			k = new ArrayList<Integer>();
+			k.addAll(l);
+			Collections.swap(k, i, super.parent(i));
 			Collections.swap(l, i, super.parent(i));
-			Collections.swap(vector, i, super.parent(i));
-			statusList.add(l);
-			System.out.println(vector.toString() + " aggiunto a statusList");
+			statusList.add(k);
+			System.out.println(k.toString() + " aggiunto a statusList");
 			System.out.println(statusList.toString() + " statusList momentanea");
 			i = super.parent(i);
 		}
@@ -452,8 +461,14 @@ public class InsertSimulController extends HeapSimul{
 
 	public void next(){
 		this.currentStatusIndex++;
+		System.out.println(this.statusList.toString());
+		System.out.println("Index: " + this.currentStatusIndex);
 		this.prevButton.setDisable(false);
+		Integer size = this.statusList.size();
+		System.out.println("La grandezza della statusList é: " + size);
 		if(this.currentStatusIndex < this.statusList.size()) {
+			Integer k = this.statusList.size();
+			System.out.println("La grandezza della statusList é: " + k);
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			this.drawVector();
@@ -461,24 +476,35 @@ public class InsertSimulController extends HeapSimul{
 		} else {
 			this.infoText.setText("Passaggi completati, aggiungi un altro elemento e premi su genera.");
 			this.addButton.setDisable(false);
-			this.generateButton.setDisable(false);
+			this.generateButton.setDisable(true);
 			this.nextButton.setDisable(true);
+			this.removeButton.setDisable(false);
 		}
 	}
 	
 	public void prev() {
 		this.currentStatusIndex--;
-		this.nextButton.setDisable(false);
-		this.addButton.setDisable(true);
-		this.generateButton.setDisable(true);
-		this.nextButton.setDisable(false);
-		if(this.currentStatusIndex > 0) {
+		System.out.println(this.statusList.toString());
+		System.out.println("Index: " + this.currentStatusIndex);
+		if(this.currentStatusIndex == 0) {
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.prevButton.setDisable(true);
+			this.generateButton.setDisable(true);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.nextButton.setDisable(false);
 			this.drawVector();
 			this.drawTree();
 		} else {
-			this.infoText.setText("Premi avanti per proseguire con i passaggi.");
+			this.dataVector = new ArrayList<Integer>();
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.nextButton.setDisable(false);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.generateButton.setDisable(true);
+			this.drawVector();
+			this.drawTree();
 		}
 	}
 }
