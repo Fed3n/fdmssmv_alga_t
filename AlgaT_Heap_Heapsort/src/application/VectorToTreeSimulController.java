@@ -396,7 +396,7 @@ public class VectorToTreeSimulController extends HeapSimul{
 	@Override
 	public void generateHeap() {
 		super.generateHeap();
-		this.infoText.setText("Premi su un nodo o una foglia dell'albero creato per visualizzarne le informazioni.");
+		this.infoText.setText("Sposta il mouse su un nodo o una foglia dell'albero creato per visualizzarne le informazioni.");
 		this.addButton.setDisable(false);
 		this.generateButton.setDisable(false);
 		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
