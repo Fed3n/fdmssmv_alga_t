@@ -165,7 +165,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 							Collections.swap(vector, index, this.lChild(index));
 							//TODO Evidenza scambio tra padre e lchild
 							min = this.lChild(index);
-						}				
+						}
 					}
 				
 					else {

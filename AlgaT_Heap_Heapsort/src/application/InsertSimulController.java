@@ -476,7 +476,7 @@ public class InsertSimulController extends HeapSimul{
 		} else {
 			this.infoText.setText("Passaggi completati, aggiungi un altro elemento e premi su genera.");
 			this.addButton.setDisable(false);
-			this.generateButton.setDisable(false);
+			this.generateButton.setDisable(true);
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);
 		}

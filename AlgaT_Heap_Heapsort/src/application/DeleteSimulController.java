@@ -17,6 +17,7 @@ public class DeleteSimulController extends HeapRestoreSimulController {
 		this.selectedIndex = 0;
 		this.maxMinChoiceBox.setValue("MinHeap");
 		this.maxMinChoiceBox.setDisable(true);
+		this.maxMinChoiceBox.setVisible(false);
 		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
 		this.instructionList = new ArrayList<String>();
 		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
@@ -64,12 +65,59 @@ public class DeleteSimulController extends HeapRestoreSimulController {
 			vector = this.stepByStepMinRestore(p, 0);
 			sL.addAll(vector);
 			System.out.println("Tutti i passaggi: " + sL.toString());
+			this.statusList = new ArrayList<ArrayList<Integer>>();
+			this.statusList.addAll(sL);
+			this.nextButton.setDisable(false);
+			this.prevButton.setDisable(true);
+		}
+	}
+	
+	@Override
+	public void nextStatus(){
+		this.currentStatusIndex++;
+		System.out.println(this.statusList.toString());
+		System.out.println("Index: " + this.currentStatusIndex);
+		this.prevButton.setDisable(false);
+		Integer size = this.statusList.size();
+		System.out.println("La grandezza della statusList é: " + size);
+		if(this.currentStatusIndex < this.statusList.size()) {
+			Integer k = this.statusList.size();
+			System.out.println("La grandezza della statusList é: " + k);
 			this.dataVector = new ArrayList<Integer>();
-			this.dataVector.addAll(sL.get(sL.size()-1));
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			this.drawVector();
 			this.drawTree();
+		} else {
+			System.out.println("prova");
+			this.infoText.setText("Passaggi completati.");
+			this.addButton.setDisable(false);
+			this.nextButton.setDisable(true);
+			this.removeButton.setDisable(false);
+		}
+	}
+	
+	@Override
+	public void prevStatus(){
+		this.currentStatusIndex--;
+		System.out.println(this.statusList.toString());
+		System.out.println("Index: " + this.currentStatusIndex);
+		if(this.currentStatusIndex == 0) {
+			this.dataVector = new ArrayList<Integer>();
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.prevButton.setDisable(true);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
 			this.nextButton.setDisable(false);
-			this.prevButton.setDisable(false);
+			this.drawVector();
+			this.drawTree();
+		} else {
+			this.dataVector = new ArrayList<Integer>();
+			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
+			this.nextButton.setDisable(false);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.drawVector();
+			this.drawTree();
 		}
 	}
 }
