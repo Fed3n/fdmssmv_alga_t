@@ -20,7 +20,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-
 public class HeapRestoreSimulController extends HeapSimul{
 	
 	@FXML
