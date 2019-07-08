@@ -168,7 +168,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 							l.add(this.lChild(index));
 							this.lightableIndex.add(l);
 							Collections.swap(vector, index, this.lChild(index));
-							//TODO Evidenza scambio tra padre e lchild
 							min = this.lChild(index);
 						}
 					}
@@ -182,7 +181,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 							l.add(this.rChild(index));
 							this.lightableIndex.add(l);
 							Collections.swap(vector, index, this.rChild(index));
-							//TODO Evidenza scambio tra padre e rchild
 							min = this.rChild(index);
 						}
 					}				
@@ -197,7 +195,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 					
 					this.instructionList.add("Non c'è nulla da scambiare. minHeapRestore termina.");
 					this.lightableIndex.add(null);
-					//TODO Evidenza che non c'è più da scambiare
 					}
 				//L'operazione procede sull'indice
 				else {
@@ -257,6 +254,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 					System.out.println("Devo colorare " + i.get(j));
 					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
 					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
 				}
 			}
 			
@@ -291,6 +290,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 				for(int j = 0; j < i.size(); j++) {
 					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
 					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
 				}				
 			}
 		}
@@ -338,6 +339,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 						System.out.println("Devo colorare " + i.get(j));
 						Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
 						circ.setStroke(Color.CORAL);
+						Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+						rect.setStroke(Color.CORAL);
 					}
 				}
 				
