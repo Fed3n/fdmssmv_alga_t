@@ -287,7 +287,7 @@ public class QuestionController {
 		
 		explanationWindow.initOwner(this.questionsObject.getQuestionStage());
 		explanationWindow.initModality(Modality.WINDOW_MODAL);
-		explanationWindow.setTitle("spiegazione risposta corretta");
+		explanationWindow.setTitle("Spiegazione Risposta");
 		
 		explanationWindow.setScene(explanationScene);
 		controller.setStage(explanationWindow);
