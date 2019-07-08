@@ -365,9 +365,7 @@ public class VectorToTreeSimulController extends HeapSimul{
 	public void createRandom(){
 		this.dataVector = super.randomVector();
 		this.drawVector();
-		this.randomButton.setDisable(true);
-		this.addButton.setDisable(true);
-		this.removeButton.setDisable(true);
+		this.removeButton.setDisable(false);
 		this.generateButton.setDisable(false);
 		this.infoText.setText("Premi su Make Heap per generare e rappresentare l'heap.");
 	}
@@ -375,11 +373,7 @@ public class VectorToTreeSimulController extends HeapSimul{
 	@Override
 	public void addToVector() {
 		super.addToVector();
-		if(this.dataVector.size() >= 1) {
-			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
-			this.infoText.setText("Trasforma in heap prima di interagire!");
-		}
+		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
 		this.generateButton.setDisable(false);
 	}
 	
@@ -389,14 +383,12 @@ public class VectorToTreeSimulController extends HeapSimul{
 		if(this.dataVector.size() >= 1 ) {
 			this.infoText.setText("Trasforma in heap prima di interagire!");
 			this.generateButton.setDisable(false);
-			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
 		} else {
 			this.infoText.setText("Inserisci un numero e premi 'Add'/noppure genera un vettore casuale.");
 			this.addButton.setDisable(false);
 			this.removeButton.setDisable(true);
 			this.generateButton.setDisable(true);
-			this.randomButton.setDisable(false);
+
 			this.drawTree();
 		}
 	}
