@@ -31,6 +31,8 @@ public class InsertSimulController extends HeapSimul{
 	
 	private ArrayList<ArrayList<Integer>> statusList;
 	
+	private ArrayList<String> instructionList;
+	
 	private Integer currentStatusIndex;
 	
 	@Override
@@ -39,7 +41,7 @@ public class InsertSimulController extends HeapSimul{
 		this.infoText.setEditable(false);
 		this.infoText.setWrapText(true);
 		this.maxMinChoiceBox.setValue("MinHeap");
-		this.maxMinChoiceBox.setDisable(true);
+		this.maxMinChoiceBox.setVisible(false);
 		this.removeButton.setDisable(true);
 		this.generateButton.setDisable(true);
 		this.prevButton.setDisable(true);
@@ -385,6 +387,9 @@ public class InsertSimulController extends HeapSimul{
 			this.generateButton.setDisable(false);
 			this.infoText.setText("Premi genera per visualizzare l'albero relativo.");
 		}
+		else {
+			this.addButton.setDisable(false);
+		}
 	}
 	
 	@Override
@@ -424,13 +429,13 @@ public class InsertSimulController extends HeapSimul{
 	}
 	
 	public void generateStepbyStep(){
-		System.out.println("Sono nello step by step");
-		
+		ArrayList<String> instruction = new ArrayList<String>();
 		//Creo il primo passaggio
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> vector = new ArrayList<Integer>();
 		ArrayList<Integer> l;
 		ArrayList<Integer> k;
+		instruction.add("Premi avanti per scorrere nella simulazione interattiva.");
 		vector.addAll(this.dataVector);
 		statusList.add(vector);
 		System.out.println(vector.toString() + " aggiunto a statusList");
@@ -444,6 +449,7 @@ public class InsertSimulController extends HeapSimul{
 		while (i > 0 && l.get(i) < l.get(super.parent(i))) {
 			System.out.println("Sono nel ciclo, posizione 1: " + i + " e posizione 2: " + (i-1)/2);
 			System.out.println(l.get(i) + " é minore di " + l.get((i-1)/2) + " per cui li scambio.");
+			instruction.add(l.get(i) + " é minore di " + l.get((i-1)/2) + " per cui si procede con lo scambio.");
 			System.out.println(statusList.toString() + " prima di scambio.");
 			k = new ArrayList<Integer>();
 			k.addAll(l);
@@ -455,8 +461,11 @@ public class InsertSimulController extends HeapSimul{
 			i = super.parent(i);
 		}
 		this.statusList = new ArrayList<ArrayList<Integer>>();
+		instruction.add("Simulazione terminata.");
 		this.statusList.addAll(statusList);
 		System.out.println("statusList completa: " + statusList.toString());
+		this.instructionList = new ArrayList<String>();
+		this.instructionList.addAll(instruction);
 	}
 
 	public void next(){
@@ -480,6 +489,7 @@ public class InsertSimulController extends HeapSimul{
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);
 		}
+		if(this.instructionList.size() > this.currentStatusIndex) this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
 	public void prev() {
@@ -506,5 +516,6 @@ public class InsertSimulController extends HeapSimul{
 			this.drawVector();
 			this.drawTree();
 		}
+		this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 }
