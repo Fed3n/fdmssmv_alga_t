@@ -512,8 +512,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.addButton.setDisable(false);
+		this.removeButton.setDisable(false);
 		this.readyButton.setDisable(false);
-		this.addButton.setDisable(true);
 		this.selectable = false;
 	}
 	
@@ -523,10 +524,10 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.infoText.setText("Premi su Ready per ridisegnare l'heap.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
-		this.removeButton.setDisable(true);
-		this.addButton.setDisable(true);
+		if(this.dataVector.size() < 1) this.removeButton.setDisable(true);
+		if(this.dataVector.size() < 1) this.readyButton.setDisable(true);
+		else this.readyButton.setDisable(false);
 		this.restoreButton.setDisable(true);
-		this.readyButton.setDisable(false);
 		this.selectable = false;
 	}
 }

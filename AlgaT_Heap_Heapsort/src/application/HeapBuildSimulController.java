@@ -156,10 +156,4 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		super.prevStatus();
 		this.manualButton.setDisable(true);
 	}
-	
-	@Override
-	public void removeFromVector(){
-		super.removeFromVector();
-		if(this.dataVector.size() < 1) this.manualButton.setDisable(false);
-	}
 }
