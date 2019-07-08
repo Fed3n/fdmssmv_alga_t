@@ -424,6 +424,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 	
 	@Override
 	public void drawTree() {
+		
 		//Prima rimuovo l'albero già disegnato
 		this.nodeVector.forEach((node) -> node.getChildren().clear());
 		
@@ -520,7 +521,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 	@Override
 	public void removeFromVector() {
 		super.removeFromVector();
-		this.infoText.setText("Premi su Ready per ridisegnare l'heap.");
+		String s = " ";
+		if (this.isGenerated) s = " ri"; 
+		this.infoText.setText("Premi su Ready per"+s+"disegnare l'heap.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		if(this.dataVector.size() < 1) this.removeButton.setDisable(true);
