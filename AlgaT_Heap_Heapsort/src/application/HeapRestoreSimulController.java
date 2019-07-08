@@ -63,10 +63,13 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.selectable = false;
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
-		this.maxMinChoiceBox.setValue("MaxHeap");
+		this.maxMinChoiceBox.setValue("MinHeap");
 		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
 		this.instructionList = new ArrayList<String>();
 		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+		this.restoreButton.setDisable(true);
+		this.removeButton.setDisable(true);
+		this.readyButton.setDisable(true);
 	}
 	
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
@@ -220,8 +223,20 @@ public class HeapRestoreSimulController extends HeapSimul{
 			
 			this.currentStatusIndex++;
 			//Disabilito next se sono all'ultimo
-			if (this.currentStatusIndex+1 >= this.statusList.size())
+			if (this.currentStatusIndex+1 >= this.statusList.size()) {
 				this.nextButton.setDisable(true);
+				this.readyButton.setDisable(false);
+				this.addButton.setDisable(false);
+				this.removeButton.setDisable(false);
+				this.restoreButton.setDisable(true);
+			} else {
+				this.nextButton.setDisable(false);
+				this.readyButton.setDisable(true);
+				this.addButton.setDisable(true);
+				this.addButton.setDisable(true);
+				this.removeButton.setDisable(true);
+				this.restoreButton.setDisable(true);
+			}
 			
 			this.prevButton.setDisable(false);
 			
@@ -246,6 +261,11 @@ public class HeapRestoreSimulController extends HeapSimul{
 	}
 	
 	public void prevStatus() {
+		this.addButton.setDisable(true);
+		this.readyButton.setDisable(true);
+		this.removeButton.setDisable(true);
+		this.restoreButton.setDisable(true);
+		
 		if(currentStatusIndex > 0) {
 			ArrayList<Integer> i;
 			currentStatusIndex--;
@@ -279,6 +299,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
+				this.prevButton.setDisable(true);
+				this.nextButton.setDisable(false);
 				
 				//Pulisco la instructionList dai precedenti messaggi
 				this.instructionList.clear();
@@ -324,6 +346,10 @@ public class HeapRestoreSimulController extends HeapSimul{
 	public void readyVector() {
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.addButton.setDisable(false);
+		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
+		if(this.dataVector.size() >= 1) this.restoreButton.setDisable(false);
+		this.readyButton.setDisable(true);
 		this.infoText.setText("Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi seleziona il nodo dell'albero da cui far partire la simulazione ed infine premi Restore!");
 		this.selectable = true;
 		//this.drawVector();
@@ -471,14 +497,21 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.readyButton.setDisable(false);
+		this.addButton.setDisable(true);
 		this.selectable = false;
 	}
 	
 	@Override
 	public void removeFromVector() {
 		super.removeFromVector();
+		this.infoText.setText("Premi su Ready per ridisegnare l'heap.");
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
+		this.removeButton.setDisable(true);
+		this.addButton.setDisable(true);
+		this.restoreButton.setDisable(true);
+		this.readyButton.setDisable(false);
 		this.selectable = false;
 	}
 }
