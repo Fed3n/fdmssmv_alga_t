@@ -75,7 +75,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
 	public ArrayList<ArrayList<Integer>> stepByStepMaxRestore(ArrayList<Integer> vector, Integer index) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-		//ArrayList<ArrayList<Integer>> lightableIndex = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> l = new ArrayList<Integer>();
 		Boolean finished = false;
 		
@@ -84,7 +83,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 		v.addAll(vector);
 		statusList.add(v);
 		this.instructionList.add("Applichiamo maxHeapRestore sul nodo in posizione " + (index+1));
-		this.lightableIndex.add(null);
+		l.add(index);
+		this.lightableIndex.add(l);
 		
 		while(!finished) {
 			Integer max = index;
@@ -95,6 +95,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 					//Se il figlio più grande è maggiore del padre, si scambiano
 					if(vector.get(index) < vector.get(this.lChild(index))) {
 						this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						l = new ArrayList<Integer>();
 						l.add(index);
 						l.add(this.lChild(index));
 						this.lightableIndex.add(l);
@@ -107,6 +108,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 					//Se il figlio più grande è maggiore del padre, si scambiano
 					if(vector.get(index) < vector.get(this.rChild(index))) {
 						this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+						l = new ArrayList<Integer>();
 						l.add(index);
 						l.add(this.rChild(index));
 						this.lightableIndex.add(l);
@@ -119,19 +121,18 @@ public class HeapRestoreSimulController extends HeapSimul{
 			//Se non c'è stato da scambiare l'operazione è terminata
 			if(index == max) {
 				finished = true;
-				ArrayList<Integer> w = new ArrayList<Integer>();
-				w.addAll(vector);
-				statusList.add(w);
+				v = new ArrayList<Integer>();
+				v.addAll(vector);
+				statusList.add(v);
 				
-				this.instructionList.add("Non c'è nulla da scambiare. maxHeapRestore termina. Premi su Ready per continuare.");
+				this.instructionList.add("Non c'è nulla da scambiare. maxHeapRestore termina.");
 				this.lightableIndex.add(null);
-				//TODO Evidenza che non c'è più da scambiare
 				}
 			//L'operazione procede sull'indice
 			else {
-				ArrayList<Integer> w = new ArrayList<Integer>();
-				w.addAll(vector);
-				statusList.add(w);
+				v = new ArrayList<Integer>();
+				v.addAll(vector);
+				statusList.add(v);
 				index = max;
 			}	
 			this.printVector(statusList);
@@ -143,7 +144,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 	//La funzione crea la lista di status del vettore con una minHeapRestore step-by-step
 		public ArrayList<ArrayList<Integer>> stepByStepMinRestore(ArrayList<Integer> vector, Integer index) {
 			ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-			//ArrayList<ArrayList<Integer>> lightableIndex = new ArrayList<ArrayList<Integer>>();
 			ArrayList<Integer> l = new ArrayList<Integer>();
 			Boolean finished = false;
 			
@@ -151,7 +151,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 			v.addAll(vector);
 			statusList.add(v);
 			this.instructionList.add("Applichiamo minHeapRestore sul nodo in posizione " + (index+1));
-			this.lightableIndex.add(null);
+			l.add(index);
+			this.lightableIndex.add(l);
 			
 			while(!finished) {
 				Integer min = index;
@@ -162,6 +163,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 						//Se il figlio più piccolo è minore del padre, si scambiano
 						if(vector.get(index) > vector.get(this.lChild(index))) {
 							this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							l = new ArrayList<Integer>();
 							l.add(index);
 							l.add(this.lChild(index));
 							this.lightableIndex.add(l);
@@ -175,6 +177,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 						//Se il figlio più piccolo è minore del padre, si scambiano
 						if(vector.get(index) > vector.get(this.rChild(index))) {
 							this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							l = new ArrayList<Integer>();
 							l.add(index);
 							l.add(this.rChild(index));
 							this.lightableIndex.add(l);
@@ -188,19 +191,19 @@ public class HeapRestoreSimulController extends HeapSimul{
 				//Se non c'è stato da scambiare l'operazione è terminata
 				if(index == min) {
 					finished = true;
-					ArrayList<Integer> w = new ArrayList<Integer>();
-					w.addAll(vector);
-					statusList.add(w);
+					v = new ArrayList<Integer>();
+					v.addAll(vector);
+					statusList.add(v);
 					
-					this.instructionList.add("Non c'è nulla da scambiare. minHeapRestore termina. Premi su Ready per continuare.");
+					this.instructionList.add("Non c'è nulla da scambiare. minHeapRestore termina.");
 					this.lightableIndex.add(null);
 					//TODO Evidenza che non c'è più da scambiare
 					}
 				//L'operazione procede sull'indice
 				else {
-					ArrayList<Integer> w = new ArrayList<Integer>();
-					w.addAll(vector);
-					statusList.add(w);
+					v = new ArrayList<Integer>();
+					v.addAll(vector);
+					statusList.add(v);
 					index = min;
 				}	
 				this.printVector(statusList);
@@ -247,7 +250,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 			this.drawVector();
 			this.drawTree();
 			
-			/*
+			
 			i = this.lightableIndex.get(this.currentStatusIndex);
 			if(i != null) {
 				for(int j = 0; j < i.size(); j++) {
@@ -256,7 +259,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 					circ.setStroke(Color.CORAL);
 				}
 			}
-			*/
+			
 		}
 	}
 	
@@ -282,7 +285,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 			this.drawVector();
 			this.drawTree();
 			
-			/*
+			
 			i = this.lightableIndex.get(this.currentStatusIndex);
 			if(i != null) {
 				for(int j = 0; j < i.size(); j++) {
@@ -290,7 +293,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 					circ.setStroke(Color.CORAL);
 				}				
 			}
-			*/
 		}
 	}
 	
@@ -328,6 +330,16 @@ public class HeapRestoreSimulController extends HeapSimul{
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
+				
+				ArrayList<Integer> i = new ArrayList<Integer>();
+				i = this.lightableIndex.get(this.currentStatusIndex);
+				if(i != null) {
+					for(int j = 0; j < i.size(); j++) {
+						System.out.println("Devo colorare " + i.get(j));
+						Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+						circ.setStroke(Color.CORAL);
+					}
+				}
 				
 				System.out.println("Dimensione stringhe: " + this.instructionList.size());
 				System.out.println("Dimensione vettori: " + this.statusList.size());

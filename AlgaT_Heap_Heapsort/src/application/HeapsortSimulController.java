@@ -8,19 +8,21 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 	
 	public ArrayList<ArrayList<Integer>> stepByStepHeapsort(ArrayList<Integer> vector) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-		
+		ArrayList<Integer> l = new ArrayList<Integer>();
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
 		this.instructionList.add("Ordiniamo il vettore in input tramite heapSort.");
+		this.lightableIndex.add(null);
 		
 		//Rendo il vettore un max heap con heapBuild, non mostro i passaggi per non allungare troppo
 		MaxHeap heap = new MaxHeap();
 		vector = heap.maxHeapBuild(vector);
-		ArrayList<Integer> w = new ArrayList<Integer>();
-		w.addAll(vector);
-		statusList.add(w);
+		v = new ArrayList<Integer>();
+		v.addAll(vector);
+		statusList.add(v);
 		this.instructionList.add("Uso maxHeapBuild sul vettore per ottenere un max heap.");
+		this.lightableIndex.add(null);
 		
 		//Mi serve un vettore di appoggio per gli elementi già ordinati
 		ArrayList<Integer> ordered = new ArrayList<Integer>();
@@ -28,11 +30,15 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 		for(Integer index = vector.size()-1; index > 0; index--) {
 			Collections.swap(vector, index, 0);
 			
-			ArrayList<Integer> ww = new ArrayList<Integer>();
-			ww.addAll(vector);
-			ww.addAll(ordered);
-			statusList.add(ww);
+			v = new ArrayList<Integer>();
+			v.addAll(vector);
+			v.addAll(ordered);
+			statusList.add(v);
 			this.instructionList.add("Scambio il primo elemento con l'ultimo nel vettore (da cui escludo gli elementi già ordinati) e applico maxHeapRestore sul nuovo primo.");
+			l = new ArrayList<Integer>();
+			l.add(0);
+			l.add(vector.size()-1);
+			this.lightableIndex.add(l);
 			
 			//Prendo l'ultimo elemento, già ordinato, lo rimuovo e lo aggiungo alla lista degli elementi ordinati
 			Integer tmp = vector.get(index);
@@ -47,6 +53,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 		}		
 		statusList.add(statusList.get(statusList.size()-1));
 		this.instructionList.add("Heapsort termina e il vettore è ordinato.");
+		this.lightableIndex.add(null);
 		
 		return statusList;
 	}
@@ -55,7 +62,6 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 	//La funzione crea la lista di status del vettore con una maxHeapRestore step-by-step
 		public ArrayList<ArrayList<Integer>> stepByStepMaxRestore(ArrayList<Integer> vector, Integer index, ArrayList<Integer> ordered) {
 			ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
-			//ArrayList<ArrayList<Integer>> lightableIndex = new ArrayList<ArrayList<Integer>>();
 			ArrayList<Integer> l = new ArrayList<Integer>();
 			Boolean finished = false;
 			
@@ -65,7 +71,8 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 			v.addAll(ordered);
 			statusList.add(v);
 			this.instructionList.add("Applichiamo maxHeapRestore sul nodo in posizione " + (index+1));
-			this.lightableIndex.add(null);
+			l.add(index);
+			this.lightableIndex.add(l);
 			
 			while(!finished) {
 				Integer max = index;
@@ -76,6 +83,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 						//Se il figlio più grande è maggiore del padre, si scambiano
 						if(vector.get(index) < vector.get(this.lChild(index))) {
 							this.instructionList.add("Il figlio sinistro " + vector.get(this.lChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							l = new ArrayList<Integer>();
 							l.add(index);
 							l.add(this.lChild(index));
 							this.lightableIndex.add(l);
@@ -88,6 +96,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 						//Se il figlio più grande è maggiore del padre, si scambiano
 						if(vector.get(index) < vector.get(this.rChild(index))) {
 							this.instructionList.add("Il figlio destro " + vector.get(this.rChild(index)) + " è maggiore del padre " + vector.get(index) + ", quindi vengono scambiati.");
+							l = new ArrayList<Integer>();
 							l.add(index);
 							l.add(this.rChild(index));
 							this.lightableIndex.add(l);
@@ -100,10 +109,10 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 				//Se non c'è stato da scambiare l'operazione è terminata
 				if(index == max) {
 					finished = true;
-					ArrayList<Integer> w = new ArrayList<Integer>();
-					w.addAll(vector);
-					w.addAll(ordered);
-					statusList.add(w);
+					v = new ArrayList<Integer>();
+					v.addAll(vector);
+					v.addAll(ordered);
+					statusList.add(v);
 					
 					this.instructionList.add("Non c'è nulla da scambiare. maxHeapRestore termina.");
 					this.lightableIndex.add(null);
@@ -111,10 +120,10 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 					}
 				//L'operazione procede sull'indice
 				else {
-					ArrayList<Integer> w = new ArrayList<Integer>();
-					w.addAll(vector);
-					w.addAll(ordered);
-					statusList.add(w);
+					v = new ArrayList<Integer>();
+					v.addAll(vector);
+					v.addAll(ordered);
+					statusList.add(v);
 					index = max;
 				}	
 				this.printVector(statusList);
