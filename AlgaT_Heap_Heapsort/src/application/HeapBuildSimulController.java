@@ -52,6 +52,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica maxHeapRestore su tutti i nodi non foglia.");
+		this.lightableIndex.add(null);
 		
 		
 		//MaxHeapRestore su tutte le foglie
@@ -68,6 +69,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		vv.addAll(vector);
 		statusList.add(vv);
 		this.instructionList.add("L'operazione heapBuild termina e ora il vettore è un heap.");
+		this.lightableIndex.add(null);
 		
 		return statusList;
 	}
@@ -81,6 +83,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica minHeapRestore su tutti i nodi non foglia.");
+		this.lightableIndex.add(null);
 		
 		
 		//MaxHeapRestore su tutte le foglie
@@ -97,6 +100,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		vv.addAll(vector);
 		statusList.add(vv);
 		this.instructionList.add("L'operazione heapBuild termina e ora il vettore è un heap.");
+		this.lightableIndex.add(null);
 		
 		return statusList;
 	}
