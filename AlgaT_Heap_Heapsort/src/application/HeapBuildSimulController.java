@@ -156,4 +156,10 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		super.prevStatus();
 		this.manualButton.setDisable(true);
 	}
+	
+	@Override
+	public void readyVector(){
+		super.readyVector();
+		this.manualButton.setDisable(true);
+	}
 }

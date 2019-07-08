@@ -361,8 +361,8 @@ public class HeapRestoreSimulController extends HeapSimul{
 	public void readyVector() {
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
-		this.addButton.setDisable(false);
-		if(this.dataVector.size() >= 1) this.removeButton.setDisable(false);
+		this.addButton.setDisable(true);
+		this.removeButton.setDisable(true);
 		if(this.dataVector.size() >= 1) this.restoreButton.setDisable(false);
 		this.readyButton.setDisable(true);
 		this.infoText.setText("Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi seleziona il nodo dell'albero da cui far partire la simulazione ed infine premi Restore!");
