@@ -67,7 +67,7 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 			alert.showAndWait();
 			System.out.println("Please input a number");
 		}
-		this.inputArea.clear();		
+		this.inputArea.clear();
 		this.isGenerated = false;
 	}
 	
