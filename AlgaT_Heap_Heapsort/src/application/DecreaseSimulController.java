@@ -53,15 +53,16 @@ public class DecreaseSimulController extends HeapRestore {
 			this.readyButton.setDisable(true);
 			this.prevButton.setDisable(true);
 			this.nextButton.setDisable(true);
-			if(num < this.dataVector.get(this.selectedIndex)) {
+			if(num < this.dataVector.get(this.selectedIndex) && num >= 0) {
 				this.decreaseButton.setDisable(true);
+				this.infoText.setText("Premi Avanti per iniziare la simulazione");
 				generateVector(num);	
 			}
 			else {
 				this.readyButton.setDisable(false);
 				this.infoText.setText("Premi Ready per riprovare.");
 				this.currentStatusIndex = 0;
-				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero inferiore a quello selezionato dall'albero.");
+				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero positivo inferiore a quello selezionato dall'albero.");
 				alert.showAndWait();
 			}
 		} catch (NumberFormatException e) {

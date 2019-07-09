@@ -19,6 +19,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 		super.initialize();
 		this.maxMinChoiceBox.setVisible(false);
 		this.defaultMessage = "Fai click su Sort per far partire la procedura!";
+		this.infoText.setText("Premi su Random per creare un vettore composto da numeri casuali, oppure aggiungi manualmente elementi tramite il pulsante Add.");
 	}
 	
 	public ArrayList<ArrayList<Integer>> stepByStepHeapsort(ArrayList<Integer> vector) {

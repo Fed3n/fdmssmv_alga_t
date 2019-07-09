@@ -402,7 +402,7 @@ public class InsertSimulController extends HeapSimul2{
 			this.infoText.setText("Premi genera prima di interagire.");
 			this.generateButton.setDisable(false);
 			this.addButton.setDisable(true);
-			this.removeButton.setDisable(true);
+			this.removeButton.setDisable(false);
 		} else {
 			this.infoText.setText("Inserisci un numero e premi 'Add'.");
 			this.addButton.setDisable(false);

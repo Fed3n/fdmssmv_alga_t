@@ -29,12 +29,26 @@ public class DeleteMinSimulController extends HeapRestore {
 		MinHeap heap = new MinHeap();
 		this.dataVector = heap.minHeapBuild(this.randomVector());
 		this.readyButton.setDisable(false);
+		this.removeButton.setDisable(false);
+		this.infoText.setText("Premi su DeleteMin per iniziare l'interazione.");
 		this.drawVector();
 		this.drawTree();
 	}
 	
+	@Override
+	public void removeFromVector(){
+		super.removeFromVector();
+		if(this.dataVector.size() > 1) this.readyButton.setDisable(false);
+		else {
+			this.infoText.setText("Premi Add per aggiungere manualmente un elemento o premi genera per creare una Priority Queue casuale.");
+			this.readyButton.setDisable(true);
+		}
+	}
+	
 	public void manualAdd(){
-		this.readyButton.setDisable(false);
+		if(this.dataVector.size() > 0) this.readyButton.setDisable(false);
+		else this.readyButton.setDisable(true);
+		this.infoText.setText("Aggiungi almeno due elementi e premi Ready per avviare la funzione RemoveMin.");
 		this.removeButton.setDisable(false);
 		//Controlla che non vada oltre la dimensione massima
 		if (this.dataVector.size() < this.MAX_VECTOR_SIZE) {
@@ -76,6 +90,7 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);
 			this.manualButton.setDisable(false);
+			if(this.dataVector.size() < 2) this.readyButton.setDisable(true);
 		}
 		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
 			ArrayList<Integer> i = new ArrayList<Integer>();
