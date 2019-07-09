@@ -29,7 +29,7 @@
       </Label>
       <VBox layoutX="14.0" layoutY="396.0" prefHeight="190.0" prefWidth="460.0" spacing="20.0">
          <children>
-            <Button fx:id="simulButton" mnemonicParsing="false" onAction="#goToSimulation" prefHeight="60.0" prefWidth="250.0" text="Simulazione" />
+            <Button fx:id="simulButton" mnemonicParsing="false" onAction="#goToSimulation" prefHeight="60.0" prefWidth="250.0" text="Interazione" />
             <Button fx:id="questionButton" mnemonicParsing="false" onAction="#goToQuestions" prefHeight="60.0" prefWidth="250.0" text="Domande" />
          </children>
       </VBox>

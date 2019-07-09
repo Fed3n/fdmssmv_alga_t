@@ -163,7 +163,7 @@ public class DeleteMinSimulController extends HeapRestore {
 			v.addAll(this.dataVector);
 			sL.add(v);
 			this.lightableIndex.add(null);
-			instruction.add("Simulazione iniziata. Premere avanti per visualizzare i passaggi per il completamento dell'operazione.");
+			instruction.add("Interazione iniziata. Premere avanti per visualizzare i passaggi per il completamento dell'operazione.");
 			//Sostituisco l'ultimo elemento con il primo
 			l = new ArrayList<Integer>();
 			l.addAll(v);
