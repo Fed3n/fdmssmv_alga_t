@@ -18,14 +18,10 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 	public void initialize(){
 		super.initialize();
 		this.maxMinChoiceBox.setVisible(false);
+		this.defaultMessage = "Fai click su Sort per far partire la procedura!";
 	}
 	
-	@Override
-	public void readyVector(){
-		super.readyVector();
-		this.manualButton.setDisable(true);
-	}
-	
+	/*
 	public void manualAdd(){
 		this.readyButton.setDisable(false);
 		this.removeButton.setDisable(false);
@@ -50,6 +46,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 			alert.showAndWait();
 		}
 	}
+	*/
 	
 	public ArrayList<ArrayList<Integer>> stepByStepHeapsort(ArrayList<Integer> vector) {
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
@@ -184,6 +181,7 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 			
 			this.instructionList.clear();
+			this.lightableIndex.clear();
 			
 			vector = this.stepByStepHeapsort(this.dataVector);
 			//Assegno il vettore di status generato al suo campo
@@ -201,13 +199,6 @@ public class HeapsortSimulController extends HeapRestoreSimulController {
 				
 			System.out.println("Dimensione stringhe: " + this.instructionList.size());
 			System.out.println("Dimensione vettori: " + this.statusList.size());
+			System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 		}
-	
-	@Override
-	public void nextStatus() {
-		super.nextStatus();
-		if (this.currentStatusIndex+1 >= this.statusList.size()) this.manualButton.setDisable(false);
-		else this.manualButton.setDisable(true);
-	}
-
 }
