@@ -133,9 +133,7 @@ public class QueueDecreaseSimulController extends HeapRestore {
 	public void next(){
 		this.currentStatusIndex++;
 		this.prevButton.setDisable(false);
-		Integer size = this.statusList.size();
 		if(this.currentStatusIndex < this.statusList.size()) {
-			Integer k = this.statusList.size();
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			this.drawVector();
