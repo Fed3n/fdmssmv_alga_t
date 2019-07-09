@@ -150,6 +150,7 @@ public class DeleteMinSimulController extends HeapRestore {
 	public void readyVector(){
 		if(this.dataVector.size() >= 1) {
 			this.currentStatusIndex = 0;
+			this.removeButton.setDisable(true);
 			this.manualButton.setDisable(true);
 			this.addButton.setDisable(true);
 			this.removeMin();
