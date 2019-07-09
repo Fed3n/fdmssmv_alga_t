@@ -105,6 +105,7 @@ public class QuestionController {
     private Boolean oneClicked = false;
     private Boolean twoClicked = false;
     private Boolean threeClicked = false;
+    private Boolean rightSelectionHappened = false;
 	
 	public void initialize() throws Exception {
 		this.textArea.setEditable(false);
@@ -202,7 +203,7 @@ public class QuestionController {
 	    	this.allClickedText();
 	    	if (this.rightSelection) {
 	    		//mostro la spiegazione all'ultimo tentativo di risposta se sono rispettate le condizioni.
-	    		if (this.attemptsNumber >= 3 && this.allClicked) 
+	    		if (this.attemptsNumber >= 3 && this.allClicked && !this.rightSelectionHappened) 
 	    			this.explanationButton.setVisible(true);  
 				if (!this.lastQuestion) {
 					this.nextButton.setDisable(false);
@@ -215,6 +216,7 @@ public class QuestionController {
 					this.questionsObject.setCompleted(true);
 					this.questionsObject.loadQuestion(this.questionNumber);
 				}
+				this.rightSelectionHappened = true;
 			} else {
 				this.nextButton.setDisable(true);
 				this.resultLabel.setTextFill(Color.RED);
