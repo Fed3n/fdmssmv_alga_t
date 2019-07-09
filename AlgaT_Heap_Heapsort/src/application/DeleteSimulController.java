@@ -90,7 +90,7 @@ public class DeleteSimulController extends HeapRestoreSimulController {
 		} else {
 			System.out.println("prova");
 			this.infoText.setText("Passaggi completati.");
-			this.addButton.setDisable(false);
+			this.addButton.setDisable(false);   
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);
 		}
