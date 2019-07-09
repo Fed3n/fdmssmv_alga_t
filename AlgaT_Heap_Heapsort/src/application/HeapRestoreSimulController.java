@@ -306,6 +306,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 	//Pulsante restore, genera la successione di step-by-step
 	public void generateSteps() {
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
+			this.maxMinChoiceBox.setDisable(true);
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
 				this.prevButton.setDisable(true);
@@ -366,6 +367,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 	}
 	
 	public void readyVector() {
+		this.maxMinChoiceBox.setDisable(false);
 		if(this.dataVector.size() >= 1) {
 			this.nextButton.setDisable(true);
 			this.prevButton.setDisable(true);
@@ -518,6 +520,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.dataVector = super.randomVector();
 		this.drawVector();
 		this.drawTree();
+		this.maxMinChoiceBox.setDisable(false);
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		this.addButton.setDisable(false);
@@ -532,6 +535,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 		//this.dataVector = super.randomVector();
 		super.addToVector();
 		if(this.dataVector.size() >= 1) {
+			this.maxMinChoiceBox.setDisable(false);
 			this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
 			this.removeButton.setDisable(false);
 			this.readyButton.setDisable(false);
