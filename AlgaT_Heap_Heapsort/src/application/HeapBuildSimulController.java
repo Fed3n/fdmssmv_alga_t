@@ -18,7 +18,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		 this.infoText.appendText("\nOppure aggiungi manualmente numeri premendo Add.");
 		 this.defaultMessage = "Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi fai click su Build per far partire la procedura!";
 	}
-	
+	  
 	public void manualAdd(){
 		this.readyButton.setDisable(false);
 		this.removeButton.setDisable(false);
