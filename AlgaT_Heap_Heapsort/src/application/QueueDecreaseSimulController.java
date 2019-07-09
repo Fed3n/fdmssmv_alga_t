@@ -26,6 +26,7 @@ public class QueueDecreaseSimulController extends HeapRestore {
 	public void readyVector(){
 		super.readyVector();
 		this.decreaseButton.setDisable(false);
+		this.infoText.setText("Selezionare il nodo su cui utilizzare la funzione di decrease, e scrivere nell'area sottostante la nuova prioritá.");
 	}
 	
 	@Override
@@ -79,11 +80,14 @@ public class QueueDecreaseSimulController extends HeapRestore {
 		if(this.selectedIndex != null) {
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 			ArrayList<String> instruction = new ArrayList<String>();
+			this.lightableIndex = new ArrayList<ArrayList<Integer>>();
 			this.instructionList = new ArrayList<String>();
 			ArrayList<Integer> l = new ArrayList<Integer>();
+			ArrayList<Integer> lightable = new ArrayList<Integer>();
 			instruction.add("Premi Avanti per iniziare la simulazione");
 			vector.add(this.dataVector);
 			l.addAll(this.dataVector);
+			this.lightableIndex.add(null);
 			instruction.add("Decremento la prioritá dell'elemento selezionato da " + l.get(this.selectedIndex) + " a " + n);
 			l.set(this.selectedIndex, n);
 			vector.add(l);
@@ -94,6 +98,10 @@ public class QueueDecreaseSimulController extends HeapRestore {
 			while (i > 0 && this.dataVector.get(i) < this.dataVector.get(super.parent(i))) {
 				l = new ArrayList<Integer>();
 				l.addAll(this.dataVector);
+				lightable.clear();
+				lightable.add(i);
+				lightable.add(super.parent(i));
+				this.lightableIndex.add(lightable);
 				instruction.add(this.dataVector.get(i) + " é piú piccolo di " + this.dataVector.get(super.parent(i)) +" quindi vengono scambiati.");
 				Collections.swap(this.dataVector, i, super.parent(i));
 				Collections.swap(l, i, super.parent(i));
