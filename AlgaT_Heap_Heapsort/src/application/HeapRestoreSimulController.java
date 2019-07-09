@@ -366,18 +366,20 @@ public class HeapRestoreSimulController extends HeapSimul{
 	}
 	
 	public void readyVector() {
-		this.nextButton.setDisable(true);
-		this.prevButton.setDisable(true);
-		this.addButton.setDisable(true);
-		this.removeButton.setDisable(true);
-		this.randomButton.setDisable(true);
-		if(this.dataVector.size() >= 1) this.restoreButton.setDisable(false);
-		this.readyButton.setDisable(true);
-		this.infoText.setText(this.defaultMessage);		//Basta fare override al campo nelle classi derivate per modificarlo
-		this.selectable = true;
-		this.drawVector();
-		this.drawTree();
-		this.isGenerated = true;
+		if(this.dataVector.size() >= 1) {
+			this.nextButton.setDisable(true);
+			this.prevButton.setDisable(true);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.randomButton.setDisable(true);
+			this.restoreButton.setDisable(false);
+			this.readyButton.setDisable(true);
+			this.infoText.setText(this.defaultMessage);		//Basta fare override al campo nelle classi derivate per modificarlo
+			this.selectable = true;
+			this.drawVector();
+			this.drawTree();
+			this.isGenerated = true;
+		}
 	}
 	
 	@Override
@@ -529,13 +531,19 @@ public class HeapRestoreSimulController extends HeapSimul{
 	public void addToVector() {
 		//this.dataVector = super.randomVector();
 		super.addToVector();
-		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
+		if(this.dataVector.size() >= 1) {
+			this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
+			this.removeButton.setDisable(false);
+			this.readyButton.setDisable(false);
+		} else {
+			this.infoText.setText("Aggiungi manualmente un elemento o crea un Heap casuale.");
+			this.readyButton.setDisable(true);
+			this.removeButton.setDisable(true);
+		}
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		this.addButton.setDisable(false);
-		this.removeButton.setDisable(false);
 		this.randomButton.setDisable(false);
-		this.readyButton.setDisable(false);
 		this.selectable = false;
 	}
 	
