@@ -359,6 +359,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");
 				alert.showAndWait();
 			}
+		} else if(this.selectedIndex == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un nodo dell'albero.");
+			alert.showAndWait();
 		}
 		else if(this.maxMinChoiceBox.getValue() == null) {
 			Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un elemento dal menu a tenda.");
@@ -527,7 +530,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.removeButton.setDisable(false);
 		this.randomButton.setDisable(false);
 		this.readyButton.setDisable(false);
-		this.infoText.setText("Premi su Make Heap per generare e rappresentare l'heap.");
+		this.infoText.setText("Premi su Ready per iniziare l'interazione.");
 	}
 	
 	@Override
