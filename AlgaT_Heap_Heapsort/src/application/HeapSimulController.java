@@ -104,8 +104,7 @@ public class HeapSimulController {
 				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
 				this.dataVector.add(num);									//Aggiunge al campo del vettore
 				this.drawVector();											//Aggiorna la grafica del vettore
-			} catch (NumberFormatException e) {
-				System.out.println("Please input a number");				
+			} catch (NumberFormatException e) {				
 			}
 			this.inputArea.clear();			
 		}		

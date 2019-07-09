@@ -128,19 +128,16 @@ public class HeapSimul {
 	}
 	
 	public ArrayList<Integer> randomVector(){
-		System.out.println("Sono nel randomVector");
 		Random random = new Random();
 		Integer min = 4;
 		Integer m = 15-min;
 		Integer n = random.nextInt(m)+min;	//Valori compresi tra 4 e 15
-		System.out.println("Ho creato la lista di elementi  " + n);
 		
 		//Creo vettore
 		ArrayList<Integer> vector = new ArrayList<Integer>();
 		for(Integer i=0; i < n; i++){
 			vector.add(random.nextInt(99));
 		}
-		System.out.println("La lista contiene i seguenti numeri casuali: " +vector.toString());
 		return(vector);
 	}
 	
@@ -184,11 +181,9 @@ public class HeapSimul {
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
-				System.out.println("Please input a number");
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
-			System.out.println(this.dataVector.toString());
 		}		
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");

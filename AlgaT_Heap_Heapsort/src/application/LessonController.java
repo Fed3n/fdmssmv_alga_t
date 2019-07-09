@@ -76,7 +76,8 @@ public class LessonController {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e1) {
-			System.out.println("Couldn't find simulLocation.txt inside the directory" + this.fileGetter);
+			Alert alert = new Alert(AlertType.WARNING, "Couldn't find simulLocation.txt inside the directory" + this.fileGetter);
+			alert.showAndWait();
 		}
 		this.titleLabel.setText(lessonTitle);
 		this.lessonText.setEditable(false);		//Disabilita la scrittura sull'area di testo in cui si legge la lezione
@@ -103,7 +104,8 @@ public class LessonController {
 			n = Integer.parseInt(this.fileGetter.substring(6));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			System.out.print("The name of some lesson's folder is incorrect.");
+			Alert alert = new Alert(AlertType.WARNING, "The name of some lessons's folder is incorrect.");
+			alert.showAndWait();
 		}
 		return n;
 	}
@@ -173,7 +175,8 @@ public class LessonController {
 			}
 			this.lessonText.setText(text);
 		} catch (IOException e) {
-			System.out.println("Couldn't find text_" + this.textNumber.toString() + " in the given directory");
+			Alert alert = new Alert(AlertType.WARNING, "Couldn't find text_" + this.textNumber.toString() + " in the given directory");
+			alert.showAndWait();
 		}
 
 		Image img = new Image(new File("./"+ this.fileGetter + "/image_" + this.textNumber.toString() + ".png").toURI().toString());

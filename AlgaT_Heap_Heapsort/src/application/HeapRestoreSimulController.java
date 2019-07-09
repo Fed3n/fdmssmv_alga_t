@@ -141,7 +141,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 				index = max;
 			}	
 			this.printVector(statusList);
-			System.out.println("@@@@@@@@@@@@@@@@");
 		}
 		return statusList;
 	}
@@ -209,17 +208,12 @@ public class HeapRestoreSimulController extends HeapSimul{
 					index = min;
 				}	
 				this.printVector(statusList);
-				System.out.println("@@@@@@@@@@@@@@@@");
 			}
 			return statusList;
 		}
 	
 	public void printVector(ArrayList<ArrayList<Integer>> vector) {
 		Iterator<ArrayList<Integer>> iterator = vector.iterator();
-		
-		while(iterator.hasNext()) {
-			System.out.println(iterator.next().toString());			
-		}
 	}
 	
 	public void nextStatus() {
@@ -306,6 +300,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 	//Pulsante restore, genera la successione di step-by-step
 	public void generateSteps() {
 		if(this.selectedIndex != null && (this.maxMinChoiceBox.getValue() != null)) {
+			this.maxMinChoiceBox.setDisable(true);
 			//Controllo che non sia una foglia
 			if(!(this.selectedIndex >= ((this.dataVector.size())/2))) {
 				this.prevButton.setDisable(true);
@@ -314,9 +309,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				//Pulisco la instructionList dai precedenti messaggi
 				this.instructionList.clear();
 				this.lightableIndex.clear();
-				
-				System.out.println(this.selectedIndex);
-				System.out.println(this.dataVector.size());
+
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
 					vector = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
@@ -342,22 +335,20 @@ public class HeapRestoreSimulController extends HeapSimul{
 				i = this.lightableIndex.get(this.currentStatusIndex);
 				if(i != null) {
 					for(int j = 0; j < i.size(); j++) {
-						System.out.println("Devo colorare " + i.get(j));
 						Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
 						circ.setStroke(Color.CORAL);
 						Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
 						rect.setStroke(Color.CORAL);
 					}
 				}
-				
-				System.out.println("Dimensione stringhe: " + this.instructionList.size());
-				System.out.println("Dimensione vettori: " + this.statusList.size());
-				System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 			}
 			else {
 				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");
 				alert.showAndWait();
 			}
+		} else if(this.selectedIndex == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un nodo dell'albero.");
+			alert.showAndWait();
 		}
 		else if(this.maxMinChoiceBox.getValue() == null) {
 			Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un elemento dal menu a tenda.");
@@ -366,18 +357,21 @@ public class HeapRestoreSimulController extends HeapSimul{
 	}
 	
 	public void readyVector() {
-		this.nextButton.setDisable(true);
-		this.prevButton.setDisable(true);
-		this.addButton.setDisable(true);
-		this.removeButton.setDisable(true);
-		this.randomButton.setDisable(true);
-		if(this.dataVector.size() >= 1) this.restoreButton.setDisable(false);
-		this.readyButton.setDisable(true);
-		this.infoText.setText(this.defaultMessage);		//Basta fare override al campo nelle classi derivate per modificarlo
-		this.selectable = true;
-		this.drawVector();
-		this.drawTree();
-		this.isGenerated = true;
+		this.maxMinChoiceBox.setDisable(false);
+		if(this.dataVector.size() >= 1) {
+			this.nextButton.setDisable(true);
+			this.prevButton.setDisable(true);
+			this.addButton.setDisable(true);
+			this.removeButton.setDisable(true);
+			this.randomButton.setDisable(true);
+			this.restoreButton.setDisable(false);
+			this.readyButton.setDisable(true);
+			this.infoText.setText(this.defaultMessage);		//Basta fare override al campo nelle classi derivate per modificarlo
+			this.selectable = true;
+			this.drawVector();
+			this.drawTree();
+			this.isGenerated = true;
+		}
 	}
 	
 	@Override
@@ -516,26 +510,34 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.dataVector = super.randomVector();
 		this.drawVector();
 		this.drawTree();
+		this.maxMinChoiceBox.setDisable(false);
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		this.addButton.setDisable(false);
 		this.removeButton.setDisable(false);
 		this.randomButton.setDisable(false);
 		this.readyButton.setDisable(false);
-		this.infoText.setText("Premi su Make Heap per generare e rappresentare l'heap.");
+		this.infoText.setText("Premi su Ready per iniziare l'interazione.");
 	}
 	
 	@Override
 	public void addToVector() {
 		//this.dataVector = super.randomVector();
 		super.addToVector();
-		this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
+		if(this.dataVector.size() >= 1) {
+			this.maxMinChoiceBox.setDisable(false);
+			this.infoText.setText("Premi su Ready per generare l'albero relativo al vettore.");
+			this.removeButton.setDisable(false);
+			if(this.dataVector.size() >= 2) this.readyButton.setDisable(false);
+		} else {
+			this.infoText.setText("Aggiungi manualmente un elemento o crea un Heap casuale.");
+			this.readyButton.setDisable(true);
+			this.removeButton.setDisable(true);
+		}
 		this.nextButton.setDisable(true);
 		this.prevButton.setDisable(true);
 		this.addButton.setDisable(false);
-		this.removeButton.setDisable(false);
 		this.randomButton.setDisable(false);
-		this.readyButton.setDisable(false);
 		this.selectable = false;
 	}
 	
@@ -554,6 +556,9 @@ public class HeapRestoreSimulController extends HeapSimul{
 		else this.readyButton.setDisable(false);
 		this.restoreButton.setDisable(true);
 		this.selectable = false;
+		if(this.dataVector.size() < 1) this.removeButton.setDisable(true);
+		if(this.dataVector.size() < 2) this.readyButton.setDisable(true);
+		if(this.dataVector.size() < 1) this.infoText.setText("Inserisci dei valori o genera un Heap con il pulsante Random.");
 	}
 }
 

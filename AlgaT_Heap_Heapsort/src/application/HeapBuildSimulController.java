@@ -15,8 +15,8 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	@Override
 	public void initialize(){
 		 super.initialize();
-		 this.infoText.appendText("\nOppure aggiungi manualmente numeri premendo Add.");
 		 this.defaultMessage = "Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi fai click su Build per far partire la procedura!";
+		 this.infoText.setText("Premi su Random per creare un vettore composto da numeri casuali.\nOppure aggiungi manualmente numeri premendo Add.");
 	}
 	
 	public void manualAdd(){
@@ -29,14 +29,13 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
 				this.dataVector.add(num);									//Aggiunge al campo del vettore
 				this.drawVector();											//Aggiorna la grafica del vettore
+				this.maxMinChoiceBox.setDisable(false);
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
-				System.out.println("Please input a number");
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
-			System.out.println(this.dataVector.toString());
 		}
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");
@@ -50,7 +49,6 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica maxHeapRestore su tutti i nodi non foglia.");
 		this.lightableIndex.add(null);
@@ -81,7 +79,6 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica minHeapRestore su tutti i nodi non foglia.");
 		this.lightableIndex.add(null);
@@ -110,6 +107,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	//Pulsante build, genera la successione di step-by-step
 		public void generateSteps() {
 			if((this.maxMinChoiceBox.getValue() != null)) {
+				this.maxMinChoiceBox.setDisable(true);
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				
 				this.instructionList.clear();
@@ -134,15 +132,12 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
-					
-				System.out.println("Dimensione stringhe: " + this.instructionList.size());
-				System.out.println("Dimensione vettori: " + this.statusList.size());
-				System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 				}
 				
 			else  {
 				Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un elemento dal menu a tenda.");
 				alert.showAndWait();
+				this.maxMinChoiceBox.setDisable(false);
 			}
 		}
 }

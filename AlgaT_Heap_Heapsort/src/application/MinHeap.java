@@ -25,13 +25,10 @@ public class MinHeap {
 	public ArrayList<Integer> minHeapBuild(ArrayList<Integer> vector){
 		this.heapVector = new ArrayList<Integer>();
 		this.heapVector.addAll(vector);
-		System.out.println("Ho creato il primo vettore che contiene " + this.heapVector.toString());
 		this.sequentialOperations = new ArrayList<ArrayList<Integer> >();
-		System.out.println("Ho creato la lista che contiene " + this.sequentialOperations.toString());
 		
 		for(Integer index = (this.heapVector.size()-1)/2; index >= 0; index--) {
 			this.sequentialOperations.add(this.heapVector);
-			System.out.println("Sono nel for. Adesso la dimensione della lista di Vettori é di " + this.sequentialOperations.size());
 			this.minHeapRestore(this.heapVector, index);		
 		}
 		
@@ -63,7 +60,6 @@ public class MinHeap {
 		if(index != min) {
 			Collections.swap(this.heapVector, index, min);
 			this.sequentialOperations.add(this.heapVector);
-			System.out.println("Sono nel restore. Adesso la dimensione della lista di Vettori é di " + this.sequentialOperations.size());
 			minHeapRestore(this.heapVector, min);			
 		}
 		

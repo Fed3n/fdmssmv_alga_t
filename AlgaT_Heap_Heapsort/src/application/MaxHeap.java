@@ -24,10 +24,7 @@ public class MaxHeap {
 	public ArrayList<Integer> maxHeapBuild(ArrayList<Integer> vector){
 		this.heapVector = new ArrayList<Integer>();
 		this.heapVector.addAll(vector);
-		System.out.println("Ho creato il primo vettore ed ha dimensione " + this.heapVector.size());
-		this.sequentialOperations = new ArrayList<ArrayList<Integer>>();
-		System.out.println("Ho creato la lista ed ha dimensione " + this.sequentialOperations.size());
-		
+		this.sequentialOperations = new ArrayList<ArrayList<Integer>>();		
 
 		for(Integer index = (this.heapVector.size()-1)/2; index >= 0; index--) {
 			this.sequentialOperations.add(this.heapVector);

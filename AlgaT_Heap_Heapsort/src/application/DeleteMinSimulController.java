@@ -28,7 +28,6 @@ public class DeleteMinSimulController extends HeapRestore {
 	public void addToVector(){
 		MinHeap heap = new MinHeap();
 		this.dataVector = heap.minHeapBuild(this.randomVector());
-		System.out.println(this.dataVector.toString());
 		this.readyButton.setDisable(false);
 		this.drawVector();
 		this.drawTree();
@@ -49,11 +48,9 @@ public class DeleteMinSimulController extends HeapRestore {
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
-				System.out.println("Please input a number");
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
-			System.out.println(this.dataVector.toString());
 		}
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");
@@ -64,15 +61,11 @@ public class DeleteMinSimulController extends HeapRestore {
 	@Override
 	public void nextStatus(){
 		this.currentStatusIndex++;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		this.prevButton.setDisable(false);
 		this.manualButton.setDisable(true);
 		Integer size = this.statusList.size();
-		System.out.println("La grandezza della statusList é: " + size);
 		if(this.currentStatusIndex < this.statusList.size()) {
 			Integer k = this.statusList.size();
-			System.out.println("La grandezza della statusList é: " + k);
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			drawVector();
@@ -85,10 +78,8 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.manualButton.setDisable(false);
 		}
 		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
-			System.out.println("Sono dentro all'if");
 			ArrayList<Integer> i = new ArrayList<Integer>();
 			i = this.lightableIndex.get(this.currentStatusIndex);
-			System.out.println("Devo colorare " + this.lightableIndex.toString());
 			if(i != null) {
 				for(int j = 0; j < i.size(); j++) {
 					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
@@ -104,8 +95,6 @@ public class DeleteMinSimulController extends HeapRestore {
 	@Override
 	public void prevStatus(){
 		this.currentStatusIndex--;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		if(this.currentStatusIndex == 0) {
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
@@ -199,19 +188,16 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.instructionList.clear();
 			ArrayList<ArrayList<Integer>> l2 = new ArrayList<ArrayList<Integer>>();
 			l2.addAll(this.lightableIndex);
-			System.out.println("Lightable per ora: " + l2.toString());
 			this.lightableIndex.clear();
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 			vector = this.stepByStepMinRestore(p, 0);
 			l2.addAll(this.lightableIndex);
 			this.lightableIndex.clear();
 			this.lightableIndex.addAll(l2);
-			System.out.println("Lightable completo " + this.lightableIndex.toString());
 			sL.addAll(vector);
 			instruction.addAll(this.instructionList);
 			this.instructionList.clear();
 			this.instructionList.addAll(instruction);
-			System.out.println("Tutti i passaggi: " + sL.toString());
 			this.statusList = new ArrayList<ArrayList<Integer>>();
 			this.statusList.addAll(sL);
 			this.nextButton.setDisable(false);
