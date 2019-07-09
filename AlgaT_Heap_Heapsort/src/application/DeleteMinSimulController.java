@@ -58,7 +58,8 @@ public class DeleteMinSimulController extends HeapRestore {
 				MinHeap heap = new MinHeap();
 				this.dataVector.add(num);					
 				this.dataVector = heap.minHeapBuild(this.dataVector);
-				this.drawVector();											
+				this.drawVector();						
+				this.drawTree();
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
@@ -161,6 +162,8 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.nextButton.setDisable(true);
 			this.prevButton.setDisable(true);
 		}
+		this.drawTree();
+		this.drawVector();
 	}
 	
 	public void removeMin() {
