@@ -18,7 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-public class InsertSimulController extends HeapSimul{
+public class InsertSimulController extends HeapSimul2{
 	
 	@FXML
 	private TextArea infoText;
@@ -32,6 +32,8 @@ public class InsertSimulController extends HeapSimul{
 	private ArrayList<ArrayList<Integer>> statusList;
 	
 	private ArrayList<String> instructionList;
+	
+	private ArrayList<ArrayList<Integer>> lightableIndex;
 	
 	private Integer currentStatusIndex;
 	
@@ -48,6 +50,7 @@ public class InsertSimulController extends HeapSimul{
 		this.nextButton.setDisable(true);
 		this.infoText.setText("Scrivi il numero da inserire nella PriorityQueue e premi Add.");
 		this.currentStatusIndex = 0;
+		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
 	}
 	
 	@Override
@@ -429,17 +432,21 @@ public class InsertSimulController extends HeapSimul{
 	}
 	
 	public void generateStepbyStep(){
+		this.lightableIndex.clear();
+		
 		ArrayList<String> instruction = new ArrayList<String>();
+		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> lightable = new ArrayList<Integer>();
 		//Creo il primo passaggio
 		ArrayList<ArrayList<Integer>> statusList = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> vector = new ArrayList<Integer>();
 		ArrayList<Integer> l;
 		ArrayList<Integer> k;
 		instruction.add("Premi avanti per scorrere nella simulazione interattiva.");
+		lightable.add(vector.size());
+		this.lightableIndex.add(lightable);
 		vector.addAll(this.dataVector);
 		statusList.add(vector);
-		System.out.println(vector.toString() + " aggiunto a statusList");
-		System.out.println(statusList.toString() + " statusList momentanea");
 		
 		//Creo i passaggi sucessivi
 		Integer i = vector.size()-1;
@@ -447,17 +454,16 @@ public class InsertSimulController extends HeapSimul{
 		l = new ArrayList<Integer>();
 		l.addAll(vector);
 		while (i > 0 && l.get(i) < l.get(super.parent(i))) {
-			System.out.println("Sono nel ciclo, posizione 1: " + i + " e posizione 2: " + (i-1)/2);
-			System.out.println(l.get(i) + " é minore di " + l.get((i-1)/2) + " per cui li scambio.");
 			instruction.add(l.get(i) + " é minore di " + l.get((i-1)/2) + " per cui si procede con lo scambio.");
-			System.out.println(statusList.toString() + " prima di scambio.");
 			k = new ArrayList<Integer>();
 			k.addAll(l);
+			lightable = new ArrayList<Integer>();
+			lightable.add(i);
+			lightable.add(super.parent(i));
+			this.lightableIndex.add(lightable);
 			Collections.swap(k, i, super.parent(i));
 			Collections.swap(l, i, super.parent(i));
 			statusList.add(k);
-			System.out.println(k.toString() + " aggiunto a statusList");
-			System.out.println(statusList.toString() + " statusList momentanea");
 			i = super.parent(i);
 		}
 		this.statusList = new ArrayList<ArrayList<Integer>>();
@@ -466,6 +472,7 @@ public class InsertSimulController extends HeapSimul{
 		System.out.println("statusList completa: " + statusList.toString());
 		this.instructionList = new ArrayList<String>();
 		this.instructionList.addAll(instruction);
+		System.out.println(this.lightableIndex.toString());
 	}
 
 	public void next(){
@@ -488,6 +495,20 @@ public class InsertSimulController extends HeapSimul{
 			this.generateButton.setDisable(true);
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);
+		}
+		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
+			System.out.println("Sono dentro all'if");
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			System.out.println("Devo colorare " + this.lightableIndex.toString());
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}
+			} else this.drawTree();
 		}
 		if(this.instructionList.size() > this.currentStatusIndex) this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
@@ -515,6 +536,18 @@ public class InsertSimulController extends HeapSimul{
 			this.generateButton.setDisable(true);
 			this.drawVector();
 			this.drawTree();
+		}
+		if(this.currentStatusIndex > 0) {
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}				
+			}
 		}
 		this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}

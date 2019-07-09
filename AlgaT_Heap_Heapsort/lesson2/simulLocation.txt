@@ -2,4 +2,4 @@ null
 null
 DeleteMinSimul.fxml
 InsertSimul.fxml
-DecreaseSimul.fxml
+QueueDecreaseSimul.fxml
