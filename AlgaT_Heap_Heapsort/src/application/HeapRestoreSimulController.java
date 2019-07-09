@@ -571,6 +571,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 		this.selectable = false;
 		if(this.dataVector.size() < 1) this.removeButton.setDisable(true);
 		if(this.dataVector.size() < 2) this.readyButton.setDisable(true);
+		if(this.dataVector.size() < 1) this.infoText.setText("Inserisci dei valori o genera un Heap con il pulsante Random.");
 	}
 }
 

@@ -15,8 +15,8 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	@Override
 	public void initialize(){
 		 super.initialize();
-		 this.infoText.appendText("\nOppure aggiungi manualmente numeri premendo Add.");
 		 this.defaultMessage = "Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi fai click su Build per far partire la procedura!";
+		 this.infoText.setText("Premi su Random per creare un vettore composto da numeri casuali.\nOppure aggiungi manualmente numeri premendo Add.");
 	}
 	
 	public void manualAdd(){
