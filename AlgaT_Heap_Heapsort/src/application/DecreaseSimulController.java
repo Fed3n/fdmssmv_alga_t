@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
-public class QueueDecreaseSimulController extends HeapRestoreSimulController {
+public class DecreaseSimulController extends HeapRestoreSimulController {
 	
 	@FXML
 	private Button decreaseButton;
