@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
-public class QueueDecreaseSimulController extends HeapRestoreSimulController {
+public class QueueDecreaseSimulController extends HeapRestore {
 	
 	@FXML
 	private Button decreaseButton;
@@ -72,12 +72,19 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 	}
 	
 	public void generateVector(Integer n) {
+		this.lightableIndex.clear();
+		this.instructionList.clear();
+		
 		System.out.println("Vettore prima di tutto: " + this.dataVector.toString());
 		if(this.selectedIndex != null) {
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
+			ArrayList<String> instruction = new ArrayList<String>();
+			this.instructionList = new ArrayList<String>();
 			ArrayList<Integer> l = new ArrayList<Integer>();
+			instruction.add("Premi Avanti per iniziare la simulazione");
 			vector.add(this.dataVector);
 			l.addAll(this.dataVector);
+			instruction.add("Decremento la prioritá dell'elemento selezionato da " + l.get(this.selectedIndex) + " a " + n);
 			l.set(this.selectedIndex, n);
 			vector.add(l);
 			this.dataVector = new ArrayList<Integer>();
@@ -87,6 +94,7 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 			while (i > 0 && this.dataVector.get(i) < this.dataVector.get(super.parent(i))) {
 				l = new ArrayList<Integer>();
 				l.addAll(this.dataVector);
+				instruction.add(this.dataVector.get(i) + " é piú piccolo di " + this.dataVector.get(super.parent(i)) +" quindi vengono scambiati.");
 				Collections.swap(this.dataVector, i, super.parent(i));
 				Collections.swap(l, i, super.parent(i));
 				vector.add(l);
@@ -96,6 +104,7 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 			this.statusList = new ArrayList<ArrayList<Integer>>();
 			this.statusList.addAll(vector);
 			System.out.println("Status list completa: " + this.statusList.toString());
+			this.instructionList.addAll(instruction);
 			this.selectedIndex = null;
 			this.nextButton.setDisable(false);
 		} else {
@@ -128,6 +137,7 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 			this.removeButton.setDisable(false);
 			this.readyButton.setDisable(false);
 		}
+		if(this.instructionList.size() > this.currentStatusIndex) this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
 	public void prev() {
@@ -156,6 +166,7 @@ public class QueueDecreaseSimulController extends HeapRestoreSimulController {
 			this.drawVector();
 			this.drawTree();
 		}
+		this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
 }

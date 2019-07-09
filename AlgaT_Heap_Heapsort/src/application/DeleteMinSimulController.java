@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
-public class DeleteMinSimulController extends HeapRestoreSimulController {
+public class DeleteMinSimulController extends HeapRestore {
 	
 	@FXML
 	private Button manualButton;
@@ -75,7 +75,7 @@ public class DeleteMinSimulController extends HeapRestoreSimulController {
 			drawVector();
 			this.drawTree();
 		} else {
-			this.infoText.setText("Passaggi completati.");
+			this.infoText.setText("Passaggi completati. Genera una nuova PriorityQueue o avvia di nuovo la funzione deleteMin() per continuare.");
 			this.addButton.setDisable(false);
 			this.nextButton.setDisable(true);
 			this.removeButton.setDisable(false);

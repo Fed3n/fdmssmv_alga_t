@@ -18,7 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-public class InsertSimulController extends HeapSimul{
+public class InsertSimulController extends HeapSimul2{
 	
 	@FXML
 	private TextArea infoText;
