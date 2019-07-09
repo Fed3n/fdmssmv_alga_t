@@ -6,9 +6,12 @@ import java.util.Collections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 
-public class DecreaseSimulController extends HeapRestoreSimulController {
+public class DecreaseSimulController extends HeapRestore {
 	
 	@FXML
 	private Button decreaseButton;
@@ -25,7 +28,9 @@ public class DecreaseSimulController extends HeapRestoreSimulController {
 	@Override
 	public void readyVector(){
 		super.readyVector();
+		this.currentStatusIndex = 0;
 		this.decreaseButton.setDisable(false);
+		this.infoText.setText("Selezionare il nodo su cui utilizzare la funzione di decrease, e scrivere nell'area sottostante la nuova prioritá.");
 	}
 	
 	@Override
@@ -65,37 +70,55 @@ public class DecreaseSimulController extends HeapRestoreSimulController {
 			this.currentStatusIndex = 0;
 			Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 			alert.showAndWait();
-			System.out.println("Please input a number");
 		}
 		this.inputArea.clear();
 		this.isGenerated = false;
 	}
 	
 	public void generateVector(Integer n) {
-		System.out.println("Vettore prima di tutto: " + this.dataVector.toString());
+		this.lightableIndex.clear();
+		this.instructionList.clear();
+		
 		if(this.selectedIndex != null) {
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
+			ArrayList<String> instruction = new ArrayList<String>();
+			this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+			this.instructionList = new ArrayList<String>();
+			System.out.println(this.lightableIndex.toString());
 			ArrayList<Integer> l = new ArrayList<Integer>();
+			ArrayList<Integer> lightable = new ArrayList<Integer>();
+			instruction.add("Premi Avanti per iniziare la simulazione");
 			vector.add(this.dataVector);
 			l.addAll(this.dataVector);
+			this.lightableIndex.add(null);
+			System.out.println(this.lightableIndex.toString());
+			lightable = new ArrayList<Integer>();
+			lightable.add(this.selectedIndex);
+			this.lightableIndex.add(lightable);
+			System.out.println(this.lightableIndex.toString());
+			instruction.add("Decremento la prioritá dell'elemento selezionato da " + l.get(this.selectedIndex) + " a " + n);
 			l.set(this.selectedIndex, n);
 			vector.add(l);
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(l);
-			System.out.println("StatusList con due passaggi, base e scambio: " + vector.toString());
 			Integer i = this.selectedIndex;
 			while (i > 0 && this.dataVector.get(i) < this.dataVector.get(super.parent(i))) {
 				l = new ArrayList<Integer>();
 				l.addAll(this.dataVector);
+				lightable = new ArrayList<Integer>();
+				lightable.add(i);
+				lightable.add(super.parent(i));
+				this.lightableIndex.add(lightable);
+				System.out.println(this.lightableIndex);
+				instruction.add(this.dataVector.get(i) + " é piú piccolo di " + this.dataVector.get(super.parent(i)) +" quindi vengono scambiati.");
 				Collections.swap(this.dataVector, i, super.parent(i));
 				Collections.swap(l, i, super.parent(i));
 				vector.add(l);
-				System.out.println(l.toString() + " aggiunto a statuslist");
 				i = super.parent(i);
 			}
 			this.statusList = new ArrayList<ArrayList<Integer>>();
 			this.statusList.addAll(vector);
-			System.out.println("Status list completa: " + this.statusList.toString());
+			this.instructionList.addAll(instruction);
 			this.selectedIndex = null;
 			this.nextButton.setDisable(false);
 		} else {
@@ -108,14 +131,8 @@ public class DecreaseSimulController extends HeapRestoreSimulController {
 	
 	public void next(){
 		this.currentStatusIndex++;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		this.prevButton.setDisable(false);
-		Integer size = this.statusList.size();
-		System.out.println("La grandezza della statusList é: " + size);
 		if(this.currentStatusIndex < this.statusList.size()) {
-			Integer k = this.statusList.size();
-			System.out.println("La grandezza della statusList é: " + k);
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			this.drawVector();
@@ -128,12 +145,25 @@ public class DecreaseSimulController extends HeapRestoreSimulController {
 			this.removeButton.setDisable(false);
 			this.readyButton.setDisable(false);
 		}
+		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
+			System.out.println("Sono dentro all'if");
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			System.out.println("Devo colorare " + this.lightableIndex.toString());
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}
+			} else this.drawTree();
+		}
+		if(this.instructionList.size() > this.currentStatusIndex) this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
 	public void prev() {
 		this.currentStatusIndex--;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		if(this.currentStatusIndex == 0) {
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
@@ -156,6 +186,19 @@ public class DecreaseSimulController extends HeapRestoreSimulController {
 			this.drawVector();
 			this.drawTree();
 		}
+		if(this.currentStatusIndex > 0) {
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}				
+			}
+		}
+		this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
 }
