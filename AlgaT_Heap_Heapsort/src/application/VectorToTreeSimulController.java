@@ -384,7 +384,7 @@ public class VectorToTreeSimulController extends HeapSimul{
 			this.infoText.setText("Trasforma in heap prima di interagire!");
 			this.generateButton.setDisable(false);
 		} else {
-			this.infoText.setText("Inserisci un numero e premi 'Add'/noppure genera un vettore casuale.");
+			this.infoText.setText("Inserisci un numero e premi 'Add'\noppure genera un vettore casuale.");
 			this.addButton.setDisable(false);
 			this.removeButton.setDisable(true);
 			this.generateButton.setDisable(true);

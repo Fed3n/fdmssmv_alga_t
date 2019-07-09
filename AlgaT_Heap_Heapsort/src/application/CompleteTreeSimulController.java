@@ -19,7 +19,7 @@ public class CompleteTreeSimulController extends HeapSimul{
 		this.removeButton.setDisable(true);
 		this.infoText.setEditable(false);
 		this.infoText.setWrapText(true);
-		this.infoText.setText("Inserisci un numero e premi 'Add'");
+		this.infoText.setText("Inserisci un numero e premi 'Add' per generare un heap manualmente.\nOppure premi 'Random Heap' per generare un Heap in mono casuale.");
 		this.maxMinChoiceBox.setValue("MaxHeap");
 		this.generateButton.setDisable(true);
 	}
@@ -107,7 +107,7 @@ public class CompleteTreeSimulController extends HeapSimul{
 			this.infoText.setText("Trasforma in heap prima di interagire!");
 			this.generateButton.setDisable(false);
 		} else {
-			this.infoText.setText("Inserisci un numero e premi 'Add'");
+			this.infoText.setText("Inserisci un numero e premi 'Add'\noppure genera un vettore casuale.");
 			this.addButton.setDisable(false);
 			this.removeButton.setDisable(true);
 			this.generateButton.setDisable(true);
