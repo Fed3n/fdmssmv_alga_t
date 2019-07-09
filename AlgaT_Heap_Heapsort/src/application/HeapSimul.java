@@ -180,6 +180,7 @@ public class HeapSimul {
 				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
 				this.dataVector.add(num);									//Aggiunge al campo del vettore
 				this.drawVector();											//Aggiorna la grafica del vettore
+				this.drawTree();
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
@@ -199,6 +200,7 @@ public class HeapSimul {
 		if (this.dataVector.size() > 0)
 			this.dataVector.remove(this.dataVector.size()-1);			//Rimuove ultimo elemento dal vettore
 			this.drawVector();
+			this.drawTree();
 			this.isGenerated = false;
 	}
 	
@@ -214,7 +216,8 @@ public class HeapSimul {
 			}
 			
 			this.drawVector();
-			this.drawTree();	
+			this.drawTree();
+			this.isGenerated = true;
 		}
 	}
 	
@@ -271,8 +274,6 @@ public class HeapSimul {
 			
 			index++;
 		}
-		
-		this.isGenerated = true;
 		
 	}
 	

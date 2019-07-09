@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VectorToTreeSimulController">
    <children>
-      <HBox fx:id="vectorPane" layoutX="26.0" layoutY="93.0" prefHeight="60.0" prefWidth="770.0" spacing="10.0">
+      <HBox fx:id="vectorPane" layoutX="26.0" layoutY="86.0" prefHeight="60.0" prefWidth="770.0" spacing="10.0">
          <children>
             <HBox fx:id="vectorHbox" layoutX="4.0" layoutY="5.0" prefHeight="100.0" prefWidth="100.0" />
          </children>
@@ -48,7 +48,7 @@
       <Label layoutX="26.0" layoutY="53.0" prefHeight="40.0" prefWidth="715.0" text="In questa interazione puoi generare un heap e osservare la relazione tra le posizioni degli elementi nel vettore e nell'albero" />
       <HBox layoutX="26.0" layoutY="195.0" prefHeight="50.0" prefWidth="256.0" spacing="45.0">
          <children>
-            <Button fx:id="randomButton" mnemonicParsing="false" onAction="#createRandom" prefHeight="35.0" prefWidth="130.0" text="Random Heap" />
+            <Button fx:id="randomButton" mnemonicParsing="false" onAction="#createRandom" prefHeight="35.0" prefWidth="130.0" text="Random" />
             <ChoiceBox fx:id="maxMinChoiceBox" prefHeight="25.0" prefWidth="80.0" />
          </children>
       </HBox>

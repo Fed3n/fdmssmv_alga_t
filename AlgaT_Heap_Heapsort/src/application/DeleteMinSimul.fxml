@@ -4,14 +4,15 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DeleteSimulController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DeleteMinSimulController">
    <children>
-      <HBox fx:id="vectorPane" layoutX="24.0" layoutY="110.0" prefHeight="60.0" prefWidth="770.0" spacing="10.0">
+      <HBox fx:id="vectorPane" layoutX="15.0" layoutY="93.0" prefHeight="60.0" prefWidth="770.0" spacing="10.0">
          <children>
             <HBox fx:id="vectorHbox" layoutX="4.0" layoutY="5.0" prefHeight="100.0" prefWidth="100.0" />
             <Label fx:id="vectorLabel" layoutX="120.0" layoutY="35.0" prefHeight="105.0" prefWidth="300.0" />
@@ -36,10 +37,12 @@
             <StackPane fx:id="node14" layoutX="300.0" layoutY="330.0" prefHeight="40.0" prefWidth="40.0" />
          </children>
       </Pane>
-      <HBox layoutX="26.0" layoutY="170.0" prefHeight="50.0" prefWidth="360.0" spacing="60.0">
+      <HBox layoutX="26.0" layoutY="153.0" prefHeight="50.0" prefWidth="360.0" spacing="30.0">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="67.0" text="Genera" />
-            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeMin" prefHeight="35.0" prefWidth="92.0" text="RemoveMin" />
+            <TextField fx:id="inputArea" prefHeight="35.0" prefWidth="70.0" />
+            <Button fx:id="manualButton" mnemonicParsing="false" onAction="#manualAdd" prefHeight="35.0" prefWidth="60.0" text="Add" />
+            <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeFromVector" prefHeight="35.0" prefWidth="60.0" text="Remove" />
+            <Button fx:id="readyButton" mnemonicParsing="false" onAction="#readyVector" prefHeight="35.0" prefWidth="80.0" text="Ready" />
          </children>
       </HBox>
       <ChoiceBox fx:id="maxMinChoiceBox" layoutX="26.0" layoutY="444.0" prefHeight="25.0" prefWidth="80.0" />
@@ -47,10 +50,12 @@
       <Label layoutX="26.0" layoutY="53.0" prefHeight="40.0" prefWidth="715.0" text="In questa interazione puoi osservare l'esecuzione step-by-step del removeMin sulla Prioriry Queue." />
       <HBox layoutX="26.0" layoutY="404.0" prefHeight="40.0" prefWidth="256.0" spacing="10.0">
          <children>
+            <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#generateSteps" prefHeight="35.0" prefWidth="80.0" text="Build!" />
             <Button fx:id="prevButton" mnemonicParsing="false" onAction="#prevStatus" prefHeight="35.0" prefWidth="60.0" text="Indietro" />
             <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextStatus" prefHeight="35.0" prefWidth="60.0" text="Avanti" />
          </children>
       </HBox>
       <Button fx:id="lessonButton" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLesson" text="Torna alla lezione" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
+      <Button fx:id="addButton" layoutX="124.0" layoutY="203.0" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="60.0" text="Genera" />
    </children>
 </AnchorPane>

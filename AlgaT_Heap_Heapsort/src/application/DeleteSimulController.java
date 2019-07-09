@@ -20,7 +20,7 @@ public class DeleteSimulController extends HeapRestoreSimulController {
 		this.maxMinChoiceBox.setVisible(false);
 		this.infoText.setText("Premi su genera per creare un vettore composto da numeri casuali.");
 		this.instructionList = new ArrayList<String>();
-		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+		this.lightableIndex = new ArrayList<ArrayList<Integer>>();  
 	}
 	
 	@Override

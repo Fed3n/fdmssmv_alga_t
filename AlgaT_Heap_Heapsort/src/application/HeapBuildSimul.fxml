@@ -40,7 +40,7 @@
       <HBox layoutX="26.0" layoutY="153.0" prefHeight="50.0" prefWidth="360.0" spacing="30.0">
          <children>
             <TextField fx:id="inputArea" prefHeight="35.0" prefWidth="70.0" />
-            <Button fx:id="manualButton" mnemonicParsing="false" onAction="#manualAdd" prefHeight="35.0" prefWidth="60.0" text="Add" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="60.0" text="Add" />
             <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeFromVector" prefHeight="35.0" prefWidth="60.0" text="Remove" />
             <Button fx:id="readyButton" mnemonicParsing="false" onAction="#readyVector" prefHeight="35.0" prefWidth="80.0" text="Ready" />
          </children>
@@ -56,6 +56,6 @@
          </children>
       </HBox>
       <Button fx:id="lessonButton" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLesson" text="Torna alla lezione" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
-      <Button fx:id="addButton" layoutX="124.0" layoutY="203.0" mnemonicParsing="false" onAction="#addToVector" prefHeight="35.0" prefWidth="60.0" text="Genera" />
+      <Button fx:id="randomButton" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#createRandom" prefHeight="35.0" prefWidth="130.0" text="Random" />
    </children>
 </AnchorPane>
