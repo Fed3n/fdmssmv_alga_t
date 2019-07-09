@@ -6,6 +6,9 @@ import java.util.Collections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 
 public class DeleteMinSimulController extends HeapRestore {
@@ -81,6 +84,20 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.removeButton.setDisable(false);
 			this.manualButton.setDisable(false);
 		}
+		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
+			System.out.println("Sono dentro all'if");
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			System.out.println("Devo colorare " + this.lightableIndex.toString());
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}
+			} else this.drawTree();
+		}
 		if(this.instructionList.size() > this.currentStatusIndex) this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
@@ -109,6 +126,18 @@ public class DeleteMinSimulController extends HeapRestore {
 			this.drawVector();
 			this.drawTree();
 		}
+		if(this.currentStatusIndex > 0) {
+			ArrayList<Integer> i = new ArrayList<Integer>();
+			i = this.lightableIndex.get(this.currentStatusIndex);
+			if(i != null) {
+				for(int j = 0; j < i.size(); j++) {
+					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
+					circ.setStroke(Color.CORAL);
+					Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
+					rect.setStroke(Color.CORAL);
+				}				
+			}
+		}
 		this.infoText.setText(this.instructionList.get(this.currentStatusIndex));
 	}
 	
@@ -131,42 +160,53 @@ public class DeleteMinSimulController extends HeapRestore {
 	}
 	
 	public void removeMin() {
+		this.lightableIndex.clear();
+		
+		this.lightableIndex = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> lightable = new ArrayList<Integer>();
 		ArrayList<String> instruction = new ArrayList<String>();
 		ArrayList<ArrayList<Integer>> sL = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		ArrayList<Integer> l;
 		ArrayList<Integer> o;
 		ArrayList<Integer> p;
-		System.out.println("Vettore al momento: " + this.dataVector.toString());
 		if(this.dataVector.size() >= 1) {
 			v.addAll(this.dataVector);
-			System.out.println("Vector: " + v.toString());
 			sL.add(v);
+			this.lightableIndex.add(null);
 			instruction.add("Simulazione iniziata. Premere avanti per visualizzare i passaggi per il completamento dell'operazione.");
 			//Sostituisco l'ultimo elemento con il primo
 			l = new ArrayList<Integer>();
 			l.addAll(v);
+			lightable = new ArrayList<Integer>();
+			lightable.add(0);
+			lightable.add(l.size()-1);
+			this.lightableIndex.add(lightable);
 			instruction.add("L'elemento con prioritá piú bassa viene scambiato con l'ultima foglia ammucchiata a sinistra. Scambio " +
 						l.get(0) + " con " + l.get(l.size()-1) + ".");
 			Collections.swap(l, 0, l.size()-1);
-			System.out.println("Vector scambiato: " + l.toString());
 			sL.add(l);
 			o = new ArrayList<Integer>();
 			o.addAll(l);
 			instruction.add("Rimuovo l'elemento " + o.get(l.size()-1) );
+			this.lightableIndex.add(null);
 			o.remove(l.size()-1);
-			System.out.println("Vector con elemento eliminato: " + o.toString());
 			sL.add(o);
-			System.out.println(sL.toString());
 			p = new ArrayList<Integer>();
 			p.addAll(o);
 			
 			//Pulisco la instructionList dai precedenti messaggi
 			this.instructionList.clear();
+			ArrayList<ArrayList<Integer>> l2 = new ArrayList<ArrayList<Integer>>();
+			l2.addAll(this.lightableIndex);
+			System.out.println("Lightable per ora: " + l2.toString());
 			this.lightableIndex.clear();
-			
 			ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 			vector = this.stepByStepMinRestore(p, 0);
+			l2.addAll(this.lightableIndex);
+			this.lightableIndex.clear();
+			this.lightableIndex.addAll(l2);
+			System.out.println("Lightable completo " + this.lightableIndex.toString());
 			sL.addAll(vector);
 			instruction.addAll(this.instructionList);
 			this.instructionList.clear();

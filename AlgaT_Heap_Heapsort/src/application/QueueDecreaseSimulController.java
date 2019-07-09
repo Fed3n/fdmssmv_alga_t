@@ -85,7 +85,6 @@ public class QueueDecreaseSimulController extends HeapRestore {
 			this.lightableIndex = new ArrayList<ArrayList<Integer>>();
 			this.instructionList = new ArrayList<String>();
 			System.out.println(this.lightableIndex.toString());
-			
 			ArrayList<Integer> l = new ArrayList<Integer>();
 			ArrayList<Integer> lightable = new ArrayList<Integer>();
 			instruction.add("Premi Avanti per iniziare la simulazione");
