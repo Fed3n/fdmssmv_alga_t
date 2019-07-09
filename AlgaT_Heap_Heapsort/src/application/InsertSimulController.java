@@ -450,7 +450,6 @@ public class InsertSimulController extends HeapSimul2{
 		
 		//Creo i passaggi sucessivi
 		Integer i = vector.size()-1;
-		System.out.println("Il vettore arriva fino alla posizione: " + i);
 		l = new ArrayList<Integer>();
 		l.addAll(vector);
 		while (i > 0 && l.get(i) < l.get(super.parent(i))) {
@@ -469,22 +468,16 @@ public class InsertSimulController extends HeapSimul2{
 		this.statusList = new ArrayList<ArrayList<Integer>>();
 		instruction.add("Simulazione terminata.");
 		this.statusList.addAll(statusList);
-		System.out.println("statusList completa: " + statusList.toString());
 		this.instructionList = new ArrayList<String>();
 		this.instructionList.addAll(instruction);
-		System.out.println(this.lightableIndex.toString());
 	}
 
 	public void next(){
 		this.currentStatusIndex++;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		this.prevButton.setDisable(false);
 		Integer size = this.statusList.size();
-		System.out.println("La grandezza della statusList é: " + size);
 		if(this.currentStatusIndex < this.statusList.size()) {
 			Integer k = this.statusList.size();
-			System.out.println("La grandezza della statusList é: " + k);
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));
 			this.drawVector();
@@ -497,10 +490,8 @@ public class InsertSimulController extends HeapSimul2{
 			this.removeButton.setDisable(false);
 		}
 		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
-			System.out.println("Sono dentro all'if");
 			ArrayList<Integer> i = new ArrayList<Integer>();
 			i = this.lightableIndex.get(this.currentStatusIndex);
-			System.out.println("Devo colorare " + this.lightableIndex.toString());
 			if(i != null) {
 				for(int j = 0; j < i.size(); j++) {
 					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
@@ -515,8 +506,6 @@ public class InsertSimulController extends HeapSimul2{
 	
 	public void prev() {
 		this.currentStatusIndex--;
-		System.out.println(this.statusList.toString());
-		System.out.println("Index: " + this.currentStatusIndex);
 		if(this.currentStatusIndex == 0) {
 			this.dataVector = new ArrayList<Integer>();
 			this.dataVector.addAll(this.statusList.get(this.currentStatusIndex));

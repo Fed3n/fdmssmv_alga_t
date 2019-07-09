@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -63,8 +65,9 @@ public class Questions {
 	    	this.lessonStage.show();
 	    	
 		} catch (IOException e) {
-			System.out.println("Cannot find file ./lesson"+this.getLessonNumber()+"/question_"+questionNumber+" . Unable to"
+			Alert alert = new Alert(AlertType.WARNING, "Cannot find file ./lesson"+this.getLessonNumber()+"/question_"+questionNumber+" . Unable to"
 					+" load the question.");
+			alert.showAndWait();
 			e.printStackTrace();
 		}
 	}

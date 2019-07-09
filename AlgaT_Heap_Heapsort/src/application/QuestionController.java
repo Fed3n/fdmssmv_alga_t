@@ -16,12 +16,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -166,7 +168,8 @@ public class QuestionController {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.print(" .Couldn't find question_"+this.questionNumber.toString()+".txt in the given directory");
+			Alert alert = new Alert(AlertType.WARNING, "Couldn't find question_"+this.questionNumber.toString()+".txt in the given directory");
+			alert.showAndWait();
 		}
 	} 
 	

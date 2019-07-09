@@ -141,7 +141,6 @@ public class HeapRestoreSimulController extends HeapSimul{
 				index = max;
 			}	
 			this.printVector(statusList);
-			System.out.println("@@@@@@@@@@@@@@@@");
 		}
 		return statusList;
 	}
@@ -209,17 +208,12 @@ public class HeapRestoreSimulController extends HeapSimul{
 					index = min;
 				}	
 				this.printVector(statusList);
-				System.out.println("@@@@@@@@@@@@@@@@");
 			}
 			return statusList;
 		}
 	
 	public void printVector(ArrayList<ArrayList<Integer>> vector) {
 		Iterator<ArrayList<Integer>> iterator = vector.iterator();
-		
-		while(iterator.hasNext()) {
-			System.out.println(iterator.next().toString());			
-		}
 	}
 	
 	public void nextStatus() {
@@ -315,9 +309,7 @@ public class HeapRestoreSimulController extends HeapSimul{
 				//Pulisco la instructionList dai precedenti messaggi
 				this.instructionList.clear();
 				this.lightableIndex.clear();
-				
-				System.out.println(this.selectedIndex);
-				System.out.println(this.dataVector.size());
+
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
 					vector = this.stepByStepMaxRestore(this.dataVector, this.selectedIndex);
@@ -343,17 +335,12 @@ public class HeapRestoreSimulController extends HeapSimul{
 				i = this.lightableIndex.get(this.currentStatusIndex);
 				if(i != null) {
 					for(int j = 0; j < i.size(); j++) {
-						System.out.println("Devo colorare " + i.get(j));
 						Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
 						circ.setStroke(Color.CORAL);
 						Rectangle rect = (Rectangle)numVector.get(i.get(j)).getChildren().get(0);
 						rect.setStroke(Color.CORAL);
 					}
 				}
-				
-				System.out.println("Dimensione stringhe: " + this.instructionList.size());
-				System.out.println("Dimensione vettori: " + this.statusList.size());
-				System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 			}
 			else {
 				Alert alert = new Alert(AlertType.WARNING, "Non puoi selezionare una foglia.");

@@ -33,11 +33,9 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
-				System.out.println("Please input a number");
 			}
 			this.inputArea.clear();		
 			this.isGenerated = false;
-			System.out.println(this.dataVector.toString());
 		}
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Dimensione massima del vettore raggiunta.");
@@ -51,7 +49,6 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica maxHeapRestore su tutti i nodi non foglia.");
 		this.lightableIndex.add(null);
@@ -82,7 +79,6 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 		ArrayList<Integer> v = new ArrayList<Integer>();
 		v.addAll(vector);
 		statusList.add(v);
-		System.out.println("Aggiungo " + v.toString());
 		
 		this.instructionList.add("Prima di tutto si applica minHeapRestore su tutti i nodi non foglia.");
 		this.lightableIndex.add(null);
@@ -136,10 +132,6 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				this.drawTree();
 				this.nextButton.setDisable(false);
 				this.selectable = false;
-					
-				System.out.println("Dimensione stringhe: " + this.instructionList.size());
-				System.out.println("Dimensione vettori: " + this.statusList.size());
-				System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 				}
 				
 			else  {

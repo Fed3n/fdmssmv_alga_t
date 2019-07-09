@@ -84,18 +84,15 @@ public class DecreaseSimulController extends HeapRestore {
 			ArrayList<String> instruction = new ArrayList<String>();
 			this.lightableIndex = new ArrayList<ArrayList<Integer>>();
 			this.instructionList = new ArrayList<String>();
-			System.out.println(this.lightableIndex.toString());
 			ArrayList<Integer> l = new ArrayList<Integer>();
 			ArrayList<Integer> lightable = new ArrayList<Integer>();
 			instruction.add("Premi Avanti per iniziare la simulazione");
 			vector.add(this.dataVector);
 			l.addAll(this.dataVector);
 			this.lightableIndex.add(null);
-			System.out.println(this.lightableIndex.toString());
 			lightable = new ArrayList<Integer>();
 			lightable.add(this.selectedIndex);
 			this.lightableIndex.add(lightable);
-			System.out.println(this.lightableIndex.toString());
 			instruction.add("Decremento la prioritá dell'elemento selezionato da " + l.get(this.selectedIndex) + " a " + n);
 			l.set(this.selectedIndex, n);
 			vector.add(l);
@@ -109,7 +106,6 @@ public class DecreaseSimulController extends HeapRestore {
 				lightable.add(i);
 				lightable.add(super.parent(i));
 				this.lightableIndex.add(lightable);
-				System.out.println(this.lightableIndex);
 				instruction.add(this.dataVector.get(i) + " é piú piccolo di " + this.dataVector.get(super.parent(i)) +" quindi vengono scambiati.");
 				Collections.swap(this.dataVector, i, super.parent(i));
 				Collections.swap(l, i, super.parent(i));
@@ -146,10 +142,8 @@ public class DecreaseSimulController extends HeapRestore {
 			this.readyButton.setDisable(false);
 		}
 		if(this.currentStatusIndex > 0 && this.currentStatusIndex < this.statusList.size()) {
-			System.out.println("Sono dentro all'if");
 			ArrayList<Integer> i = new ArrayList<Integer>();
 			i = this.lightableIndex.get(this.currentStatusIndex);
-			System.out.println("Devo colorare " + this.lightableIndex.toString());
 			if(i != null) {
 				for(int j = 0; j < i.size(); j++) {
 					Circle circ = (Circle)nodeVector.get(i.get(j)).getChildren().get(0);
