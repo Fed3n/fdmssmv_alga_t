@@ -357,18 +357,18 @@ public class VectorToTreeSimulController extends HeapSimul{
 			
 			index++;
 		}
-		
-		this.isGenerated = true;
-		
 	}
+	
 	
 	public void createRandom(){
 		this.dataVector = super.randomVector();
 		this.drawVector();
+		this.drawTree();
 		this.removeButton.setDisable(false);
 		this.generateButton.setDisable(false);
 		this.infoText.setText("Premi su Make Heap per generare e rappresentare l'heap.");
 	}
+	
 	
 	@Override
 	public void addToVector() {

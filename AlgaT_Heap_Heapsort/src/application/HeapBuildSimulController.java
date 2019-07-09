@@ -16,6 +16,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	public void initialize(){
 		 super.initialize();
 		 this.infoText.appendText("\nOppure aggiungi manualmente numeri premendo Add.");
+		 this.defaultMessage = "Scegli dalla tendina sottostante la simulazione che vuoi effettuare, poi fai click su Build per far partire la procedura!";
 	}
 	
 	public void manualAdd(){
@@ -109,10 +110,10 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	//Pulsante build, genera la successione di step-by-step
 		public void generateSteps() {
 			if((this.maxMinChoiceBox.getValue() != null)) {
-				this.manualButton.setDisable(true);
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				
 				this.instructionList.clear();
+				this.lightableIndex.clear();
 				
 				if(this.maxMinChoiceBox.getValue().contentEquals("MaxHeap")) {
 					vector = this.stepByStepMaxHeapBuild(this.dataVector);
@@ -136,6 +137,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 					
 				System.out.println("Dimensione stringhe: " + this.instructionList.size());
 				System.out.println("Dimensione vettori: " + this.statusList.size());
+				System.out.println("Dimensione lightable; " + this.lightableIndex.size());
 				}
 				
 			else  {
@@ -143,23 +145,4 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				alert.showAndWait();
 			}
 		}
-	
-	@Override
-	public void nextStatus(){
-		super.nextStatus();
-		if (this.currentStatusIndex+1 >= this.statusList.size()) this.manualButton.setDisable(false);
-		else this.manualButton.setDisable(true);
-	}
-	
-	@Override
-	public void prevStatus(){
-		super.prevStatus();
-		this.manualButton.setDisable(true);
-	}
-	
-	@Override
-	public void readyVector(){
-		super.readyVector();
-		this.manualButton.setDisable(true);
-	}
 }
