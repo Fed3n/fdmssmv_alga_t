@@ -29,6 +29,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 				Integer num = Integer.parseInt(this.inputArea.getText());	//Prende l'input dalla inputArea
 				this.dataVector.add(num);									//Aggiunge al campo del vettore
 				this.drawVector();											//Aggiorna la grafica del vettore
+				this.maxMinChoiceBox.setDisable(false);
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.INFORMATION, "Inserisci un numero intero.");
 				alert.showAndWait();
@@ -110,6 +111,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 	//Pulsante build, genera la successione di step-by-step
 		public void generateSteps() {
 			if((this.maxMinChoiceBox.getValue() != null)) {
+				this.maxMinChoiceBox.setDisable(true);
 				ArrayList<ArrayList<Integer>> vector = new ArrayList<ArrayList<Integer>>();
 				
 				this.instructionList.clear();
@@ -143,6 +145,7 @@ public class HeapBuildSimulController extends HeapRestoreSimulController {
 			else  {
 				Alert alert = new Alert(AlertType.WARNING, "Devi selezionare un elemento dal menu a tenda.");
 				alert.showAndWait();
+				this.maxMinChoiceBox.setDisable(false);
 			}
 		}
 }
